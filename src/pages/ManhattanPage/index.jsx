@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import Button from '../../basic/Button';
-import Input from '../../basic/Input';
-import Manhattan from '../../Manhattan';
-import { StyledManhattanPageWrapper } from './ManhattanPageStyles';
+import React, { useState } from "react";
+import Button from "../../basic/Button";
+import Input from "../../basic/Input";
+import Manhattan from "../../components/Manhattan";
+// import Manhattan from '../../Manhattan';
+import { StyledManhattanPageWrapper } from "./ManhattanPageStyles";
 
 const ManhattanPage = () => {
   const [height, setHeight] = useState();
@@ -34,7 +35,7 @@ const ManhattanPage = () => {
       <p>Width</p>
       <Input onChange={widthInputChange} />
       <br />
-      <Button onClick={clickHandler} label="Make graph" type="button" />
+      <Button onClick={clickHandler} label='Make graph' type='button' />
       <br />
       {draw && <Manhattan height={height} width={width} />}
     </StyledManhattanPageWrapper>

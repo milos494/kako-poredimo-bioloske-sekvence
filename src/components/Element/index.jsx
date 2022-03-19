@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import {
   StyledDownEdge,
   StyledElementFullWrapper,
@@ -8,8 +8,8 @@ import {
   StyledRightEdge,
   StyledInput,
   StyledLabel,
-  // StyledDiagonalEdge,
-} from './ElementStyles';
+  StyledDiagonalEdge,
+} from "./ElementStyles";
 
 function Element({
   height,
@@ -21,32 +21,43 @@ function Element({
   setManhattanInput,
   manhattanInput,
   edges,
+  showDiagonalEdge,
 }) {
   const hasRightEdge = j + 1 !== width;
   const hasDownEdge = i + 1 !== height;
+  const hasDiagonalEdge = showDiagonalEdge && hasRightEdge && hasDownEdge;
   const [rightError, setRightError] = useState(false);
   const [downError, setDownError] = useState(false);
   const [colorRight, setColorRight] = useState(null);
   const [colorDown, setColorDown] = useState(null);
+  const [colorDiagonal, setColorDiagonal] = useState(null);
 
   const [rightLabel, setRightLabel] = useState(null);
   const [downLabel, setDownLabel] = useState(null);
 
   useEffect(() => {
+    console.log(showDiagonalEdge);
     if (edges) {
       edges.forEach((edge) => {
-        if (parseInt(edge.split(';')[0], 10) === i) {
+        if (
+          showDiagonalEdge &&
+          parseInt(edge.split(";")[0], 10) === i + 1 &&
+          parseInt(edge.split(";")[1], 10) === j + 1
+        ) {
+          debugger;
+          setColorDiagonal(true);
+        } else if (parseInt(edge.split(";")[0], 10) === i) {
           setColorRight(true);
         } else {
           setColorDown(true);
         }
       });
     }
-  }, [edges]);
+  }, [edges, showDiagonalEdge]);
   useEffect(() => {
     if (edgeLabels) {
       Object.keys(edgeLabels).forEach((node) => {
-        if (parseInt(node.split(';')[0], 10) === i) {
+        if (parseInt(node.split(";")[0], 10) === i) {
           setRightLabel(edgeLabels[node]);
         } else {
           setDownLabel(edgeLabels[node]);
@@ -61,7 +72,10 @@ function Element({
       setRightError(false);
       setManhattanInput({
         ...manhattanInput,
-        [`${i};${j}`]: { ...manhattanInput[`${i};${j}`], [`${i};${j + 1}`]: value },
+        [`${i};${j}`]: {
+          ...manhattanInput[`${i};${j}`],
+          [`${i};${j + 1}`]: value,
+        },
       });
     } else {
       setRightError(true);
@@ -73,7 +87,10 @@ function Element({
       setDownError(false);
       setManhattanInput({
         ...manhattanInput,
-        [`${i};${j}`]: { ...manhattanInput[`${i};${j}`], [`${i + 1};${j}`]: value },
+        [`${i};${j}`]: {
+          ...manhattanInput[`${i};${j}`],
+          [`${i + 1};${j}`]: value,
+        },
       });
     } else {
       setDownError(true);
@@ -88,50 +105,47 @@ function Element({
         </StyledNode>
         {hasRightEdge && (
           <StyledRightEdge color={colorRight}>
-            {hasInputs && <StyledInput onChange={rightInputChange} hasError={rightError} />}
+            {hasInputs && (
+              <StyledInput onChange={rightInputChange} hasError={rightError} />
+            )}
             {rightLabel && <StyledLabel>{rightLabel}</StyledLabel>}
           </StyledRightEdge>
         )}
-        {/* <StyledDiagonalEdge /> */}
+        {hasDiagonalEdge && <StyledDiagonalEdge color={colorDiagonal} />}
       </StyledElementLightWrapper>
       {hasDownEdge && (
         <StyledDownEdge color={colorDown}>
-          {hasInputs && <StyledInput onChange={downInputChange} hasError={downError} />}
+          {hasInputs && (
+            <StyledInput onChange={downInputChange} hasError={downError} />
+          )}
           {downLabel && <StyledLabel>{downLabel}</StyledLabel>}
         </StyledDownEdge>
       )}
     </StyledElementFullWrapper>
   );
-
-  // return (
-  //   <div className='cvor-wrapper'>
-  //     <div className='hotizontal'>
-  //       <div className='cvor'></div>
-  //       <div className={`horizontal-edge-${desnoActive}`}>23</div>
-  //     </div>
-  //     <div className={`vertical-edge-${doleActive}`}>32</div>
-  //   </div>
-  // );
 }
 
 Element.defaultProps = {
   edgeLabels: null,
-  label: '',
+  label: "",
   manhattanInput: {},
   setManhattanInput: () => {},
   edges: null,
+  showDiagonalEdge: false,
 };
 
 Element.propTypes = {
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
-  coordindates: PropTypes.shape({ i: PropTypes.number, j: PropTypes.number }).isRequired,
+  coordindates: PropTypes.shape({ i: PropTypes.number, j: PropTypes.number })
+    .isRequired,
   hasInputs: PropTypes.bool.isRequired,
   edgeLabels: PropTypes.shape(),
   edges: PropTypes.shape(),
   label: PropTypes.string,
   setManhattanInput: PropTypes.func,
   manhattanInput: PropTypes.shape(),
+  showDiagonalEdge: PropTypes.bool,
 };
 
 export default Element;

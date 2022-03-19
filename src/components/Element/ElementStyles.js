@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import Input from '../../basic/Input';
+import styled from "styled-components";
+import Input from "../../basic/Input";
 
 export const StyledElementFullWrapper = styled.div`
   display: flex;
@@ -28,12 +28,12 @@ export const StyledNode = styled.div`
 
 export const StyledRightEdge = styled.div`
   position: relative;
-  width: 100px;
+  width: 70px;
   height: 6px;
-  background: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
+  background: ${({ color }) => (color ? "lightgreen" : "lightgray")};
   z-index: 1;
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     right: 0;
     top: 50%;
@@ -46,7 +46,7 @@ export const StyledRightEdge = styled.div`
     border-radius: 5px;
   }
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     right: 0;
     top: 50%;
@@ -63,13 +63,13 @@ export const StyledRightEdge = styled.div`
 export const StyledDownEdge = styled.div`
   position: relative;
   width: 6px;
-  height: 100px;
+  height: 70px;
   margin-left: 12px;
-  background: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
+  background: ${({ color }) => (color ? "lightgreen" : "lightgray")};
   z-index: 1;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     bottom: 0%;
@@ -82,7 +82,7 @@ export const StyledDownEdge = styled.div`
     border-radius: 5px;
   }
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     bottom: 0%;
@@ -115,15 +115,15 @@ export const StyledLabel = styled.p`
 
 export const StyledDiagonalEdge = styled.div`
   position: absolute;
-  width: 100px;
+  width: 70px;
   height: 6px;
-  background-color: lightgreen;
+  background: ${({ color }) => (color ? "lightgreen" : "lightgray")};
   transform: rotate(45deg) scaleX(1.75);
   transform-origin: top left;
   z-index: 0;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     right: 0;
     top: 50%;
@@ -136,7 +136,7 @@ export const StyledDiagonalEdge = styled.div`
     border-radius: 5px;
   }
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     right: 0;
     top: 50%;

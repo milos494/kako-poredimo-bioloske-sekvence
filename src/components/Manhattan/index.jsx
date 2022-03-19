@@ -1,10 +1,14 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Element from './Element';
-import manhattan from '../utils/manhattan';
-import { StyledManhattanRowWrapper, StyledManhattanWrapper } from './ManhattanStyles';
-import Button from '../basic/Button';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import Element from "../Element";
+import manhattan from "../../utils/manhattan";
+import {
+  StyledManhattanRowWrapper,
+  StyledManhattanWrapper,
+} from "./ManhattanStyles";
+import Button from "../../basic/Button";
+// import Button from "../basic/Button";
 
 const Manhattan = ({ width, height }) => {
   const [manhattanInput, setManhattanInput] = useState({});
@@ -18,7 +22,7 @@ const Manhattan = ({ width, height }) => {
   return (
     <StyledManhattanWrapper>
       {hArray.map((_, hIndex) => (
-        <StyledManhattanRowWrapper key={hIndex} className="row-wrapper">
+        <StyledManhattanRowWrapper key={hIndex} className='row-wrapper'>
           {wArray.map((_, wIndex) => (
             <Element
               key={wIndex}
@@ -32,11 +36,11 @@ const Manhattan = ({ width, height }) => {
           ))}
         </StyledManhattanRowWrapper>
       ))}
-      <Button type="button" onClick={submit} label="Get Manhattan" />
+      <Button type='button' onClick={submit} label='Get Manhattan' />
       {manhattanOutput && (
         <>
           {hArray.map((_, hIndex) => (
-            <StyledManhattanRowWrapper key={hIndex} className="row-wrapper">
+            <StyledManhattanRowWrapper key={hIndex} className='row-wrapper'>
               {wArray.map((_, wIndex) => (
                 <Element
                   key={wIndex}
