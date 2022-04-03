@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { StyledButton } from './ButtonStyles';
 
 const Button = ({ label, ...otherProps }) => {
-  return <StyledButton {...otherProps}>{label}</StyledButton>;
+  return (
+    <StyledButton variant="outlined" type {...otherProps}>
+      {label}
+    </StyledButton>
+  );
 };
 
 Button.propTypes = {

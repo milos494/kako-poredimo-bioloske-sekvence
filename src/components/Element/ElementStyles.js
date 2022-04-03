@@ -1,21 +1,29 @@
-import styled from "styled-components";
-import Input from "../../basic/Input";
+import { styled } from '@mui/system';
+import Input from '../../basic/Input';
 
-export const StyledElementFullWrapper = styled.div`
+export const StyledElementFullWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 `;
 
-export const StyledElementLightWrapper = styled.div`
+export const StyledElementLightWrapper = styled('div')`
   display: flex;
   flex-direction: row;
   justify-content: center;
   position: relative;
   align-items: center;
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+      'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 `;
 
-export const StyledNode = styled.div`
+export const StyledNode = styled('div')`
   height: 30px;
   width: 30px;
   border-radius: 50%;
@@ -26,13 +34,24 @@ export const StyledNode = styled.div`
   z-index: 1;
 `;
 
-export const StyledRightEdge = styled.div`
+export const StyledRightEdge = styled('div')`
   position: relative;
   width: 70px;
   height: 6px;
-  background: ${({ color }) => (color ? "lightgreen" : "lightgray")};
+  background: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
   z-index: 1;
-  &::after {
+
+  svg {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    z-index: 10;
+    height: 30px;
+    width: 30px;
+    transform: translate(10px, -50%);
+    color: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
+  }
+  /* &::after {
     content: "";
     position: absolute;
     right: 0;
@@ -57,18 +76,28 @@ export const StyledRightEdge = styled.div`
     transform-origin: right;
     background: inherit;
     border-radius: 5px;
-  }
+  } */
 `;
 
-export const StyledDownEdge = styled.div`
+export const StyledDownEdge = styled('div')`
   position: relative;
   width: 6px;
   height: 70px;
   margin-left: 12px;
-  background: ${({ color }) => (color ? "lightgreen" : "lightgray")};
+  background: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
   z-index: 1;
 
-  &::after {
+  svg {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: 10;
+    height: 30px;
+    width: 30px;
+    transform: translate(-50%, 10px) rotate(90deg);
+    color: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
+  }
+  /* &::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -93,7 +122,7 @@ export const StyledDownEdge = styled.div`
     transform-origin: bottom;
     background: inherit;
     border-radius: 5px;
-  }
+  } */
 `;
 
 export const StyledInput = styled(Input)`
@@ -103,26 +132,39 @@ export const StyledInput = styled(Input)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 2;
+  input {
+    text-align: center;
+  }
 `;
 
-export const StyledLabel = styled.p`
+export const StyledLabel = styled('p')`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
+  z-index: 1;
 `;
 
-export const StyledDiagonalEdge = styled.div`
+export const StyledDiagonalEdge = styled(StyledRightEdge)`
   position: absolute;
-  width: 70px;
-  height: 6px;
-  background: ${({ color }) => (color ? "lightgreen" : "lightgray")};
-  transform: rotate(45deg) scaleX(1.75);
+  transform: rotate(45deg) scaleX(1.85);
   transform-origin: top left;
   z-index: 0;
 
-  &::after {
+  /* svg {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: 10;
+    height: 30px;
+    width: 30px;
+    transform: translate(-50%, 10px) rotate(90deg);
+    color: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
+  } */
+  /* &::after {
     content: "";
     position: absolute;
     right: 0;
@@ -147,5 +189,5 @@ export const StyledDiagonalEdge = styled.div`
     transform-origin: right;
     background: inherit;
     border-radius: 5px;
-  }
+  } */
 `;

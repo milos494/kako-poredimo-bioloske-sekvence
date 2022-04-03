@@ -27,10 +27,11 @@ const manhattan = (manhattanMap, width, height) => {
   }
 
   const track = Object.keys(backtrack).reduce((previous, current) => {
-    previous[backtrack[current]] = previous[backtrack[current]]
+    const previousCopy = { ...previous };
+    previousCopy[backtrack[current]] = previous[backtrack[current]]
       ? [...previous[backtrack[current]], current]
       : [current];
-    return previous;
+    return previousCopy;
   }, {});
 
   console.log(track);

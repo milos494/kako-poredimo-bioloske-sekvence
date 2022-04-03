@@ -1,8 +1,8 @@
 const LCSBacktrack = (sequence1, sequence2) => {
   const width = sequence1.length;
   const height = sequence2.length;
-  const backtrack = { "0;0": "-1;-1" };
-  const S = { "0;0": 0 };
+  const backtrack = { '0;0': '-1;-1' };
+  const S = { '0;0': 0 };
   for (let i = 1; i < width + 1; i += 1) {
     backtrack[`0;${i}`] = `0;${i - 1}`;
     S[`0;${i}`] = 0;
@@ -17,8 +17,7 @@ const LCSBacktrack = (sequence1, sequence2) => {
     for (let j = 1; j < width + 1; j += 1) {
       const fromTop = S[`${i - 1};${j}`] + 0;
       const fromLeft = S[`${i};${j - 1}`] + 0;
-      const fromDiagonal =
-        S[`${i - 1};${j - 1}`] + +(sequence1[j - 1] === sequence2[i - 1]);
+      const fromDiagonal = S[`${i - 1};${j - 1}`] + +(sequence1[j - 1] === sequence2[i - 1]);
 
       S[`${i};${j}`] = Math.max(fromTop, fromLeft, fromDiagonal);
 
@@ -33,10 +32,11 @@ const LCSBacktrack = (sequence1, sequence2) => {
   }
 
   const track = Object.keys(backtrack).reduce((previous, current) => {
-    previous[backtrack[current]] = previous[backtrack[current]]
+    const previousCopy = { ...previous };
+    previousCopy[backtrack[current]] = previous[backtrack[current]]
       ? [...previous[backtrack[current]], current]
       : [current];
-    return previous;
+    return previousCopy;
   }, {});
 
   console.log(track);

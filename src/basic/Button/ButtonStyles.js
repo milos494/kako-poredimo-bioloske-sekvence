@@ -1,10 +1,9 @@
-import styled from 'styled-components';
+import { Button } from '@mui/material';
+import { styled } from '@mui/system';
 
-export const StyledButton = styled.button`
+export const StyledButton = styled(Button)`
   text-align: center;
-  border: 1px solid darkblue;
-  height: 30px;
-  width: auto;
-  border-radius: 5px;
-  background-color: lightblue;
+  height: 50px;
+  width: 200px;
+  margin: 20px;
 `;

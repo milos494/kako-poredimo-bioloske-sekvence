@@ -6,3 +6,5 @@ export const StyledManhattanPageWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const StyledManhattanInputsWrapper = styled.div``;

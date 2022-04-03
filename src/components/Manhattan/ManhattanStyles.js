@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { StyledButton } from "../../basic/Button/ButtonStyles";
+import styled from 'styled-components';
+import { StyledButton } from '../../basic/Button/ButtonStyles';
 
 export const StyledManhattanRowWrapper = styled.div`
   display: flex;

@@ -1,5 +1,6 @@
-import React from "react";
-import LCS from "../../components/LCS";
+import React from 'react';
+import LCS from '../../components/LCS';
+import { StyledLCSPageWrapper } from './LCSPageStyles';
 // import LCSBacktrack from "../../utils/LCSBacktrack";
 
 const LCSBacktrackPage = () => {
@@ -8,7 +9,11 @@ const LCSBacktrackPage = () => {
   // const { track, S } = LCSBacktrack(v, w);
   // console.log(S, track);
 
-  return <LCS />;
+  return (
+    <StyledLCSPageWrapper>
+      <LCS />;
+    </StyledLCSPageWrapper>
+  );
 };
 
 export default LCSBacktrackPage;
