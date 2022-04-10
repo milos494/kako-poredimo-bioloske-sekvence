@@ -38,10 +38,32 @@ const LCSBacktrack = (sequence1, sequence2) => {
       : [current];
     return previousCopy;
   }, {});
+  console.log(backtrack);
 
-  console.log(track);
+  // let i = +backtrack[`${height};${width}`].split(';')[0];
+  // let j = +backtrack[`${height};${width}`].split(';')[1];
 
-  return { track, S };
+  let i = height;
+  let j = width;
+  console.log(i, j, '(((((((');
+  let lcs = '';
+  const trackLongestSequence = {};
+
+  // if (i === height - 1 && j === width - 1) {
+  //   lcs = sequence1[width - 1];
+  // }
+
+  while (i !== 0 || j !== 0) {
+    if (backtrack[`${i};${j}`] === `${i - 1};${j - 1}`) {
+      lcs = sequence1[j - 1] + lcs;
+    }
+    trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
+    i = +backtrack[`${i};${j}`].split(';')[0];
+    j = +backtrack[`${i};${j}`].split(';')[1];
+  }
+  console.log(lcs, trackLongestSequence, backtrack);
+
+  return { track, S, trackLongestSequence, lcs };
 };
 
 export default LCSBacktrack;

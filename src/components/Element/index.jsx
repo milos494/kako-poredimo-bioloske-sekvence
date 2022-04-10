@@ -23,6 +23,7 @@ const Element = ({
   manhattanInput,
   edges,
   showDiagonalEdge,
+  finalPath,
 }) => {
   const hasRightEdge = j + 1 !== width;
   const hasDownEdge = i + 1 !== height;
@@ -39,16 +40,25 @@ const Element = ({
   useEffect(() => {
     if (edges) {
       edges.forEach((edge) => {
-        if (
-          showDiagonalEdge &&
-          parseInt(edge.split(';')[0], 10) === i + 1 &&
-          parseInt(edge.split(';')[1], 10) === j + 1
-        ) {
-          setColorDiagonal(true);
-        } else if (parseInt(edge.split(';')[0], 10) === i) {
-          setColorRight(true);
+        if (showDiagonalEdge && +edge.split(';')[0] === i + 1 && +edge.split(';')[1] === j + 1) {
+          if (finalPath) {
+            setColorDiagonal('blueviolet');
+          } else {
+            setColorDiagonal('lightGreen');
+          }
+        } else if (+edge.split(';')[1] === j + 1) {
+          if (finalPath) {
+            setColorRight('aqua');
+          } else {
+            setColorRight('lightGreen');
+          }
+        } else if (finalPath) {
+          // eslint-disable-next-line no-debugger
+          debugger;
+
+          setColorDown('aqua');
         } else {
-          setColorDown(true);
+          setColorDown('lightGreen');
         }
       });
     }
@@ -134,6 +144,7 @@ Element.defaultProps = {
   setManhattanInput: () => {},
   edges: null,
   showDiagonalEdge: false,
+  finalPath: '',
 };
 
 Element.propTypes = {
@@ -147,6 +158,7 @@ Element.propTypes = {
   setManhattanInput: PropTypes.func,
   manhattanInput: PropTypes.shape(),
   showDiagonalEdge: PropTypes.bool,
+  finalPath: PropTypes.string,
 };
 
 export default Element;

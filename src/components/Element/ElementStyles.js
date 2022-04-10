@@ -13,14 +13,6 @@ export const StyledElementLightWrapper = styled('div')`
   justify-content: center;
   position: relative;
   align-items: center;
-
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-      'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
 `;
 
 export const StyledNode = styled('div')`
@@ -38,7 +30,7 @@ export const StyledRightEdge = styled('div')`
   position: relative;
   width: 70px;
   height: 6px;
-  background: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
+  background: ${({ color }) => color ?? 'lightgray'};
   z-index: 1;
 
   svg {
@@ -49,7 +41,7 @@ export const StyledRightEdge = styled('div')`
     height: 30px;
     width: 30px;
     transform: translate(10px, -50%);
-    color: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
+    color: ${({ color }) => color ?? 'lightgray'};
   }
   /* &::after {
     content: "";

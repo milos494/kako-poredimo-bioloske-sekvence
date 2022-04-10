@@ -7,7 +7,7 @@ import { StyledInput } from './InputStyles';
 const Input = ({ id, label, ...props }) => {
   return (
     <>
-      <InputLabel for={id}>{label}</InputLabel>
+      <InputLabel>{label}</InputLabel>
       <StyledInput id={id} {...props} />
     </>
   );

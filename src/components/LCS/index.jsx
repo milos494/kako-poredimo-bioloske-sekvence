@@ -1,41 +1,53 @@
-import { generate } from 'randomstring';
+import PropTypes from 'prop-types';
+// import { generate } from 'randomstring';
 import React from 'react';
-import LCSBacktrack from '../../utils/LCSBacktrack';
 import Element from '../Element';
+import LetterArray from '../LetterArray';
 import { StyledLCSRowWrapper, StyledLCSWrapper } from './LCSStyles';
 
-const LCS = () => {
-  const v = 'AGTCGTGATCGTTGTA';
-  const w = 'GTATGAA';
-
-  const hArray = Array.from(Array(w.length + 1)).map(() =>
-    generate({ length: 12, charset: 'alphabetic' }),
+const LCS = ({ firstString, secondString, S, track, trackLongestSequence }) => {
+  const wArray = Array.from(Array(firstString.length + 1)).map((a, index) =>
+    firstString.substring(index),
   );
-  const wArray = Array.from(Array(v.length + 1)).map(() =>
-    generate({ length: 12, charset: 'alphabetic' }),
+  const hArray = Array.from(Array(secondString.length + 1)).map((a, index) =>
+    secondString.substring(index),
   );
-  const { track, S } = LCSBacktrack(v, w);
 
   return (
-    <StyledLCSWrapper>
-      {hArray.map((hElement, hIndex) => (
-        <StyledLCSRowWrapper key={hElement} className="row-wrapper">
-          {wArray.map((wElement, wIndex) => (
-            <Element
-              key={`${hElement}-${wElement}`}
-              height={w.length + 1}
-              width={v.length + 1}
-              coordindates={{ i: hIndex, j: wIndex }}
-              hasInputs={false}
-              label={S[`${hIndex};${wIndex}`]}
-              edges={track[`${hIndex};${wIndex}`]}
-              showDiagonalEdge
-            />
+    <>
+      <LetterArray sequence={firstString} horizontal />
+      <StyledLCSRowWrapper>
+        <LetterArray sequence={secondString} />
+        <StyledLCSWrapper>
+          {hArray.map((hElement, hIndex) => (
+            <StyledLCSRowWrapper key={hElement} className="row-wrapper">
+              {wArray.map((wElement, wIndex) => (
+                <Element
+                  key={`${hElement}-${wElement}`}
+                  height={hArray.length}
+                  width={wArray.length}
+                  coordindates={{ i: hIndex, j: wIndex }}
+                  hasInputs={false}
+                  label={S[`${hIndex};${wIndex}`]}
+                  edges={track[`${hIndex};${wIndex}`]}
+                  finalPath={trackLongestSequence[`${hIndex};${wIndex}`]}
+                  showDiagonalEdge
+                />
+              ))}
+            </StyledLCSRowWrapper>
           ))}
-        </StyledLCSRowWrapper>
-      ))}
-    </StyledLCSWrapper>
+        </StyledLCSWrapper>
+      </StyledLCSRowWrapper>
+    </>
   );
+};
+
+LCS.propTypes = {
+  firstString: PropTypes.string.isRequired,
+  secondString: PropTypes.string.isRequired,
+  S: PropTypes.shape().isRequired,
+  track: PropTypes.shape().isRequired,
+  trackLongestSequence: PropTypes.shape().isRequired,
 };
 
 export default LCS;

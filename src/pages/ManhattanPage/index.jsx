@@ -14,7 +14,6 @@ const ManhattanPage = () => {
   const [manhattanOutput, setManhattanOutput] = useState(null);
 
   useEffect(() => {
-    console.log(manhattanInput);
     setManhattanOutput(null);
   }, [width, height, manhattanInput]);
 
