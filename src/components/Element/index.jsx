@@ -41,24 +41,25 @@ const Element = ({
     if (edges) {
       edges.forEach((edge) => {
         if (showDiagonalEdge && +edge.split(';')[0] === i + 1 && +edge.split(';')[1] === j + 1) {
-          if (finalPath) {
+          if (finalPath === edge) {
             setColorDiagonal('blueviolet');
           } else {
             setColorDiagonal('lightGreen');
           }
         } else if (+edge.split(';')[1] === j + 1) {
-          if (finalPath) {
+          if (finalPath === edge) {
             setColorRight('aqua');
           } else {
             setColorRight('lightGreen');
           }
-        } else if (finalPath) {
+        } else if (+edge.split(';')[0] === i + 1) {
           // eslint-disable-next-line no-debugger
-          debugger;
-
-          setColorDown('aqua');
-        } else {
-          setColorDown('lightGreen');
+          // debugger;
+          if (finalPath === edge) {
+            setColorDown('aqua');
+          } else {
+            setColorDown('lightGreen');
+          }
         }
       });
     }

@@ -76,7 +76,7 @@ export const StyledDownEdge = styled('div')`
   width: 6px;
   height: 70px;
   margin-left: 12px;
-  background: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
+  background: ${({ color }) => color ?? 'lightgray'};
   z-index: 1;
 
   svg {
@@ -87,7 +87,7 @@ export const StyledDownEdge = styled('div')`
     height: 30px;
     width: 30px;
     transform: translate(-50%, 10px) rotate(90deg);
-    color: ${({ color }) => (color ? 'lightgreen' : 'lightgray')};
+    color: ${({ color }) => color ?? 'lightgray'};
   }
   /* &::after {
     content: "";

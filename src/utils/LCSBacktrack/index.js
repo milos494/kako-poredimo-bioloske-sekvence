@@ -54,12 +54,22 @@ const LCSBacktrack = (sequence1, sequence2) => {
   // }
 
   while (i !== 0 || j !== 0) {
+    // eslint-disable-next-line no-debugger
+    // debugger;
+    if (i === 6 && j === 16) {
+      // eslint-disable-next-line no-debugger
+      // debugger;
+    }
     if (backtrack[`${i};${j}`] === `${i - 1};${j - 1}`) {
       lcs = sequence1[j - 1] + lcs;
     }
     trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
+    const oldI = i;
     i = +backtrack[`${i};${j}`].split(';')[0];
-    j = +backtrack[`${i};${j}`].split(';')[1];
+    j = +backtrack[`${oldI};${j}`].split(';')[1];
+
+    // eslint-disable-next-line no-debugger
+    // debugger;
   }
   console.log(lcs, trackLongestSequence, backtrack);
 

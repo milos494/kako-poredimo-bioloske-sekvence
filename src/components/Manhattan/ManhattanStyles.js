@@ -9,7 +9,6 @@ export const StyledManhattanRowWrapper = styled.div`
 export const StyledManhattanWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   ${StyledButton} {
     margin: 40px 0;

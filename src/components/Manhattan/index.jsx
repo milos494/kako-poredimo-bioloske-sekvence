@@ -26,6 +26,7 @@ const Manhattan = ({ width, height, manhattanInput, setManhattanInput, manhattan
               label={manhattanOutput?.S[`${hIndex};${wIndex}`]}
               edges={manhattanOutput?.track[`${hIndex};${wIndex}`]}
               edgeLabels={manhattanInput?.[`${hIndex};${wIndex}`]}
+              finalPath={manhattanOutput?.trackLongestSequence[`${hIndex};${wIndex}`]}
             />
           ))}
         </StyledManhattanRowWrapper>

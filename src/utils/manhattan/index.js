@@ -34,9 +34,17 @@ const manhattan = (manhattanMap, width, height) => {
     return previousCopy;
   }, {});
 
-  console.log(track);
+  let i = height - 1;
+  let j = width - 1;
+  const trackLongestSequence = {};
 
-  return { track, S };
+  while (i !== 0 || j !== 0) {
+    trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
+    const oldI = i;
+    i = +backtrack[`${i};${j}`].split(';')[0];
+    j = +backtrack[`${oldI};${j}`].split(';')[1];
+  }
+  return { track, trackLongestSequence, S };
 };
 
 export default manhattan;

@@ -4,7 +4,6 @@ export const StyledManhattanPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
+  margin: 20px;
 `;
-
-export const StyledManhattanInputsWrapper = styled.div``;

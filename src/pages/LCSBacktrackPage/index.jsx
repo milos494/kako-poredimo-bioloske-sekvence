@@ -38,12 +38,9 @@ const LCSBacktrackPage = () => {
   };
 
   const getLCS = () => {
-    // eslint-disable-next-line
-    // debugger;
     if (firstString && secondString) {
       const output = LCSBacktrack(firstString, secondString);
       setLCSOutput(output);
-      console.log(output);
       setDrawLCS(true);
     }
   };
