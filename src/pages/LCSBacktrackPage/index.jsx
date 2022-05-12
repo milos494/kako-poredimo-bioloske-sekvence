@@ -55,13 +55,7 @@ const LCSBacktrackPage = () => {
       />
       <Button onClick={getLCS} label="Get LCS" type="button" />
       {drawLCS && (
-        <LCS
-          firstString={firstString}
-          secondString={secondString}
-          S={LCSOutput.S}
-          track={LCSOutput.track}
-          trackLongestSequence={LCSOutput.trackLongestSequence}
-        />
+        <LCS firstString={firstString} secondString={secondString} LCSOutput={LCSOutput} />
       )}
     </StyledLCSPageWrapper>
   );

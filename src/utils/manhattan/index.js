@@ -26,13 +26,13 @@ const manhattan = (manhattanMap, width, height) => {
     }
   }
 
-  const track = Object.keys(backtrack).reduce((previous, current) => {
-    const previousCopy = { ...previous };
-    previousCopy[backtrack[current]] = previous[backtrack[current]]
-      ? [...previous[backtrack[current]], current]
-      : [current];
-    return previousCopy;
-  }, {});
+  // const track = Object.keys(backtrack).reduce((previous, current) => {
+  //   const previousCopy = { ...previous };
+  //   previousCopy[backtrack[current]] = previous[backtrack[current]]
+  //     ? [...previous[backtrack[current]], current]
+  //     : [current];
+  //   return previousCopy;
+  // }, {});
 
   let i = height - 1;
   let j = width - 1;
@@ -44,7 +44,13 @@ const manhattan = (manhattanMap, width, height) => {
     i = +backtrack[`${i};${j}`].split(';')[0];
     j = +backtrack[`${oldI};${j}`].split(';')[1];
   }
-  return { track, trackLongestSequence, S };
+
+  return {
+    // track,
+    trackLongestSequence,
+    S,
+    backtrack,
+  };
 };
 
 export default manhattan;

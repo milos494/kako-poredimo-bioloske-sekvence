@@ -67,13 +67,9 @@ const LCSBacktrack = (sequence1, sequence2) => {
     const oldI = i;
     i = +backtrack[`${i};${j}`].split(';')[0];
     j = +backtrack[`${oldI};${j}`].split(';')[1];
-
-    // eslint-disable-next-line no-debugger
-    // debugger;
   }
-  console.log(lcs, trackLongestSequence, backtrack);
 
-  return { track, S, trackLongestSequence, lcs };
+  return { track, S, trackLongestSequence, lcs, backtrack };
 };
 
 export default LCSBacktrack;

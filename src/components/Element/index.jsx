@@ -63,7 +63,7 @@ const Element = ({
         }
       });
     }
-  }, [edges, showDiagonalEdge]);
+  }, [edges, showDiagonalEdge, finalPath]);
 
   useEffect(() => {
     if (edgeLabels) {
