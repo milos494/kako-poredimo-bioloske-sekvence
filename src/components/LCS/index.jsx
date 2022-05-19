@@ -23,13 +23,13 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
     for (let j = 0; j <= firstString.length; j += 1) {
       const current = LCSOutput.backtrack[`${0};${j}`];
       S[`${0};${j}`] = LCSOutput.S[`${0};${j}`];
-      track[current] = track?.[current] ? [...track[current], `${0};${j}`] : [`${0};${j}`];
+      track[current] = track?.[current] ? `${track[current]}--${0};${j}` : `${0};${j}`;
     }
 
     for (let i = 0; i <= secondString.length; i += 1) {
       const current = LCSOutput.backtrack[`${i};${0}`];
       S[`${i};${0}`] = LCSOutput.S[`${i};${0}`];
-      track[current] = track?.[current] ? [...track[current], `${i};${0}`] : [`${i};${0}`];
+      track[current] = track?.[current] ? `${track[current]}--${i};${0}` : `${i};${0}`;
     }
 
     setIterativeLCSOutput({ S, track, i: 1, j: 1 });
@@ -46,25 +46,32 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
       return;
     }
 
+    // S[`${i};${j}`] = LCSOutput.S[`${i};${j}`];
     const newS = { ...S, [`${i};${j}`]: LCSOutput.S[`${i};${j}`] };
     const current = LCSOutput.backtrack[`${i};${j}`];
     const newTrack = {
       ...track,
-      [current]: track?.[current] ? [...track[current], `${i};${j}`] : [`${i};${j}`],
+      [current]: track?.[current] ? `${track[current]}--${i};${j}` : `${i};${j}`,
     };
 
     setIterativeLCSOutput({ S: newS, track: newTrack, i, j: j + 1 });
   }, [iterativeLCSOutput]);
 
+  console.log('rerender');
   useEffect(() => {
+    let timeout;
     if (LCSOutput && !iterativeLCSOutput) {
       showInitialLCSOutput();
     }
     if (LCSOutput && iterativeLCSOutput) {
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         showLCSOutput();
-      }, 1000);
+      }, 100);
     }
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [LCSOutput, iterativeLCSOutput]);
 
   useEffect(() => {
@@ -86,7 +93,9 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
                   key={`${hElement}-${wElement}`}
                   height={hArray.length}
                   width={wArray.length}
-                  coordindates={{ i: hIndex, j: wIndex }}
+                  // coordindates={{ i: hIndex, j: wIndex }}
+                  i={hIndex}
+                  j={wIndex}
                   hasInputs={false}
                   label={iterativeLCSOutput?.S[`${hIndex};${wIndex}`]}
                   edges={iterativeLCSOutput?.track[`${hIndex};${wIndex}`]}

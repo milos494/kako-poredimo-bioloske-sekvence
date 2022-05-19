@@ -1,4 +1,4 @@
-const LCSBacktrack = (sequence1, sequence2, indel = 0, mismatch = 0) => {
+const GlobalAlignment = (sequence1, sequence2, indel = 0, mismatch = 0) => {
   const width = sequence1.length;
   const height = sequence2.length;
   const backtrack = { '0;0': '-1;-1' };
@@ -46,8 +46,11 @@ const LCSBacktrack = (sequence1, sequence2, indel = 0, mismatch = 0) => {
 
   let i = height;
   let j = width;
-  console.log(i, j, '(((((((');
+
   let lcs = '';
+  let sequence1Modified = '';
+  let sequence2Modified = '';
+
   const trackLongestSequence = {};
 
   // if (i === height - 1 && j === width - 1) {
@@ -55,22 +58,28 @@ const LCSBacktrack = (sequence1, sequence2, indel = 0, mismatch = 0) => {
   // }
 
   while (i !== 0 || j !== 0) {
-    // eslint-disable-next-line no-debugger
-    // debugger;
-    if (i === 6 && j === 16) {
-      // eslint-disable-next-line no-debugger
-      // debugger;
-    }
     if (backtrack[`${i};${j}`] === `${i - 1};${j - 1}`) {
       lcs = sequence1[j - 1] + lcs;
+      sequence1Modified = sequence1[j - 1] + sequence1Modified;
+      sequence2Modified = sequence2[i - 1] + sequence2Modified;
+
+      if (sequence1[j - 1] === sequence2[i - 1]) {
+        trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
+      } else {
+        trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}?finalPath`;
+      }
+    } else {
+      trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
     }
-    trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
+
     const oldI = i;
     i = +backtrack[`${i};${j}`].split(';')[0];
     j = +backtrack[`${oldI};${j}`].split(';')[1];
   }
 
+  console.log(sequence1Modified);
+  console.log(sequence2Modified);
   return { track, S, trackLongestSequence, lcs, backtrack };
 };
 
-export default LCSBacktrack;
+export default GlobalAlignment;

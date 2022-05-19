@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MdArrowForwardIos } from 'react-icons/md';
 import {
@@ -15,7 +15,8 @@ import {
 const Element = ({
   height,
   width,
-  coordindates: { i, j },
+  i,
+  j,
   hasInputs,
   edgeLabels,
   label,
@@ -25,6 +26,8 @@ const Element = ({
   showDiagonalEdge,
   finalPath,
 }) => {
+  // const { i, j } = coordindates;
+
   const hasRightEdge = j + 1 !== width;
   const hasDownEdge = i + 1 !== height;
   const hasDiagonalEdge = showDiagonalEdge && hasRightEdge && hasDownEdge;
@@ -36,12 +39,32 @@ const Element = ({
 
   const [rightLabel, setRightLabel] = useState(null);
   const [downLabel, setDownLabel] = useState(null);
-
+  // const { i, j } = coordindates;
+  // useEffect(() => {
+  // if (i === 0 && j === 0) {
+  //   console.log(
+  //     'rerender element',
+  //     hasInputs,
+  //     edgeLabels,
+  //     label,
+  //     setManhattanInput,
+  //     manhattanInput,
+  //     edges,
+  //     showDiagonalEdge,
+  //     finalPath,
+  //     i,
+  //     j,
+  //   );
+  // }
   useEffect(() => {
-    if (edges) {
-      edges.forEach((edge) => {
+    const newEdges = edges?.split('--');
+    if (newEdges) {
+      newEdges.forEach((edge) => {
         if (showDiagonalEdge && +edge.split(';')[0] === i + 1 && +edge.split(';')[1] === j + 1) {
-          if (finalPath === edge) {
+          const finalPathIsDiagonal = finalPath?.split('?')?.[1];
+          if (finalPathIsDiagonal) {
+            setColorDiagonal('red');
+          } else if (finalPath === edge) {
             setColorDiagonal('blueviolet');
           } else {
             setColorDiagonal('lightGreen');
@@ -151,10 +174,13 @@ Element.defaultProps = {
 Element.propTypes = {
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
-  coordindates: PropTypes.shape({ i: PropTypes.number, j: PropTypes.number }).isRequired,
+  // coordindates: PropTypes.shape({ i: PropTypes.number, j: PropTypes.number }).isRequired,
+  i: PropTypes.number.isRequired,
+  j: PropTypes.number.isRequired,
+
   hasInputs: PropTypes.bool.isRequired,
   edgeLabels: PropTypes.shape(),
-  edges: PropTypes.shape(),
+  edges: PropTypes.string,
   label: PropTypes.string,
   setManhattanInput: PropTypes.func,
   manhattanInput: PropTypes.shape(),
@@ -162,4 +188,4 @@ Element.propTypes = {
   finalPath: PropTypes.string,
 };
 
-export default Element;
+export default memo(Element);
