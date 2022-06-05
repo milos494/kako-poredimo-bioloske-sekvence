@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 // import { generate } from 'randomstring';
 import React, { useCallback, useEffect, useState } from 'react';
+import { MdPause, MdPlayArrow } from 'react-icons/md';
+import Button from '../../basic/Button';
 import Element from '../Element';
 import LetterArray from '../LetterArray';
 import { StyledLCSRowWrapper, StyledLCSWrapper } from './LCSStyles';
@@ -9,6 +11,8 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
   const [iterativeLCSOutput, setIterativeLCSOutput] = useState(null);
   const [showFinalPath, setShowFinalPath] = useState(false);
   const [finalPath, setFinalPath] = useState(null);
+  const [paused, setPaused] = useState(false);
+
   const wArray = Array.from(Array(firstString.length + 1)).map((a, index) =>
     firstString.substring(index),
   );
@@ -63,7 +67,7 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
     if (LCSOutput && !iterativeLCSOutput) {
       showInitialLCSOutput();
     }
-    if (LCSOutput && iterativeLCSOutput) {
+    if (LCSOutput && iterativeLCSOutput && !paused) {
       timeout = setTimeout(() => {
         showLCSOutput();
       }, 100);
@@ -72,7 +76,7 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
     return () => {
       clearTimeout(timeout);
     };
-  }, [LCSOutput, iterativeLCSOutput]);
+  }, [LCSOutput, iterativeLCSOutput, paused]);
 
   useEffect(() => {
     if (showFinalPath && LCSOutput) {
@@ -82,31 +86,34 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
 
   return (
     <>
-      <LetterArray sequence={firstString} horizontal />
-      <StyledLCSRowWrapper>
-        <LetterArray sequence={secondString} />
-        <StyledLCSWrapper>
-          {hArray.map((hElement, hIndex) => (
-            <StyledLCSRowWrapper key={hElement} className="row-wrapper">
-              {wArray.map((wElement, wIndex) => (
-                <Element
-                  key={`${hElement}-${wElement}`}
-                  height={hArray.length}
-                  width={wArray.length}
-                  // coordindates={{ i: hIndex, j: wIndex }}
-                  i={hIndex}
-                  j={wIndex}
-                  hasInputs={false}
-                  label={iterativeLCSOutput?.S[`${hIndex};${wIndex}`]}
-                  edges={iterativeLCSOutput?.track[`${hIndex};${wIndex}`]}
-                  finalPath={finalPath?.[`${hIndex};${wIndex}`]}
-                  showDiagonalEdge
-                />
-              ))}
-            </StyledLCSRowWrapper>
-          ))}
-        </StyledLCSWrapper>
-      </StyledLCSRowWrapper>
+      <Button label={paused ? <MdPlayArrow /> : <MdPause />} onClick={() => setPaused(!paused)} />
+      <div>
+        <LetterArray sequence={firstString} horizontal />
+        <StyledLCSRowWrapper>
+          <LetterArray sequence={secondString} />
+          <StyledLCSWrapper>
+            {hArray.map((hElement, hIndex) => (
+              <StyledLCSRowWrapper key={hElement} className="row-wrapper">
+                {wArray.map((wElement, wIndex) => (
+                  <Element
+                    key={`${hElement}-${wElement}`}
+                    height={hArray.length}
+                    width={wArray.length}
+                    // coordindates={{ i: hIndex, j: wIndex }}
+                    i={hIndex}
+                    j={wIndex}
+                    hasInputs={false}
+                    label={iterativeLCSOutput?.S[`${hIndex};${wIndex}`]}
+                    edges={iterativeLCSOutput?.track[`${hIndex};${wIndex}`]}
+                    finalPath={finalPath?.[`${hIndex};${wIndex}`]}
+                    showDiagonalEdge
+                  />
+                ))}
+              </StyledLCSRowWrapper>
+            ))}
+          </StyledLCSWrapper>
+        </StyledLCSRowWrapper>
+      </div>
     </>
   );
 };

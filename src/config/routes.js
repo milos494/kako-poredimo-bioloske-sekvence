@@ -7,8 +7,8 @@ const routes = [
     path: '/manhattan',
     label: 'Manhattan',
     children: [
-      { path: '/manhattan#vizualizacija', label: 'Vizuelizacija' },
-      { path: '/manhattan#vizualizacija', label: 'Vizuelizacija2' },
+      { path: '/manhattan#vizualizacija1', label: 'Vizuelizacija' },
+      { path: '/manhattan#vizualizacija2', label: 'Vizuelizacija2' },
     ],
   },
   {

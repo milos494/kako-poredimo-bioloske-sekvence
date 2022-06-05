@@ -42,6 +42,35 @@ const ManhattanPage = () => {
     setManhattanOutput(output);
   };
 
+  const parseFileInput = (down, right) => {
+    const input = {};
+    for (let i = 0; i < height - 1; i += 1) {
+      for (let j = 0; j < width; j += 1) {
+        input[`${i};${j}`] = { ...input[`${i};${j}`], [`${i + 1};${j}`]: down[i][j] };
+      }
+    }
+    for (let i = 0; i < height; i += 1) {
+      for (let j = 0; j < width - 1; j += 1) {
+        input[`${i};${j}`] = { ...input[`${i};${j}`], [`${i};${j + 1}`]: right[i][j] };
+      }
+    }
+
+    setManhattanInput(input);
+  };
+
+  const fileInputChange = (e) => {
+    const { files } = e.target;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target.result) {
+        const { down, right } = JSON.parse(event.target.result);
+
+        parseFileInput(down, right);
+      }
+    };
+    reader.readAsText(files[0]);
+  };
+
   return (
     <StyledManhattanPageWrapper>
       <Input id="manhattanHeight" label="Height" onChange={(e) => inputChange(e, 'height')} />
@@ -56,6 +85,9 @@ const ManhattanPage = () => {
             manhattanInput={manhattanInput}
             setManhattanInput={setManhattanInput}
           />
+
+          <p>Or add the files with JSON matrices down and right</p>
+          <input type="file" onChange={fileInputChange} accept=".json" />
           <Button onClick={getManhattan} label="Get Manhattan Output" type="button" />
         </>
       )}

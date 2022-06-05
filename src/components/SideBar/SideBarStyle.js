@@ -12,6 +12,10 @@ export const StyledWrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 10;
 
   .Mui-expanded {
     transform: none;
@@ -92,4 +96,8 @@ export const StyledLinkWithoutChildren = styled.div`
     color: white;
     text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
   }
+`;
+
+export const StyledInnerWrapper = styled.div`
+  position: fixed;
 `;

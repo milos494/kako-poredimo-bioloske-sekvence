@@ -63,12 +63,12 @@ const LCSBacktrackPage = () => {
       <Input
         type="number"
         id="insertionPenalty"
-        label="Kazna za indel"
+        label="Indel"
         onChange={(e) => inputChange(e, 'third')}
       />
       <Input
         id="mismatchPenalty"
-        label="Kazna za mismatch"
+        label="Mismatch"
         type="number"
         onChange={(e) => inputChange(e, 'forth')}
       />

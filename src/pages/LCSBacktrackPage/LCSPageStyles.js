@@ -5,4 +5,5 @@ export const StyledLCSPageWrapper = styled('div')`
   flex-direction: column;
   justify-content: center;
   margin: 20px;
+  /* overflow: scroll; */
 `;

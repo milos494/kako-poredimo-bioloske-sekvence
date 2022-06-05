@@ -9,6 +9,7 @@ import {
   StyledLinkListItem,
   StyledWrapper,
   StyledLinkWithoutChildren,
+  StyledInnerWrapper,
 } from './SideBarStyle';
 
 const SideBar = () => {
@@ -28,7 +29,7 @@ const SideBar = () => {
 
   return (
     <StyledWrapper>
-      <div>
+      <StyledInnerWrapper>
         {routes?.map(({ label, path: triggerPath, children }) => (
           <Accordion
             disableGutters
@@ -71,7 +72,7 @@ const SideBar = () => {
             </AccordionDetails>
           </Accordion>
         ))}
-      </div>
+      </StyledInnerWrapper>
     </StyledWrapper>
   );
 };

@@ -39,25 +39,10 @@ const Element = ({
 
   const [rightLabel, setRightLabel] = useState(null);
   const [downLabel, setDownLabel] = useState(null);
-  // const { i, j } = coordindates;
-  // useEffect(() => {
-  // if (i === 0 && j === 0) {
-  //   console.log(
-  //     'rerender element',
-  //     hasInputs,
-  //     edgeLabels,
-  //     label,
-  //     setManhattanInput,
-  //     manhattanInput,
-  //     edges,
-  //     showDiagonalEdge,
-  //     finalPath,
-  //     i,
-  //     j,
-  //   );
-  // }
+
   useEffect(() => {
-    const newEdges = edges?.split('--');
+    // debugger;
+    const newEdges = typeof edges !== 'object' ? edges?.split('--') : edges;
     if (newEdges) {
       newEdges.forEach((edge) => {
         if (showDiagonalEdge && +edge.split(';')[0] === i + 1 && +edge.split(';')[1] === j + 1) {

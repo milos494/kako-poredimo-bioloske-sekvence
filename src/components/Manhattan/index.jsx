@@ -1,7 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { MdPlayArrow, MdPause } from 'react-icons/md';
 import Element from '../Element';
+import Button from '../../basic/Button';
+
 import { StyledManhattanRowWrapper, StyledManhattanWrapper } from './ManhattanStyles';
 
 const Manhattan = ({ width, height, manhattanInput, setManhattanInput, manhattanOutput }) => {
@@ -12,6 +15,7 @@ const Manhattan = ({ width, height, manhattanInput, setManhattanInput, manhattan
   const [iterativeManhattanOutput, setIterativeManhattanOutput] = useState(null);
   const [showFinalPath, setShowFinalPath] = useState(false);
   const [finalPath, setFinalPath] = useState(null);
+  const [paused, setPaused] = useState(false);
 
   const showInitialManhattanOutput = () => {
     const S = {};
@@ -57,12 +61,12 @@ const Manhattan = ({ width, height, manhattanInput, setManhattanInput, manhattan
     if (manhattanOutput && !iterativeManhattanOutput) {
       showInitialManhattanOutput();
     }
-    if (manhattanOutput && iterativeManhattanOutput) {
+    if (manhattanOutput && iterativeManhattanOutput && !paused) {
       setTimeout(() => {
         showManhattanOutput();
       }, 1000);
     }
-  }, [manhattanOutput, iterativeManhattanOutput]);
+  }, [manhattanOutput, iterativeManhattanOutput, paused]);
 
   useEffect(() => {
     if (showFinalPath && manhattanOutput) {
@@ -71,28 +75,33 @@ const Manhattan = ({ width, height, manhattanInput, setManhattanInput, manhattan
   }, [showFinalPath, manhattanOutput]);
 
   return (
-    <StyledManhattanWrapper>
-      {hArray.map((hElement, hIndex) => (
-        <StyledManhattanRowWrapper key={hElement} className="row-wrapper">
-          {wArray.map((wElement, wIndex) => (
-            <Element
-              key={`${hElement}-${wElement}`}
-              height={height}
-              width={width}
-              i={hIndex}
-              j={wIndex}
-              hasInputs={!manhattanOutput}
-              manhattanInput={manhattanInput}
-              setManhattanInput={setManhattanInput}
-              label={iterativeManhattanOutput?.S[`${hIndex};${wIndex}`]}
-              edges={iterativeManhattanOutput?.track[`${hIndex};${wIndex}`]}
-              edgeLabels={manhattanInput?.[`${hIndex};${wIndex}`]}
-              finalPath={finalPath?.[`${hIndex};${wIndex}`]}
-            />
-          ))}
-        </StyledManhattanRowWrapper>
-      ))}
-    </StyledManhattanWrapper>
+    <>
+      {manhattanOutput && (
+        <Button label={paused ? <MdPlayArrow /> : <MdPause />} onClick={() => setPaused(!paused)} />
+      )}
+      <StyledManhattanWrapper>
+        {hArray.map((hElement, hIndex) => (
+          <StyledManhattanRowWrapper key={hElement} className="row-wrapper">
+            {wArray.map((wElement, wIndex) => (
+              <Element
+                key={`${hElement}-${wElement}`}
+                height={height}
+                width={width}
+                i={hIndex}
+                j={wIndex}
+                hasInputs={!manhattanOutput}
+                manhattanInput={manhattanInput}
+                setManhattanInput={setManhattanInput}
+                label={iterativeManhattanOutput?.S[`${hIndex};${wIndex}`]}
+                edges={iterativeManhattanOutput?.track[`${hIndex};${wIndex}`]}
+                edgeLabels={manhattanInput?.[`${hIndex};${wIndex}`]}
+                finalPath={finalPath?.[`${hIndex};${wIndex}`]}
+              />
+            ))}
+          </StyledManhattanRowWrapper>
+        ))}
+      </StyledManhattanWrapper>
+    </>
   );
 };
 
