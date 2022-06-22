@@ -1,3 +1,4 @@
+import { Alert, AlertTitle } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Button from '../../basic/Button';
 import Input from '../../basic/Input';
@@ -12,13 +13,16 @@ const ManhattanPage = () => {
   const [draw, setDraw] = useState();
   const [manhattanInput, setManhattanInput] = useState({});
   const [manhattanOutput, setManhattanOutput] = useState(null);
+  const [fileError, setFileError] = useState(false);
 
   useEffect(() => {
     setManhattanOutput(null);
+    setFileError(false);
   }, [width, height, manhattanInput]);
 
   useEffect(() => {
     setDraw(false);
+    setFileError(false);
     setManhattanInput({});
   }, [width, height]);
 
@@ -43,6 +47,26 @@ const ManhattanPage = () => {
   };
 
   const parseFileInput = (down, right) => {
+    let error = false;
+    if (down.length !== height - 1 && right !== width - 1) {
+      error = true;
+    }
+    down.forEach((element) => {
+      if (element.length !== width) {
+        error = true;
+      }
+    });
+    right.forEach((element) => {
+      if (element.length !== height) {
+        error = true;
+      }
+    });
+
+    if (error) {
+      setFileError(error);
+      return;
+    }
+
     const input = {};
     for (let i = 0; i < height - 1; i += 1) {
       for (let j = 0; j < width; j += 1) {
@@ -59,16 +83,20 @@ const ManhattanPage = () => {
   };
 
   const fileInputChange = (e) => {
-    const { files } = e.target;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      if (event.target.result) {
-        const { down, right } = JSON.parse(event.target.result);
+    try {
+      const { files } = e.target;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target.result) {
+          const { down, right } = JSON.parse(event.target.result);
 
-        parseFileInput(down, right);
-      }
-    };
-    reader.readAsText(files[0]);
+          parseFileInput(down, right);
+        }
+      };
+      reader.readAsText(files[0]);
+    } catch (_e) {
+      setFileError(true);
+    }
   };
 
   return (
@@ -88,6 +116,12 @@ const ManhattanPage = () => {
 
           <p>Or add the files with JSON matrices down and right</p>
           <input type="file" onChange={fileInputChange} accept=".json" />
+          {fileError && (
+            <Alert severity="error">
+              <AlertTitle>Error</AlertTitle>
+              Format of the file is not correct — <strong>check it out!</strong>
+            </Alert>
+          )}
           <Button onClick={getManhattan} label="Get Manhattan Output" type="button" />
         </>
       )}

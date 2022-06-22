@@ -9,4 +9,5 @@ export const GlobalStyle = createGlobalStyle`
 export const StyledAppWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
+  max-width: 100vw;
 `;

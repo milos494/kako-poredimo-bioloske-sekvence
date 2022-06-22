@@ -1,13 +1,13 @@
-import { styled } from '@mui/system';
+import styled from 'styled-components';
 
-export const StyledLetterArrayWrapper = styled('div')`
+export const StyledLetterArrayWrapper = styled.div`
   display: flex;
   flex-direction: ${({ horizontal }) => (horizontal ? 'row' : 'column')};
   margin-left: ${({ horizontal }) => horizontal && '120px'};
   justify-content: ${({ horizontal }) => !horizontal && 'center'};
 `;
 
-export const StyledLetterElement = styled('p')`
+export const StyledLetterElement = styled.p`
   width: 102px;
   height: 102px;
   font-size: 30px;

@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import { Input } from '@mui/material';
+import styled from 'styled-components';
 
 export const StyledInput = styled(Input)`
   text-align: center;

@@ -1,17 +1,26 @@
 import PropTypes from 'prop-types';
-// import { generate } from 'randomstring';
 import React, { useCallback, useEffect, useState } from 'react';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
 import Button from '../../basic/Button';
 import Element from '../Element';
 import LetterArray from '../LetterArray';
-import { StyledLCSRowWrapper, StyledLCSWrapper } from './LCSStyles';
+import {
+  StyledFullLCSWrapper,
+  StyledLCS,
+  StyledLCSRowWrapper,
+  StyledLCSWrapper,
+} from './LCSStyles';
 
 const LCS = ({ firstString, secondString, LCSOutput }) => {
   const [iterativeLCSOutput, setIterativeLCSOutput] = useState(null);
   const [showFinalPath, setShowFinalPath] = useState(false);
   const [finalPath, setFinalPath] = useState(null);
   const [paused, setPaused] = useState(false);
+  const scale =
+    (firstString.length > 30 && 0.4) ||
+    (firstString.length > 20 && 0.48) ||
+    (firstString.length > 13 && 0.7) ||
+    1;
 
   const wArray = Array.from(Array(firstString.length + 1)).map((a, index) =>
     firstString.substring(index),
@@ -50,7 +59,6 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
       return;
     }
 
-    // S[`${i};${j}`] = LCSOutput.S[`${i};${j}`];
     const newS = { ...S, [`${i};${j}`]: LCSOutput.S[`${i};${j}`] };
     const current = LCSOutput.backtrack[`${i};${j}`];
     const newTrack = {
@@ -61,7 +69,6 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
     setIterativeLCSOutput({ S: newS, track: newTrack, i, j: j + 1 });
   }, [iterativeLCSOutput]);
 
-  console.log('rerender');
   useEffect(() => {
     let timeout;
     if (LCSOutput && !iterativeLCSOutput) {
@@ -85,9 +92,9 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
   }, [showFinalPath, LCSOutput]);
 
   return (
-    <>
+    <StyledFullLCSWrapper>
       <Button label={paused ? <MdPlayArrow /> : <MdPause />} onClick={() => setPaused(!paused)} />
-      <div>
+      <StyledLCS scale={scale}>
         <LetterArray sequence={firstString} horizontal />
         <StyledLCSRowWrapper>
           <LetterArray sequence={secondString} />
@@ -99,7 +106,6 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
                     key={`${hElement}-${wElement}`}
                     height={hArray.length}
                     width={wArray.length}
-                    // coordindates={{ i: hIndex, j: wIndex }}
                     i={hIndex}
                     j={wIndex}
                     hasInputs={false}
@@ -113,8 +119,8 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
             ))}
           </StyledLCSWrapper>
         </StyledLCSRowWrapper>
-      </div>
-    </>
+      </StyledLCS>
+    </StyledFullLCSWrapper>
   );
 };
 
