@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const StyledLCSWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 `;
 
 export const StyledLCSRowWrapper = styled.div`
@@ -20,4 +19,11 @@ export const StyledLCS = styled.div`
 
 export const StyledFullLCSWrapper = styled.div`
   max-width: calc(100vw - 380px);
+`;
+
+export const StyledTopWrapper = styled.div`
+  display: flex;
+  width: 550px;
+  align-items: center;
+  justify-content: space-between;
 `;

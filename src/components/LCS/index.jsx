@@ -1,3 +1,4 @@
+import { InputLabel, Slider } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
@@ -9,6 +10,7 @@ import {
   StyledLCS,
   StyledLCSRowWrapper,
   StyledLCSWrapper,
+  StyledTopWrapper,
 } from './LCSStyles';
 
 const LCS = ({ firstString, secondString, LCSOutput }) => {
@@ -16,11 +18,7 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
   const [showFinalPath, setShowFinalPath] = useState(false);
   const [finalPath, setFinalPath] = useState(null);
   const [paused, setPaused] = useState(false);
-  const scale =
-    (firstString.length > 30 && 0.4) ||
-    (firstString.length > 20 && 0.48) ||
-    (firstString.length > 13 && 0.7) ||
-    1;
+  const [scale, setScale] = useState(1);
 
   const wArray = Array.from(Array(firstString.length + 1)).map((a, index) =>
     firstString.substring(index),
@@ -69,6 +67,10 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
     setIterativeLCSOutput({ S: newS, track: newTrack, i, j: j + 1 });
   }, [iterativeLCSOutput]);
 
+  const handleScaleChange = (e) => {
+    setScale(e.target.value);
+  };
+
   useEffect(() => {
     let timeout;
     if (LCSOutput && !iterativeLCSOutput) {
@@ -93,7 +95,22 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
 
   return (
     <StyledFullLCSWrapper>
-      <Button label={paused ? <MdPlayArrow /> : <MdPause />} onClick={() => setPaused(!paused)} />
+      <StyledTopWrapper>
+        <Button label={paused ? <MdPlayArrow /> : <MdPause />} onClick={() => setPaused(!paused)} />
+        <InputLabel style={{ marginLeft: '20px' }}>Zoom in/out:</InputLabel>
+        <Slider
+          label="Zoom in/out"
+          size="small"
+          defaultValue={1}
+          step={0.1}
+          min={0.4}
+          max={1}
+          onChange={handleScaleChange}
+          style={{ width: '200px' }}
+          marks
+          valueLabelDisplay="on"
+        />
+      </StyledTopWrapper>
       <StyledLCS scale={scale}>
         <LetterArray sequence={firstString} horizontal />
         <StyledLCSRowWrapper>
