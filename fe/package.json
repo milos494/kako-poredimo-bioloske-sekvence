@@ -12,6 +12,7 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "cytoscape": "^3.21.0",
     "cytoscape-dagre": "^2.4.0",
     "prop-types": "^15.8.1",

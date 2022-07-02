@@ -1,9 +1,10 @@
 import { Alert, AlertTitle } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { getData } from '../../api';
 import Button from '../../basic/Button';
 import Input from '../../basic/Input';
 import Manhattan from '../../components/Manhattan';
-import manhattan from '../../utils/manhattan';
+// import manhattan from '../../utils/manhattan';
 // import Manhattan from '../../Manhattan';
 import { StyledManhattanPageWrapper } from './ManhattanPageStyles';
 
@@ -41,8 +42,11 @@ const ManhattanPage = () => {
     setDraw(true);
   };
 
-  const getManhattan = () => {
-    const output = manhattan(manhattanInput, width, height);
+  const getManhattan = async () => {
+    // const output = manhattan(manhattanInput, width, height);
+    const output = await getData('manhattan', { input: manhattanInput, width, height });
+
+    console.log(output);
     setManhattanOutput(output);
   };
 

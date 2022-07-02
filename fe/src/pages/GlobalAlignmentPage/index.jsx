@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { getData } from '../../api';
 import Button from '../../basic/Button';
 import Input from '../../basic/Input';
 import LCS from '../../components/LCS';
-import GlobalAlignment from '../../utils/GlobalAlignment';
+// import GlobalAlignment from '../../utils/GlobalAlignment';
 import { StyledLCSPageWrapper } from './GlobalAlignmentStyles';
 
 const LCSBacktrackPage = () => {
@@ -39,14 +40,14 @@ const LCSBacktrackPage = () => {
     }
   };
 
-  const getLCS = () => {
+  const getLCS = async () => {
     if (firstString && secondString) {
-      const output = GlobalAlignment(
-        firstString,
-        secondString,
-        +(insertionPenalty || 0),
-        +(mismatchPenalty || 0),
-      );
+      const output = await getData('global-alignment', {
+        sequence1: firstString,
+        sequence2: secondString,
+        indel: +(insertionPenalty || 0),
+        mismatch: +(mismatchPenalty || 0),
+      });
       setLCSOutput(output);
       setDrawLCS(true);
     }

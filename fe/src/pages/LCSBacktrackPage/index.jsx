@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { getData } from '../../api';
 import Button from '../../basic/Button';
 import Input from '../../basic/Input';
 import LCS from '../../components/LCS';
-import LCSBacktrack from '../../utils/LCSBacktrack';
 import { StyledLCSPageWrapper } from './LCSPageStyles';
-// import LCSBacktrack from "../../utils/LCSBacktrack";
 
 const LCSBacktrackPage = () => {
   const [firstString, setFirstString] = useState();
   const [secondString, setSecondString] = useState();
   const [drawLCS, setDrawLCS] = useState(false);
   const [LCSOutput, setLCSOutput] = useState({});
-
-  // const v = "AGTCGTGATCGTTGTA";
-  // const w = "GTATGAA";
-  // const { track, S } = LCSBacktrack(v, w);
-  // console.log(S, track);
-  console.log(LCSOutput, 'milos');
 
   useEffect(() => {
     setDrawLCS(false);
@@ -26,8 +19,6 @@ const LCSBacktrackPage = () => {
   const inputChange = (e, type) => {
     const { value } = e.target;
 
-    // eslint-disable-next-line
-    // debugger;
     if (value) {
       if (type === 'first') {
         setFirstString(value.toUpperCase());
@@ -37,9 +28,9 @@ const LCSBacktrackPage = () => {
     }
   };
 
-  const getLCS = () => {
+  const getLCS = async () => {
     if (firstString && secondString) {
-      const output = LCSBacktrack(firstString, secondString);
+      const output = await getData('lcs', { sequence1: firstString, sequence2: secondString });
       setLCSOutput(output);
       setDrawLCS(true);
     }
