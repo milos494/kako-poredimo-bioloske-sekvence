@@ -43,10 +43,7 @@ const ManhattanPage = () => {
   };
 
   const getManhattan = async () => {
-    // const output = manhattan(manhattanInput, width, height);
     const output = await getData('manhattan', { input: manhattanInput, width, height });
-
-    console.log(output);
     setManhattanOutput(output);
   };
 

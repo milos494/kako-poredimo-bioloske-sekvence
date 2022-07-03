@@ -15,6 +15,14 @@ const routes = [
     path: '/global-alignment',
     label: 'Global Alignment',
   },
+  {
+    path: '/local-alignment',
+    label: 'Local Alignment',
+  },
+  {
+    path: '/affine-gap-penalty-alignment',
+    label: 'Affine Gap Alignment',
+  },
 ];
 
 export default routes;

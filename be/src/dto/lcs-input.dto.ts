@@ -9,4 +9,6 @@ export class LCSInputDto {
 
   indel: number;
   mismatch: number;
+  eps: number;
+  sigma: number;
 }
