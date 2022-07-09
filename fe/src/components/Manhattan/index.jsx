@@ -1,84 +1,106 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { MdPlayArrow, MdPause } from 'react-icons/md';
 import Element from '../Element';
-import Button from '../../basic/Button';
 
 import { StyledManhattanRowWrapper, StyledManhattanWrapper } from './ManhattanStyles';
+import GraphWrapper from '../GraphWrapper';
+import useIterative from '../../hooks/iterative';
 
-const Manhattan = ({ width, height, manhattanInput, setManhattanInput, manhattanOutput }) => {
+const Manhattan = ({
+  width,
+  height,
+  manhattanInput,
+  dispatchManhattanInput,
+  manhattanOutput,
+  iterative,
+}) => {
   const hString = 'a'.repeat(height);
   const wString = 'b'.repeat(width);
   const hArray = Array.from(Array(height)).map((_, index) => hString.substring(index));
   const wArray = Array.from(Array(width)).map((_, index) => wString.substring(index));
-  const [iterativeManhattanOutput, setIterativeManhattanOutput] = useState(null);
-  const [showFinalPath, setShowFinalPath] = useState(false);
-  const [finalPath, setFinalPath] = useState(null);
+  // const [iterativeManhattanOutput, setIterativeManhattanOutput] = useState(null);
+  // const [showFinalPath, setShowFinalPath] = useState(false);
+  // const [finalPath, setFinalPath] = useState(null);
+  const [speed, setSpeed] = useState(300);
+
   const [paused, setPaused] = useState(false);
 
-  const showInitialManhattanOutput = () => {
-    const S = {};
-    const track = {};
+  const { finalPath, iterativeOutput } = useIterative({
+    output: manhattanOutput,
+    width,
+    height,
+    paused,
+    speed,
+    showIterative: iterative,
+  });
 
-    for (let j = 0; j < width; j += 1) {
-      const current = manhattanOutput.backtrack[`${0};${j}`];
-      S[`${0};${j}`] = manhattanOutput.S[`${0};${j}`];
-      track[current] = track?.[current] ? [...track[current], `${0};${j}`] : [`${0};${j}`];
-    }
+  // const showInitialManhattanOutput = () => {
+  //   const S = {};
+  //   const track = {};
 
-    for (let i = 0; i < height; i += 1) {
-      const current = manhattanOutput.backtrack[`${i};${0}`];
-      S[`${i};${0}`] = manhattanOutput.S[`${i};${0}`];
-      track[current] = track?.[current] ? [...track[current], `${i};${0}`] : [`${i};${0}`];
-    }
+  //   for (let j = 0; j < width; j += 1) {
+  //     const current = manhattanOutput.backtrack[`${0};${j}`];
+  //     S[`${0};${j}`] = manhattanOutput.S[`${0};${j}`];
+  //     track[current] = track?.[current] ? [...track[current], `${0};${j}`] : [`${0};${j}`];
+  //   }
 
-    setIterativeManhattanOutput({ S, track, i: 1, j: 1 });
-  };
+  //   for (let i = 0; i < height; i += 1) {
+  //     const current = manhattanOutput.backtrack[`${i};${0}`];
+  //     S[`${i};${0}`] = manhattanOutput.S[`${i};${0}`];
+  //     track[current] = track?.[current] ? [...track[current], `${i};${0}`] : [`${i};${0}`];
+  //   }
 
-  const showManhattanOutput = useCallback(() => {
-    const { S, track, i, j } = iterativeManhattanOutput;
-    if (i === height) {
-      setShowFinalPath(true);
-      return;
-    }
-    if (j === width) {
-      setIterativeManhattanOutput({ S, track, i: i + 1, j: 1 });
-      return;
-    }
+  //   setIterativeManhattanOutput({ S, track, i: 1, j: 1 });
+  // };
 
-    const newS = { ...S, [`${i};${j}`]: manhattanOutput.S[`${i};${j}`] };
-    const current = manhattanOutput.backtrack[`${i};${j}`];
-    const newTrack = {
-      ...track,
-      [current]: track?.[current] ? [...track[current], `${i};${j}`] : [`${i};${j}`],
-    };
+  // const showManhattanOutput = useCallback(() => {
+  //   const { S, track, i, j } = iterativeManhattanOutput;
+  //   if (i === height) {
+  //     setShowFinalPath(true);
+  //     return;
+  //   }
+  //   if (j === width) {
+  //     setIterativeManhattanOutput({ S, track, i: i + 1, j: 1 });
+  //     return;
+  //   }
 
-    setIterativeManhattanOutput({ S: newS, track: newTrack, i, j: j + 1 });
-  }, [iterativeManhattanOutput]);
+  //   const newS = { ...S, [`${i};${j}`]: manhattanOutput.S[`${i};${j}`] };
+  //   const current = manhattanOutput.backtrack[`${i};${j}`];
+  //   const newTrack = {
+  //     ...track,
+  //     [current]: track?.[current] ? [...track[current], `${i};${j}`] : [`${i};${j}`],
+  //   };
 
-  useEffect(() => {
-    if (manhattanOutput && !iterativeManhattanOutput) {
-      showInitialManhattanOutput();
-    }
-    if (manhattanOutput && iterativeManhattanOutput && !paused) {
-      setTimeout(() => {
-        showManhattanOutput();
-      }, 1000);
-    }
-  }, [manhattanOutput, iterativeManhattanOutput, paused]);
+  //   setIterativeManhattanOutput({ S: newS, track: newTrack, i, j: j + 1 });
+  // }, [iterativeManhattanOutput]);
 
-  useEffect(() => {
-    if (showFinalPath && manhattanOutput) {
-      setFinalPath(manhattanOutput.trackLongestSequence);
-    }
-  }, [showFinalPath, manhattanOutput]);
+  // useEffect(() => {
+  //   if (manhattanOutput && !iterativeManhattanOutput) {
+  //     showInitialManhattanOutput();
+  //   }
+  //   if (manhattanOutput && iterativeManhattanOutput && !paused) {
+  //     setTimeout(() => {
+  //       showManhattanOutput();
+  //     }, 100);
+  //   }
+  // }, [manhattanOutput, iterativeManhattanOutput, paused]);
+
+  // useEffect(() => {
+  //   if (showFinalPath && manhattanOutput) {
+  //     setFinalPath(manhattanOutput.trackLongestSequence);
+  //   }
+  // }, [showFinalPath, manhattanOutput]);
 
   return (
-    <>
-      {manhattanOutput && (
-        <Button label={paused ? <MdPlayArrow /> : <MdPause />} onClick={() => setPaused(!paused)} />
-      )}
+    <GraphWrapper
+      height={height}
+      width={width}
+      showPauseButton={manhattanOutput}
+      pauseButtonProps={{ paused, setPaused, pauseDisabled: !!finalPath }}
+      showSpeed={!!manhattanOutput}
+      setSpeed={manhattanOutput ? setSpeed : undefined}
+    >
       <StyledManhattanWrapper>
         {hArray.map((hElement, hIndex) => (
           <StyledManhattanRowWrapper key={hElement} className="row-wrapper">
@@ -90,33 +112,34 @@ const Manhattan = ({ width, height, manhattanInput, setManhattanInput, manhattan
                 i={hIndex}
                 j={wIndex}
                 hasInputs={!manhattanOutput}
-                manhattanInput={manhattanInput}
-                setManhattanInput={setManhattanInput}
-                label={iterativeManhattanOutput?.S[`${hIndex};${wIndex}`]}
-                edges={iterativeManhattanOutput?.track[`${hIndex};${wIndex}`]}
-                edgeLabels={manhattanInput?.[`${hIndex};${wIndex}`]}
+                dispatchManhattanInput={dispatchManhattanInput}
+                label={iterativeOutput?.S[`${hIndex};${wIndex}`]}
+                edges={iterativeOutput?.track[`${hIndex};${wIndex}`]}
+                edgeLabels={manhattanOutput ? manhattanInput?.[`${hIndex};${wIndex}`] : undefined}
                 finalPath={finalPath?.[`${hIndex};${wIndex}`]}
               />
             ))}
           </StyledManhattanRowWrapper>
         ))}
       </StyledManhattanWrapper>
-    </>
+    </GraphWrapper>
   );
 };
 
 Manhattan.defaultProps = {
   manhattanInput: null,
-  setManhattanInput: () => {},
+  dispatchManhattanInput: () => {},
   manhattanOutput: null,
+  iterative: true,
 };
 
 Manhattan.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   manhattanInput: PropTypes.shape(),
-  setManhattanInput: PropTypes.func,
+  dispatchManhattanInput: PropTypes.func,
   manhattanOutput: PropTypes.shape(),
+  iterative: PropTypes.bool,
 };
 
 export default Manhattan;

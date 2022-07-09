@@ -10,6 +10,10 @@ export const StyledManhattanWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
+  transform-origin: top left;
+  transform: scale(${({ scale }) => scale});
+  transform-origin: top left;
+
   ${StyledButton} {
     margin: 40px 0;
   }

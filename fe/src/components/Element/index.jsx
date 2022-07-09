@@ -20,14 +20,11 @@ const Element = ({
   hasInputs,
   edgeLabels,
   label,
-  setManhattanInput,
-  manhattanInput,
+  dispatchManhattanInput,
   edges,
   showDiagonalEdge,
   finalPath,
 }) => {
-  // const { i, j } = coordindates;
-
   const hasRightEdge = j + 1 !== width;
   const hasDownEdge = i + 1 !== height;
   const hasDiagonalEdge = showDiagonalEdge && hasRightEdge && hasDownEdge;
@@ -41,7 +38,6 @@ const Element = ({
   const [downLabel, setDownLabel] = useState(null);
 
   useEffect(() => {
-    // debugger;
     const newEdges = typeof edges !== 'object' ? edges?.split('--') : edges;
     if (newEdges) {
       newEdges.forEach((edge) => {
@@ -61,8 +57,6 @@ const Element = ({
             setColorRight('lightGreen');
           }
         } else if (+edge.split(';')[0] === i + 1) {
-          // eslint-disable-next-line no-debugger
-          // debugger;
           if (finalPath === edge) {
             setColorDown('aqua');
           } else {
@@ -74,7 +68,7 @@ const Element = ({
   }, [edges, showDiagonalEdge, finalPath]);
 
   useEffect(() => {
-    if (edgeLabels) {
+    if (edgeLabels && !hasInputs) {
       Object.keys(edgeLabels).forEach((node) => {
         if (parseInt(node.split(';')[0], 10) === i) {
           setRightLabel(edgeLabels[node]);
@@ -83,34 +77,22 @@ const Element = ({
         }
       });
     }
-  }, [edgeLabels]);
+  }, [edgeLabels, hasInputs]);
 
   const rightInputChange = (e) => {
     const value = parseInt(e.target.value, 10);
-    if (value) {
+    if (value || value === 0) {
       setRightError(false);
-      setManhattanInput({
-        ...manhattanInput,
-        [`${i};${j}`]: {
-          ...manhattanInput[`${i};${j}`],
-          [`${i};${j + 1}`]: value,
-        },
-      });
+      dispatchManhattanInput({ type: 'right', i, j, value });
     } else {
       setRightError(true);
     }
   };
   const downInputChange = (e) => {
     const value = parseInt(e.target.value, 10);
-    if (value) {
+    if (value || value === 0) {
       setDownError(false);
-      setManhattanInput({
-        ...manhattanInput,
-        [`${i};${j}`]: {
-          ...manhattanInput[`${i};${j}`],
-          [`${i + 1};${j}`]: value,
-        },
-      });
+      dispatchManhattanInput({ type: 'down', i, j, value });
     } else {
       setDownError(true);
     }
@@ -149,8 +131,8 @@ const Element = ({
 Element.defaultProps = {
   edgeLabels: null,
   label: '',
-  manhattanInput: {},
-  setManhattanInput: () => {},
+  // manhattanInput: {},
+  dispatchManhattanInput: () => {},
   edges: null,
   showDiagonalEdge: false,
   finalPath: '',
@@ -167,8 +149,8 @@ Element.propTypes = {
   edgeLabels: PropTypes.shape(),
   edges: PropTypes.string,
   label: PropTypes.string,
-  setManhattanInput: PropTypes.func,
-  manhattanInput: PropTypes.shape(),
+  dispatchManhattanInput: PropTypes.func,
+  // manhattanInput: PropTypes.shape(),
   showDiagonalEdge: PropTypes.bool,
   finalPath: PropTypes.string,
 };

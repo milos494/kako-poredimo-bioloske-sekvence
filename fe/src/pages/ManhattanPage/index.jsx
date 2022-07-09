@@ -1,21 +1,28 @@
-import { Alert, AlertTitle } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Alert, AlertTitle, Checkbox } from '@mui/material';
+import React, { useEffect, useReducer, useState } from 'react';
 import { getData } from '../../api';
 import Button from '../../basic/Button';
 import Input from '../../basic/Input';
 import Manhattan from '../../components/Manhattan';
-// import manhattan from '../../utils/manhattan';
-// import Manhattan from '../../Manhattan';
+import useHashNavigation from '../../hooks/navigation';
+import Content from './content';
 import { StyledManhattanPageWrapper } from './ManhattanPageStyles';
+import { manhattanInitialState, manhattanReducer } from './reducer';
 
 const ManhattanPage = () => {
   const [height, setHeight] = useState();
   const [width, setWidth] = useState();
   const [draw, setDraw] = useState();
-  const [manhattanInput, setManhattanInput] = useState({});
+  const [manhattanInput, dispatchManhattanInput] = useReducer(
+    manhattanReducer,
+    manhattanInitialState,
+  );
+
   const [manhattanOutput, setManhattanOutput] = useState(null);
   const [fileError, setFileError] = useState(false);
+  const [iterative, setIterative] = useState(true);
 
+  useHashNavigation();
   useEffect(() => {
     setManhattanOutput(null);
     setFileError(false);
@@ -24,7 +31,7 @@ const ManhattanPage = () => {
   useEffect(() => {
     setDraw(false);
     setFileError(false);
-    setManhattanInput({});
+    dispatchManhattanInput({});
   }, [width, height]);
 
   const inputChange = (e, type) => {
@@ -36,6 +43,10 @@ const ManhattanPage = () => {
         setWidth(value);
       }
     }
+  };
+
+  const handleIterative = (e) => {
+    setIterative(e.target.checked);
   };
 
   const drawManhattan = () => {
@@ -80,7 +91,7 @@ const ManhattanPage = () => {
       }
     }
 
-    setManhattanInput(input);
+    dispatchManhattanInput({ type: 'full', full: input });
   };
 
   const fileInputChange = (e) => {
@@ -102,21 +113,29 @@ const ManhattanPage = () => {
 
   return (
     <StyledManhattanPageWrapper>
+      <Content />
       <Input id="manhattanHeight" label="Height" onChange={(e) => inputChange(e, 'height')} />
       <Input id="manhattanWidth" label="Width" onChange={(e) => inputChange(e, 'width')} />
       <Button onClick={drawManhattan} label="Make Manhattan" type="button" />
       {draw && (
         <>
           <p>Enter Manhattan input</p>
+
           <Manhattan
             height={height}
             width={width}
             manhattanInput={manhattanInput}
-            setManhattanInput={setManhattanInput}
+            dispatchManhattanInput={dispatchManhattanInput}
           />
 
           <p>Or add the files with JSON matrices down and right</p>
-          <input type="file" onChange={fileInputChange} accept=".json" />
+          <input
+            id="manhattanFile"
+            lable="File"
+            type="file"
+            onChange={fileInputChange}
+            accept=".json"
+          />
           {fileError && (
             <Alert severity="error">
               <AlertTitle>Error</AlertTitle>
@@ -124,6 +143,12 @@ const ManhattanPage = () => {
             </Alert>
           )}
           <Button onClick={getManhattan} label="Get Manhattan Output" type="button" />
+          <Checkbox
+            label="Show algorith iteratively"
+            size="large"
+            onChange={handleIterative}
+            defaultChecked
+          />
         </>
       )}
       {manhattanOutput && (
@@ -132,6 +157,7 @@ const ManhattanPage = () => {
           width={width}
           manhattanInput={manhattanInput}
           manhattanOutput={manhattanOutput}
+          iterative={iterative}
         />
       )}
     </StyledManhattanPageWrapper>
