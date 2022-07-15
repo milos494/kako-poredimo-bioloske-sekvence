@@ -1,19 +1,21 @@
+import { Checkbox } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { getData } from '../../api';
 import Button from '../../basic/Button';
 import Input from '../../basic/Input';
 import LCS from '../../components/LCS';
-import { StyledLCSPageWrapper } from './LCSPageStyles';
+import { StyledInputOutputWrapper, StyledLCSPageWrapper } from './LCSPageStyles';
 
 const LCSBacktrackPage = () => {
   const [firstString, setFirstString] = useState();
   const [secondString, setSecondString] = useState();
   const [drawLCS, setDrawLCS] = useState(false);
-  const [LCSOutput, setLCSOutput] = useState({});
+  const [LCSOutput, setLCSOutput] = useState(null);
+  const [iterative, setIterative] = useState(true);
 
   useEffect(() => {
     setDrawLCS(false);
-    setLCSOutput({});
+    setLCSOutput(null);
   }, [firstString, secondString]);
 
   const inputChange = (e, type) => {
@@ -36,17 +38,38 @@ const LCSBacktrackPage = () => {
     }
   };
 
+  const handleIterative = (e) => {
+    setIterative(e.target.checked);
+  };
+
   return (
     <StyledLCSPageWrapper>
-      <Input id="LCSFirstString" label="First String" onChange={(e) => inputChange(e, 'first')} />
-      <Input
-        id="LCSSecondString"
-        label="Second String"
-        onChange={(e) => inputChange(e, 'second')}
-      />
-      <Button onClick={getLCS} label="Get LCS" type="button" />
+      <StyledInputOutputWrapper>
+        <Input id="LCSFirstString" label="First String" onChange={(e) => inputChange(e, 'first')} />
+        <Input
+          id="LCSSecondString"
+          label="Second String"
+          onChange={(e) => inputChange(e, 'second')}
+        />
+      </StyledInputOutputWrapper>
+      <StyledInputOutputWrapper>
+        <Button onClick={getLCS} label="Get LCS" type="button" />
+        <Checkbox
+          label="Show algorithm iteratively"
+          size="large"
+          onChange={handleIterative}
+          defaultChecked
+          disabled={!!LCSOutput}
+        />
+        <p>Get LCS output iteratively</p>
+      </StyledInputOutputWrapper>
       {drawLCS && (
-        <LCS firstString={firstString} secondString={secondString} LCSOutput={LCSOutput} />
+        <LCS
+          firstString={firstString}
+          secondString={secondString}
+          LCSOutput={LCSOutput}
+          iterative={iterative}
+        />
       )}
     </StyledLCSPageWrapper>
   );

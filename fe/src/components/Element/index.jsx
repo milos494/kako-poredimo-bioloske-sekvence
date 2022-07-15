@@ -101,7 +101,7 @@ const Element = ({
   return (
     <StyledElementFullWrapper>
       <StyledElementLightWrapper>
-        <StyledNode>
+        <StyledNode finalNode={label && !hasRightEdge && !hasDownEdge && !hasDiagonalEdge}>
           <StyledLabel>{label}</StyledLabel>
         </StyledNode>
         {hasRightEdge && (
@@ -131,7 +131,6 @@ const Element = ({
 Element.defaultProps = {
   edgeLabels: null,
   label: '',
-  // manhattanInput: {},
   dispatchManhattanInput: () => {},
   edges: null,
   showDiagonalEdge: false,
@@ -141,7 +140,6 @@ Element.defaultProps = {
 Element.propTypes = {
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
-  // coordindates: PropTypes.shape({ i: PropTypes.number, j: PropTypes.number }).isRequired,
   i: PropTypes.number.isRequired,
   j: PropTypes.number.isRequired,
 
@@ -150,7 +148,6 @@ Element.propTypes = {
   edges: PropTypes.string,
   label: PropTypes.string,
   dispatchManhattanInput: PropTypes.func,
-  // manhattanInput: PropTypes.shape(),
   showDiagonalEdge: PropTypes.bool,
   finalPath: PropTypes.string,
 };

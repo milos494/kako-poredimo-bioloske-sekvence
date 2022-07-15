@@ -4,6 +4,7 @@ import { StyledButton } from '../../basic/Button/ButtonStyles';
 export const StyledGraphFullScrollWrapper = styled.div`
   max-width: calc(100vw - 420px);
   overflow-x: ${({ shouldScroll }) => shouldScroll && 'scroll'};
+  overflow-y: hidden;
   height: ${({ graphHeight }) => `${graphHeight}px` ?? 'auto'};
   position: relative;
   margin-right: 20px;

@@ -100,6 +100,7 @@ const Manhattan = ({
       pauseButtonProps={{ paused, setPaused, pauseDisabled: !!finalPath }}
       showSpeed={!!manhattanOutput}
       setSpeed={manhattanOutput ? setSpeed : undefined}
+      iterative={iterative}
     >
       <StyledManhattanWrapper>
         {hArray.map((hElement, hIndex) => (

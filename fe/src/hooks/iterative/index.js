@@ -24,7 +24,7 @@ const useIterative = ({ output, speed, showIterative, width, height, paused }) =
     setIterativeOutput({ S, track, i: 1, j: 1 });
   };
 
-  const showManhattanOutput = useCallback(() => {
+  const showOutput = useCallback(() => {
     const { S, track, i, j } = iterativeOutput;
     if (i === height) {
       setShowFinalPath(true);
@@ -51,13 +51,17 @@ const useIterative = ({ output, speed, showIterative, width, height, paused }) =
     }
     if (output && iterativeOutput && !paused && showIterative) {
       setTimeout(() => {
-        showManhattanOutput();
+        showOutput();
       }, speed);
     }
-    // if (!showIterative) {
-    //   setIterativeOutput({ ...output, finalPath: output.trackLongestSequence });
-    // }
   }, [output, iterativeOutput, paused, speed, showIterative]);
+
+  useEffect(() => {
+    if (!showIterative) {
+      setIterativeOutput({ ...output, finalPath: output.trackLongestSequence });
+      setFinalPath(output.trackLongestSequence);
+    }
+  }, [showIterative]);
 
   useEffect(() => {
     if (showFinalPath && output) {

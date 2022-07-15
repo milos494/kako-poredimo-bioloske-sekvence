@@ -19,10 +19,9 @@ export const StyledNode = styled.div`
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  background: transparent;
+  background: ${({ finalNode }) => (finalNode ? 'yellowgreen' : 'lightgray')};
   position: relative;
   border: 1px solid yellowgreen;
-  background-color: lightgray;
   z-index: 1;
 `;
 

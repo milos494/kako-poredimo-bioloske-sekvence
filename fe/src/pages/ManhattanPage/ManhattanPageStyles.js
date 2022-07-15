@@ -7,3 +7,8 @@ export const StyledManhattanPageWrapper = styled.div`
   margin: 20px;
   flex: 1;
 `;
+
+export const StyledManhattanGetOutputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;

@@ -16,7 +16,6 @@ const SideBar = () => {
   const location = useLocation();
   const path = `${location.pathname}${location.hash}`;
 
-  console.log(location, path);
   const expandedItem = routes?.find(
     (item) => item.path === path || item.children?.find((c) => c.path === path),
   );

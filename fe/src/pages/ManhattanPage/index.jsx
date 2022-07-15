@@ -6,7 +6,7 @@ import Input from '../../basic/Input';
 import Manhattan from '../../components/Manhattan';
 import useHashNavigation from '../../hooks/navigation';
 import Content from './content';
-import { StyledManhattanPageWrapper } from './ManhattanPageStyles';
+import { StyledManhattanGetOutputWrapper, StyledManhattanPageWrapper } from './ManhattanPageStyles';
 import { manhattanInitialState, manhattanReducer } from './reducer';
 
 const ManhattanPage = () => {
@@ -142,13 +142,17 @@ const ManhattanPage = () => {
               Format of the file is not correct — <strong>check it out!</strong>
             </Alert>
           )}
-          <Button onClick={getManhattan} label="Get Manhattan Output" type="button" />
-          <Checkbox
-            label="Show algorith iteratively"
-            size="large"
-            onChange={handleIterative}
-            defaultChecked
-          />
+          <StyledManhattanGetOutputWrapper>
+            <Button onClick={getManhattan} label="Get Manhattan Output" type="button" />
+            <Checkbox
+              label="Show algorith iteratively"
+              size="large"
+              onChange={handleIterative}
+              defaultChecked
+              disabled={!!manhattanOutput}
+            />
+            <p>Get Manhattan output iteratively</p>
+          </StyledManhattanGetOutputWrapper>
         </>
       )}
       {manhattanOutput && (

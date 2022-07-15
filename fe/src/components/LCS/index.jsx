@@ -1,24 +1,23 @@
-import { InputLabel, Slider } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
-import { MdPause, MdPlayArrow } from 'react-icons/md';
-import Button from '../../basic/Button';
+import React, { useState } from 'react';
+import useIterative from '../../hooks/iterative';
 import Element from '../Element';
+import GraphWrapper from '../GraphWrapper';
 import LetterArray from '../LetterArray';
-import {
-  StyledFullLCSWrapper,
-  StyledLCS,
-  StyledLCSRowWrapper,
-  StyledLCSWrapper,
-  StyledTopWrapper,
-} from './LCSStyles';
+import { StyledLCS, StyledLCSRowWrapper, StyledLCSWrapper } from './LCSStyles';
 
-const LCS = ({ firstString, secondString, LCSOutput }) => {
-  const [iterativeLCSOutput, setIterativeLCSOutput] = useState(null);
-  const [showFinalPath, setShowFinalPath] = useState(false);
-  const [finalPath, setFinalPath] = useState(null);
+const LCS = ({ firstString, secondString, LCSOutput, iterative }) => {
   const [paused, setPaused] = useState(false);
-  const [scale, setScale] = useState(1);
+  const [speed, setSpeed] = useState(300);
+
+  const { finalPath, iterativeOutput } = useIterative({
+    output: LCSOutput,
+    height: secondString.length + 1,
+    width: firstString.length + 1,
+    paused,
+    speed,
+    showIterative: iterative,
+  });
 
   const wArray = Array.from(Array(firstString.length + 1)).map((a, index) =>
     firstString.substring(index),
@@ -27,91 +26,16 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
     secondString.substring(index),
   );
 
-  const showInitialLCSOutput = () => {
-    const S = {};
-    const track = {};
-
-    for (let j = 0; j <= firstString.length; j += 1) {
-      const current = LCSOutput.backtrack[`${0};${j}`];
-      S[`${0};${j}`] = LCSOutput.S[`${0};${j}`];
-      track[current] = track?.[current] ? `${track[current]}--${0};${j}` : `${0};${j}`;
-    }
-
-    for (let i = 0; i <= secondString.length; i += 1) {
-      const current = LCSOutput.backtrack[`${i};${0}`];
-      S[`${i};${0}`] = LCSOutput.S[`${i};${0}`];
-      track[current] = track?.[current] ? `${track[current]}--${i};${0}` : `${i};${0}`;
-    }
-
-    setIterativeLCSOutput({ S, track, i: 1, j: 1 });
-  };
-
-  const showLCSOutput = useCallback(() => {
-    const { S, track, i, j } = iterativeLCSOutput;
-    if (i === secondString.length + 1) {
-      setShowFinalPath(true);
-      return;
-    }
-    if (j === firstString.length + 1) {
-      setIterativeLCSOutput({ S, track, i: i + 1, j: 1 });
-      return;
-    }
-
-    const newS = { ...S, [`${i};${j}`]: LCSOutput.S[`${i};${j}`] };
-    const current = LCSOutput.backtrack[`${i};${j}`];
-    const newTrack = {
-      ...track,
-      [current]: track?.[current] ? `${track[current]}--${i};${j}` : `${i};${j}`,
-    };
-
-    setIterativeLCSOutput({ S: newS, track: newTrack, i, j: j + 1 });
-  }, [iterativeLCSOutput]);
-
-  const handleScaleChange = (e) => {
-    setScale(e.target.value);
-  };
-
-  useEffect(() => {
-    let timeout;
-    if (LCSOutput && !iterativeLCSOutput) {
-      showInitialLCSOutput();
-    }
-    if (LCSOutput && iterativeLCSOutput && !paused) {
-      timeout = setTimeout(() => {
-        showLCSOutput();
-      }, 100);
-    }
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [LCSOutput, iterativeLCSOutput, paused]);
-
-  useEffect(() => {
-    if (showFinalPath && LCSOutput) {
-      setFinalPath(LCSOutput.trackLongestSequence);
-    }
-  }, [showFinalPath, LCSOutput]);
-
   return (
-    <StyledFullLCSWrapper>
-      <StyledTopWrapper>
-        <Button label={paused ? <MdPlayArrow /> : <MdPause />} onClick={() => setPaused(!paused)} />
-        <InputLabel style={{ marginLeft: '20px' }}>Zoom in/out:</InputLabel>
-        <Slider
-          label="Zoom in/out"
-          size="small"
-          defaultValue={1}
-          step={0.1}
-          min={0.4}
-          max={1}
-          onChange={handleScaleChange}
-          style={{ width: '200px' }}
-          marks
-          valueLabelDisplay="on"
-        />
-      </StyledTopWrapper>
-      <StyledLCS scale={scale}>
+    <GraphWrapper
+      height={secondString.length + 3}
+      width={firstString.length + 2}
+      showPauseButton={LCSOutput}
+      pauseButtonProps={{ paused, setPaused, pauseDisabled: !!finalPath }}
+      showSpeed={!!LCSOutput}
+      setSpeed={LCSOutput ? setSpeed : undefined}
+    >
+      <StyledLCS>
         <LetterArray sequence={firstString} horizontal />
         <StyledLCSRowWrapper>
           <LetterArray sequence={secondString} />
@@ -126,8 +50,8 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
                     i={hIndex}
                     j={wIndex}
                     hasInputs={false}
-                    label={iterativeLCSOutput?.S[`${hIndex};${wIndex}`]}
-                    edges={iterativeLCSOutput?.track[`${hIndex};${wIndex}`]}
+                    label={iterativeOutput?.S[`${hIndex};${wIndex}`]}
+                    edges={iterativeOutput?.track[`${hIndex};${wIndex}`]}
                     finalPath={finalPath?.[`${hIndex};${wIndex}`]}
                     showDiagonalEdge
                   />
@@ -137,7 +61,7 @@ const LCS = ({ firstString, secondString, LCSOutput }) => {
           </StyledLCSWrapper>
         </StyledLCSRowWrapper>
       </StyledLCS>
-    </StyledFullLCSWrapper>
+    </GraphWrapper>
   );
 };
 
@@ -145,6 +69,7 @@ LCS.propTypes = {
   firstString: PropTypes.string.isRequired,
   secondString: PropTypes.string.isRequired,
   LCSOutput: PropTypes.shape().isRequired,
+  iterative: PropTypes.bool.isRequired,
 };
 
 export default LCS;

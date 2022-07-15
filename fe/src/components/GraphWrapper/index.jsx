@@ -93,6 +93,7 @@ const GraphWrapper = ({
                 style={{ width: '200px' }}
                 marks
                 valueLabelDisplay="on"
+                disabled={!!pauseDisabled}
               />
             </>
           )}
