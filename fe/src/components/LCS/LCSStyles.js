@@ -16,3 +16,19 @@ export const StyledLCS = styled.div`
   transform: scale(${({ scale }) => scale});
   transform-origin: top left;
 `;
+
+export const StyledLCSOutputStrings = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const StyledLCSOutputLetter = styled.p`
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0;
+
+  color: ${({ active }) => active && '#007FFF'};
+`;

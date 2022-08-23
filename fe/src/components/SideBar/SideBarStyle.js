@@ -87,6 +87,8 @@ export const StyledLinkListItem = styled.li`
 export const StyledAccordionTitle = styled.p`
   margin: 0 25px;
   font-size: 24px;
+  line-height: 26px;
+  color: #ffffff;
   font-weight: 600;
   text-decoration: none;
 `;

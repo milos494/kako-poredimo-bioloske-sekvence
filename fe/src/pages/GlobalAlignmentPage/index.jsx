@@ -52,6 +52,8 @@ const LCSBacktrackPage = () => {
       });
       setLCSOutput(output);
       setDrawLCS(true);
+
+      console.log(output);
     }
   };
 

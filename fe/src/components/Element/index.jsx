@@ -25,6 +25,10 @@ const Element = ({
   showDiagonalEdge,
   finalPath,
 }) => {
+  const RED = '#D61C4E';
+  const BLUE = '#293462';
+  const AZURE = '#007FFF';
+  const YELLOW = '#f4c430';
   const hasRightEdge = j + 1 !== width;
   const hasDownEdge = i + 1 !== height;
   const hasDiagonalEdge = showDiagonalEdge && hasRightEdge && hasDownEdge;
@@ -44,23 +48,23 @@ const Element = ({
         if (showDiagonalEdge && +edge.split(';')[0] === i + 1 && +edge.split(';')[1] === j + 1) {
           const finalPathIsDiagonal = finalPath?.split('?')?.[1];
           if (finalPathIsDiagonal) {
-            setColorDiagonal('red');
+            setColorDiagonal(RED);
           } else if (finalPath === edge) {
-            setColorDiagonal('blueviolet');
+            setColorDiagonal(AZURE);
           } else {
-            setColorDiagonal('lightGreen');
+            setColorDiagonal(YELLOW);
           }
         } else if (+edge.split(';')[1] === j + 1) {
           if (finalPath === edge) {
-            setColorRight('aqua');
+            setColorRight(BLUE);
           } else {
-            setColorRight('lightGreen');
+            setColorRight(YELLOW);
           }
         } else if (+edge.split(';')[0] === i + 1) {
           if (finalPath === edge) {
-            setColorDown('aqua');
+            setColorDown(BLUE);
           } else {
-            setColorDown('lightGreen');
+            setColorDown(YELLOW);
           }
         }
       });
@@ -107,7 +111,7 @@ const Element = ({
         {hasRightEdge && (
           <StyledRightEdge color={colorRight}>
             {hasInputs && <StyledInput onChange={rightInputChange} hasError={rightError} />}
-            {rightLabel && <StyledLabel>{rightLabel}</StyledLabel>}
+            {rightLabel !== null && <StyledLabel>{rightLabel}</StyledLabel>}
             <MdArrowForwardIos />
           </StyledRightEdge>
         )}
@@ -120,7 +124,7 @@ const Element = ({
       {hasDownEdge && (
         <StyledDownEdge color={colorDown}>
           {hasInputs && <StyledInput onChange={downInputChange} hasError={downError} />}
-          {downLabel && <StyledLabel>{downLabel}</StyledLabel>}
+          {downLabel !== null && <StyledLabel>{downLabel}</StyledLabel>}
           <MdArrowForwardIos />
         </StyledDownEdge>
       )}

@@ -19,10 +19,15 @@ export const StyledNode = styled.div`
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  background: ${({ finalNode }) => (finalNode ? 'yellowgreen' : 'lightgray')};
+  font-weight: 800;
+  background: ${({ finalNode }) => (finalNode ? '#007FFF' : 'lightgray')};
   position: relative;
-  border: 1px solid yellowgreen;
+  border: 1px solid #feb139;
   z-index: 1;
+
+  p {
+    background: inherit;
+  }
 `;
 
 export const StyledRightEdge = styled.div`
@@ -85,6 +90,9 @@ export const StyledLabel = styled('p')`
   transform: translate(-50%, -50%);
   margin: 0;
   z-index: 1;
+  font-weight: 600;
+  background: #ffffff;
+  padding: 2px 3px;
 `;
 
 export const StyledDiagonalEdge = styled(StyledRightEdge)`

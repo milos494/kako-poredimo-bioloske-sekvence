@@ -20,6 +20,21 @@ export const GlobalStyle = createGlobalStyle`
       box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
       background-color: #1976d2;
     }
+
+    h1, h2, h3, h4, h5, p, a, input {
+      font-family: Roboto;
+      color: #1a1a1a;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 16px;
+    }
+    a {
+      font-size: 18px;
+      line-height: 20px;
+    }
+
   }
 `;
 

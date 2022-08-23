@@ -37,6 +37,7 @@ export const StyledGraphFullScaleWrapper = styled.div`
 export const StyledScrollButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  max-width: calc(100vw - 940px);
 `;
 
 export const StyledControlsWrapper = styled.div`
@@ -49,11 +50,14 @@ export const StyledControlsWrapper = styled.div`
   z-index: 10;
   margin: 10px 20px 10px 0;
   padding-top: 10px;
-
+  max-width: calc(100vw - 420px);
   box-shadow: rgb(0 0 0 / 35%) 0px 6px 3px -3px;
 
   ${StyledButton} {
     margin: 10px 0;
+    max-width: 200px;
+    flex: 0 1 33%;
+    /* width: 100%; */
   }
 `;
 
