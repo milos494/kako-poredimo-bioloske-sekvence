@@ -22,7 +22,7 @@ const Manhattan = ({
   const [speed, setSpeed] = useState(300);
 
   const [paused, setPaused] = useState(false);
-
+  const { output } = manhattanOutput ?? {};
   const { finalPath, iterativeOutput } = useIterative({
     output: manhattanOutput,
     width,
@@ -33,37 +33,40 @@ const Manhattan = ({
   });
 
   return (
-    <GraphWrapper
-      height={height}
-      width={width}
-      showPauseButton={manhattanOutput}
-      pauseButtonProps={{ paused, setPaused, pauseDisabled: !!finalPath }}
-      showSpeed={!!manhattanOutput}
-      setSpeed={manhattanOutput ? setSpeed : undefined}
-      iterative={iterative}
-    >
-      <StyledManhattanWrapper>
-        {hArray.map((hElement, hIndex) => (
-          <StyledManhattanRowWrapper key={hElement} className="row-wrapper">
-            {wArray.map((wElement, wIndex) => (
-              <Element
-                key={`${hElement}-${wElement}`}
-                height={height}
-                width={width}
-                i={hIndex}
-                j={wIndex}
-                hasInputs={!manhattanOutput}
-                dispatchManhattanInput={dispatchManhattanInput}
-                label={iterativeOutput?.S[`${hIndex};${wIndex}`]}
-                edges={iterativeOutput?.track[`${hIndex};${wIndex}`]}
-                edgeLabels={manhattanOutput ? manhattanInput?.[`${hIndex};${wIndex}`] : undefined}
-                finalPath={finalPath?.[`${hIndex};${wIndex}`]}
-              />
-            ))}
-          </StyledManhattanRowWrapper>
-        ))}
-      </StyledManhattanWrapper>
-    </GraphWrapper>
+    <>
+      <GraphWrapper
+        height={height}
+        width={width}
+        showPauseButton={manhattanOutput}
+        pauseButtonProps={{ paused, setPaused, pauseDisabled: !!finalPath }}
+        showSpeed={!!manhattanOutput}
+        setSpeed={manhattanOutput ? setSpeed : undefined}
+        iterative={iterative}
+      >
+        <StyledManhattanWrapper>
+          {hArray.map((hElement, hIndex) => (
+            <StyledManhattanRowWrapper key={hElement} className="row-wrapper">
+              {wArray.map((wElement, wIndex) => (
+                <Element
+                  key={`${hElement}-${wElement}`}
+                  height={height}
+                  width={width}
+                  i={hIndex}
+                  j={wIndex}
+                  hasInputs={!manhattanOutput}
+                  dispatchManhattanInput={dispatchManhattanInput}
+                  label={iterativeOutput?.S[`${hIndex};${wIndex}`]}
+                  edges={iterativeOutput?.track[`${hIndex};${wIndex}`]}
+                  edgeLabels={manhattanOutput ? manhattanInput?.[`${hIndex};${wIndex}`] : undefined}
+                  finalPath={finalPath?.[`${hIndex};${wIndex}`]}
+                />
+              ))}
+            </StyledManhattanRowWrapper>
+          ))}
+        </StyledManhattanWrapper>
+      </GraphWrapper>
+      {finalPath && <h2>Longest path: {output}</h2>}
+    </>
   );
 };
 

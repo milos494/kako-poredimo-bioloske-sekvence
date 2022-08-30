@@ -35,7 +35,6 @@ const LCSBacktrackPage = () => {
       const output = await getData('lcs', { sequence1: firstString, sequence2: secondString });
       setLCSOutput(output);
       setDrawLCS(true);
-      console.log(output);
     }
   };
 

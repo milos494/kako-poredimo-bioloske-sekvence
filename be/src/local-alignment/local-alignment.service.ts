@@ -51,7 +51,6 @@ export class LocalAlignmentService {
     }
 
     // novi bakctrack
-    console.log(maxPosition, maxScore);
 
     for (let i = maxPosition.i + 1; i < height + 1; i += 1) {
       backtrack[`${i};${maxPosition.j}`] = `${i - 1};${maxPosition.j}`;
@@ -90,13 +89,6 @@ export class LocalAlignmentService {
         : [current];
       return previousCopy;
     }, {});
-    // console.log(backtrack);
-
-    // let i = +backtrack[`${height};${width}`].split(';')[0];
-    // let j = +backtrack[`${height};${width}`].split(';')[1];
-
-    // let i = height;
-    // let j = width;
 
     let lcs = '';
     let sequence1Modified = '';
@@ -108,22 +100,16 @@ export class LocalAlignmentService {
     let j = width;
     const trackLongestSequence = {};
 
-    // if (i === height - 1 && j === width - 1) {
-    //   lcs = sequence1[width - 1];
-    // }
-
     const increaseIndexes = (array) => {
       return array.map((item) => item + 1);
     };
-    // while ((i !== 0 || j !== 0) && S[`${i};${j}`] !== 0) {
+
     while (i !== 0 || j !== 0) {
       if (backtrack[`${i};${j}`] === `${i - 1};${j - 1}`) {
-        // lcs = sequence1[j - 1] + lcs;
         sequence1Modified = sequence1[j - 1] + sequence1Modified;
         sequence2Modified = sequence2[i - 1] + sequence2Modified;
 
         if (sequence1[j - 1] === sequence2[i - 1]) {
-          lcs = sequence1[j - 1] + lcs;
           trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
           sequence1Position.push(j - 1);
           sequence2Position.push(i - 1);
@@ -147,8 +133,20 @@ export class LocalAlignmentService {
       j = +backtrack[`${oldI};${j}`].split(';')[1];
     }
 
-    console.log(sequence1Modified);
-    console.log(sequence2Modified);
+    i = maxPosition.i;
+    j = maxPosition.j;
+
+    while ((i !== 0 || j !== 0) && S[`${i};${j}`] !== 0) {
+      if (backtrack[`${i};${j}`] === `${i - 1};${j - 1}`) {
+        if (sequence1[j - 1] === sequence2[i - 1]) {
+          lcs = sequence1[j - 1] + lcs;
+        }
+      }
+      const oldI = i;
+      i = +backtrack[`${i};${j}`].split(';')[0];
+      j = +backtrack[`${oldI};${j}`].split(';')[1];
+    }
+
     return {
       track,
       S,

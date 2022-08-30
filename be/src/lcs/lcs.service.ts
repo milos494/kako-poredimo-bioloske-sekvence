@@ -44,37 +44,64 @@ export class LcsService {
         : [current];
       return previousCopy;
     }, {});
-    console.log(backtrack);
-
-    // let i = +backtrack[`${height};${width}`].split(';')[0];
-    // let j = +backtrack[`${height};${width}`].split(';')[1];
 
     let i = height;
     let j = width;
-    console.log(i, j, '(((((((');
+
     let lcs = '';
+    let sequence1Modified = '';
+    let sequence2Modified = '';
+    let sequence1Position = [];
+    let sequence2Position = [];
     const trackLongestSequence = {};
 
-    // if (i === height - 1 && j === width - 1) {
-    //   lcs = sequence1[width - 1];
-    // }
-
+    const increaseIndexes = (array) => {
+      return array.map((item) => item + 1);
+    };
     while (i !== 0 || j !== 0) {
-      // eslint-disable-next-line no-debugger
-      // debugger;
-      if (i === 6 && j === 16) {
-        // eslint-disable-next-line no-debugger
-        // debugger;
-      }
       if (backtrack[`${i};${j}`] === `${i - 1};${j - 1}`) {
-        lcs = sequence1[j - 1] + lcs;
+        sequence1Modified = sequence1[j - 1] + sequence1Modified;
+        sequence2Modified = sequence2[i - 1] + sequence2Modified;
+
+        if (sequence1[j - 1] === sequence2[i - 1]) {
+          lcs = sequence1[j - 1] + lcs;
+          sequence1Position.push(j - 1);
+          sequence2Position.push(i - 1);
+
+          trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
+        } else {
+          trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}?finalPath`;
+        }
+      } else {
+        trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
+        if (backtrack[`${i};${j}`] === `${i};${j - 1}`) {
+          sequence1Modified = sequence1[j - 1] + sequence1Modified;
+          sequence2Modified = '-' + sequence2Modified;
+          sequence2Position = increaseIndexes(sequence2Position);
+        }
+
+        if (backtrack[`${i};${j}`] === `${i - 1};${j}`) {
+          sequence1Modified = '-' + sequence1Modified;
+          sequence2Modified = sequence2[i - 1] + sequence2Modified;
+          sequence1Position = increaseIndexes(sequence1Position);
+        }
       }
-      trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
+
       const oldI = i;
       i = +backtrack[`${i};${j}`].split(';')[0];
       j = +backtrack[`${oldI};${j}`].split(';')[1];
     }
 
-    return { track, S, trackLongestSequence, lcs, backtrack };
+    return {
+      track,
+      S,
+      trackLongestSequence,
+      lcs,
+      backtrack,
+      sequence1Modified,
+      sequence2Modified,
+      sequence1Position,
+      sequence2Position,
+    };
   }
 }

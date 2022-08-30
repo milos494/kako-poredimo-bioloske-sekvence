@@ -17,7 +17,6 @@ export class AffineGapPenaltyAlignmentService {
     const middle = { '0;0': 0 };
     const lower = { '0;0': 0 };
 
-    console.log(sigma, eps, '*****************');
     for (let i = 1; i < width + 1; i += 1) {
       backtrack[`0;${i}`] = `0;${i - 1}`;
       upper[`0;${i}`] = 0;
@@ -34,20 +33,6 @@ export class AffineGapPenaltyAlignmentService {
 
     for (let i = 1; i < height + 1; i += 1) {
       for (let j = 1; j < width + 1; j += 1) {
-        // const fromTop = S[`${i - 1};${j}`] - indel;
-        // const fromLeft = S[`${i};${j - 1}`] - indel;
-        // const fromDiagonal =
-        //   S[`${i - 1};${j - 1}`] +
-        //   +(sequence1[j - 1] === sequence2[i - 1] ? 1 : -mismatch);
-        // S[`${i};${j}`] = Math.max(fromTop, fromLeft, fromDiagonal);
-        // if (S[`${i};${j}`] === fromTop) {
-        //   backtrack[`${i};${j}`] = `${i - 1};${j}`;
-        // } else if (S[`${i};${j}`] === fromLeft) {
-        //   backtrack[`${i};${j}`] = `${i};${j - 1}`;
-        // } else {
-        //   backtrack[`${i};${j}`] = `${i - 1};${j - 1}`;
-        // }
-
         const match = +(sequence1[j - 1] === sequence2[i - 1] ? 2 : -mismatch);
 
         lower[`${i};${j}`] =
@@ -92,10 +77,6 @@ export class AffineGapPenaltyAlignmentService {
         : [current];
       return previousCopy;
     }, {});
-    // console.log(backtrack);
-
-    // let i = +backtrack[`${height};${width}`].split(';')[0];
-    // let j = +backtrack[`${height};${width}`].split(';')[1];
 
     let i = height;
     let j = width;
@@ -103,26 +84,40 @@ export class AffineGapPenaltyAlignmentService {
     let lcs = '';
     let sequence1Modified = '';
     let sequence2Modified = '';
-
+    let sequence1Position = [];
+    let sequence2Position = [];
     const trackLongestSequence = {};
 
-    // if (i === height - 1 && j === width - 1) {
-    //   lcs = sequence1[width - 1];
-    // }
-
+    const increaseIndexes = (array) => {
+      return array.map((item) => item + 1);
+    };
     while (i !== 0 || j !== 0) {
       if (backtrack[`${i};${j}`] === `${i - 1};${j - 1}`) {
-        lcs = sequence1[j - 1] + lcs;
         sequence1Modified = sequence1[j - 1] + sequence1Modified;
         sequence2Modified = sequence2[i - 1] + sequence2Modified;
 
         if (sequence1[j - 1] === sequence2[i - 1]) {
+          lcs = sequence1[j - 1] + lcs;
+          sequence1Position.push(j - 1);
+          sequence2Position.push(i - 1);
+
           trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
         } else {
           trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}?finalPath`;
         }
       } else {
         trackLongestSequence[backtrack[`${i};${j}`]] = `${i};${j}`;
+        if (backtrack[`${i};${j}`] === `${i};${j - 1}`) {
+          sequence1Modified = sequence1[j - 1] + sequence1Modified;
+          sequence2Modified = '-' + sequence2Modified;
+          sequence2Position = increaseIndexes(sequence2Position);
+        }
+
+        if (backtrack[`${i};${j}`] === `${i - 1};${j}`) {
+          sequence1Modified = '-' + sequence1Modified;
+          sequence2Modified = sequence2[i - 1] + sequence2Modified;
+          sequence1Position = increaseIndexes(sequence1Position);
+        }
       }
 
       const oldI = i;
@@ -130,16 +125,18 @@ export class AffineGapPenaltyAlignmentService {
       j = +backtrack[`${oldI};${j}`].split(';')[1];
     }
 
-    // console.log(sequence1Modified);
-    // console.log(sequence2Modified);
     return {
       track,
       S: middle,
       trackLongestSequence,
       lcs,
       backtrack,
-      upper,
+      sequence1Modified,
+      sequence2Modified,
+      sequence1Position,
+      sequence2Position,
       lower,
+      upper,
     };
   };
 }

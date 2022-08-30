@@ -21,6 +21,7 @@ const ManhattanPage = () => {
   const [manhattanOutput, setManhattanOutput] = useState(null);
   const [fileError, setFileError] = useState(false);
   const [iterative, setIterative] = useState(true);
+  const [fromFile, setFromFile] = useState(false);
 
   useHashNavigation();
   useEffect(() => {
@@ -29,14 +30,17 @@ const ManhattanPage = () => {
   }, [width, height, manhattanInput]);
 
   useEffect(() => {
-    setDraw(false);
-    setFileError(false);
-    dispatchManhattanInput({});
-  }, [width, height]);
+    if (!fromFile) {
+      setDraw(false);
+      setFileError(false);
+      dispatchManhattanInput({});
+    }
+  }, [width, height, fromFile]);
 
   const inputChange = (e, type) => {
     const value = +e.target.value;
     if (value || value === 0) {
+      setFromFile(false);
       if (type === 'height') {
         setHeight(value);
       } else {
@@ -49,27 +53,44 @@ const ManhattanPage = () => {
     setIterative(e.target.checked);
   };
 
-  const drawManhattan = () => {
-    setDraw(true);
-  };
-
   const getManhattan = async () => {
     const output = await getData('manhattan', { input: manhattanInput, width, height });
     setManhattanOutput(output);
   };
 
+  const drawManhattan = () => {
+    if (!manhattanInput) {
+      setDraw(true);
+    } else {
+      getManhattan();
+    }
+  };
+
   const parseFileInput = (down, right) => {
+    // debugger;
     let error = false;
-    if (down.length !== height - 1 && right !== width - 1) {
+    if (!down || !right || !Array.isArray(down) || !Array.isArray(right)) {
       error = true;
     }
+
+    const heightFile = down.length + 1;
+    const widthFile = down[0]?.length;
+
+    if (!widthFile || !heightFile) {
+      error = true;
+    }
+
+    if (right.length !== widthFile - 1) {
+      error = true;
+    }
+
     down.forEach((element) => {
-      if (element.length !== width) {
+      if (element.length !== widthFile) {
         error = true;
       }
     });
     right.forEach((element) => {
-      if (element.length !== height) {
+      if (element.length !== heightFile) {
         error = true;
       }
     });
@@ -80,17 +101,20 @@ const ManhattanPage = () => {
     }
 
     const input = {};
-    for (let i = 0; i < height - 1; i += 1) {
-      for (let j = 0; j < width; j += 1) {
+    for (let i = 0; i < heightFile - 1; i += 1) {
+      for (let j = 0; j < widthFile; j += 1) {
         input[`${i};${j}`] = { ...input[`${i};${j}`], [`${i + 1};${j}`]: down[i][j] };
       }
     }
-    for (let i = 0; i < height; i += 1) {
-      for (let j = 0; j < width - 1; j += 1) {
+    for (let i = 0; i < heightFile; i += 1) {
+      for (let j = 0; j < widthFile - 1; j += 1) {
         input[`${i};${j}`] = { ...input[`${i};${j}`], [`${i};${j + 1}`]: right[i][j] };
       }
     }
 
+    setFromFile(true);
+    setHeight(heightFile);
+    setWidth(widthFile);
     dispatchManhattanInput({ type: 'full', full: input });
   };
 
@@ -114,8 +138,32 @@ const ManhattanPage = () => {
   return (
     <StyledManhattanPageWrapper>
       <Content />
-      <Input id="manhattanHeight" label="Height" onChange={(e) => inputChange(e, 'height')} />
-      <Input id="manhattanWidth" label="Width" onChange={(e) => inputChange(e, 'width')} />
+      <Input
+        id="manhattanHeight"
+        label="Height"
+        type="number"
+        onChange={(e) => inputChange(e, 'height')}
+      />
+      <Input
+        id="manhattanWidth"
+        label="Width"
+        type="number"
+        onChange={(e) => inputChange(e, 'width')}
+      />
+      <p>Or add the files with JSON matrices down and right</p>
+      <input
+        id="manhattanFile"
+        lable="File"
+        type="file"
+        onChange={fileInputChange}
+        accept=".json"
+      />
+      {fileError && (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          Format of the file is not correct — <strong>check it out!</strong>
+        </Alert>
+      )}
       <Button onClick={drawManhattan} label="Make Manhattan" type="button" />
       {draw && (
         <>
@@ -128,20 +176,6 @@ const ManhattanPage = () => {
             dispatchManhattanInput={dispatchManhattanInput}
           />
 
-          <p>Or add the files with JSON matrices down and right</p>
-          <input
-            id="manhattanFile"
-            lable="File"
-            type="file"
-            onChange={fileInputChange}
-            accept=".json"
-          />
-          {fileError && (
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              Format of the file is not correct — <strong>check it out!</strong>
-            </Alert>
-          )}
           <StyledManhattanGetOutputWrapper>
             <Button onClick={getManhattan} label="Get Manhattan Output" type="button" />
             <Checkbox

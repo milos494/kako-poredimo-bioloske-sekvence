@@ -7,6 +7,7 @@ import GraphWrapper from '../GraphWrapper';
 import LetterArray from '../LetterArray';
 import {
   StyledLCS,
+  StyledLCSOuput,
   StyledLCSOutputLetter,
   StyledLCSOutputStrings,
   StyledLCSRowWrapper,
@@ -16,7 +17,11 @@ import {
 const LCS = ({ firstString, secondString, LCSOutput, iterative }) => {
   const [paused, setPaused] = useState(false);
   const [speed, setSpeed] = useState(300);
-  const { sequence1Modified, sequence2Modified, sequence1Position, sequence2Position } = LCSOutput;
+  const { sequence1Modified, sequence2Modified, sequence1Position, sequence2Position, lcs } =
+    LCSOutput;
+  const containerWidth = window.innerWidth - 420;
+  const shouldScroll =
+    sequence1Modified && sequence2Modified && sequence1Modified.length * 30 + 32 > containerWidth;
 
   const { finalPath, iterativeOutput } = useIterative({
     output: LCSOutput,
@@ -72,7 +77,7 @@ const LCS = ({ firstString, secondString, LCSOutput, iterative }) => {
         </StyledLCS>
       </GraphWrapper>
       {finalPath && (
-        <>
+        <StyledLCSOuput scroll={shouldScroll}>
           <h2>OUTPUT:</h2>
           <StyledLCSOutputStrings>
             {sequence1Modified.split('').map((letter, index) => (
@@ -94,7 +99,15 @@ const LCS = ({ firstString, secondString, LCSOutput, iterative }) => {
               </StyledLCSOutputLetter>
             ))}
           </StyledLCSOutputStrings>
-        </>
+          <h2>LCS:</h2>
+          <StyledLCSOutputStrings>
+            {lcs.split('').map((letter, index) => (
+              <StyledLCSOutputLetter active key={index}>
+                {letter}
+              </StyledLCSOutputLetter>
+            ))}
+          </StyledLCSOutputStrings>
+        </StyledLCSOuput>
       )}
     </>
   );

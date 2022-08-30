@@ -38,15 +38,6 @@ export class GlobalAlignmentService {
           backtrack[`${i};${j}`] = `${i};${j - 1}`;
         } else {
           backtrack[`${i};${j}`] = `${i - 1};${j - 1}`;
-          // console.log(
-          //   S[`${i};${j}`],
-          //   fromDiagonal,
-          //   fromTop,
-          //   fromLeft,
-          //   '123',
-          //   i,
-          //   j,
-          // );
         }
       }
     }

@@ -29,6 +29,33 @@ export const StyledLCSOutputLetter = styled.p`
   line-height: 30px;
   text-align: center;
   margin: 0;
-
   color: ${({ active }) => active && '#007FFF'};
+  flex: 0 0 30px;
+`;
+
+export const StyledLCSOuput = styled.div`
+  max-width: calc(100vw - 420px);
+  overflow-x: ${({ scroll }) => (scroll ? 'scroll' : 'hidden')};
+  overflow-y: hidden;
+  position: relative;
+  margin-right: 20px;
+  scroll-behavior: smooth;
+  padding-bottom: 20px;
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar {
+    height: 12px;
+    background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #1976d2;
+  }
 `;

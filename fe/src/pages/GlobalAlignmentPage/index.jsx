@@ -19,7 +19,7 @@ const LCSBacktrackPage = () => {
   useEffect(() => {
     setDrawLCS(false);
     setLCSOutput(null);
-  }, [firstString, secondString]);
+  }, [firstString, secondString, insertionPenalty, mismatchPenalty]);
 
   const inputChange = (e, type) => {
     const { value } = e.target;
@@ -52,8 +52,6 @@ const LCSBacktrackPage = () => {
       });
       setLCSOutput(output);
       setDrawLCS(true);
-
-      console.log(output);
     }
   };
 

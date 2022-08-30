@@ -4,7 +4,6 @@ import { ManhattanInputDto } from 'src/dto/manhattan-input.dto';
 @Injectable()
 export class ManhattanService {
   manhattan({ width, height, input }: ManhattanInputDto): any {
-    // console.log()
     const backtrack = { '0;0': '-1;-1' };
     const S = { '0;0': 0 };
 
@@ -58,6 +57,7 @@ export class ManhattanService {
       trackLongestSequence,
       S,
       backtrack,
+      output: S[`${height - 1};${width - 1}`],
     };
   }
 }

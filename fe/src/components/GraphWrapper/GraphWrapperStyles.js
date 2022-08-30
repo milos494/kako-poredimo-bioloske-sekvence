@@ -38,6 +38,8 @@ export const StyledScrollButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   max-width: calc(100vw - 940px);
+  width: 100%;
+  justify-content: flex-end;
 `;
 
 export const StyledControlsWrapper = styled.div`
