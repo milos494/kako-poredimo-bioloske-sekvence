@@ -3,6 +3,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { getData } from '../../api';
 import Button from '../../basic/Button';
 import Input from '../../basic/Input';
+import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 import Manhattan from '../../components/Manhattan';
 import useHashNavigation from '../../hooks/navigation';
 import Content from './content';
@@ -59,7 +60,7 @@ const ManhattanPage = () => {
   };
 
   const drawManhattan = () => {
-    if (!manhattanInput) {
+    if (!Object.keys(manhattanInput).length) {
       setDraw(true);
     } else {
       getManhattan();
@@ -136,69 +137,71 @@ const ManhattanPage = () => {
   };
 
   return (
-    <StyledManhattanPageWrapper>
-      <Content />
-      <Input
-        id="manhattanHeight"
-        label="Height"
-        type="number"
-        onChange={(e) => inputChange(e, 'height')}
-      />
-      <Input
-        id="manhattanWidth"
-        label="Width"
-        type="number"
-        onChange={(e) => inputChange(e, 'width')}
-      />
-      <p>Or add the files with JSON matrices down and right</p>
-      <input
-        id="manhattanFile"
-        lable="File"
-        type="file"
-        onChange={fileInputChange}
-        accept=".json"
-      />
-      {fileError && (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          Format of the file is not correct — <strong>check it out!</strong>
-        </Alert>
-      )}
-      <Button onClick={drawManhattan} label="Make Manhattan" type="button" />
-      {draw && (
-        <>
-          <p>Enter Manhattan input</p>
+    <GlobalPageWrapper>
+      <StyledManhattanPageWrapper>
+        <Content />
+        <Input
+          id="manhattanHeight"
+          label="Height"
+          type="number"
+          onChange={(e) => inputChange(e, 'height')}
+        />
+        <Input
+          id="manhattanWidth"
+          label="Width"
+          type="number"
+          onChange={(e) => inputChange(e, 'width')}
+        />
+        <p>Or add the files with JSON matrices down and right</p>
+        <input
+          id="manhattanFile"
+          lable="File"
+          type="file"
+          onChange={fileInputChange}
+          accept=".json"
+        />
+        {fileError && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Format of the file is not correct — <strong>check it out!</strong>
+          </Alert>
+        )}
+        <Button onClick={drawManhattan} label="Make Manhattan" type="button" />
+        {draw && (
+          <>
+            <p>Enter Manhattan input</p>
 
+            <Manhattan
+              height={height}
+              width={width}
+              manhattanInput={manhattanInput}
+              dispatchManhattanInput={dispatchManhattanInput}
+            />
+
+            <StyledManhattanGetOutputWrapper>
+              <Button onClick={getManhattan} label="Get Manhattan Output" type="button" />
+              <Checkbox
+                label="Show algorith iteratively"
+                size="large"
+                onChange={handleIterative}
+                defaultChecked
+                disabled={!!manhattanOutput}
+              />
+              <p>Get Manhattan output iteratively</p>
+            </StyledManhattanGetOutputWrapper>
+          </>
+        )}
+        {manhattanOutput && (
           <Manhattan
             height={height}
             width={width}
             manhattanInput={manhattanInput}
-            dispatchManhattanInput={dispatchManhattanInput}
+            manhattanOutput={manhattanOutput}
+            iterative={iterative}
           />
-
-          <StyledManhattanGetOutputWrapper>
-            <Button onClick={getManhattan} label="Get Manhattan Output" type="button" />
-            <Checkbox
-              label="Show algorith iteratively"
-              size="large"
-              onChange={handleIterative}
-              defaultChecked
-              disabled={!!manhattanOutput}
-            />
-            <p>Get Manhattan output iteratively</p>
-          </StyledManhattanGetOutputWrapper>
-        </>
-      )}
-      {manhattanOutput && (
-        <Manhattan
-          height={height}
-          width={width}
-          manhattanInput={manhattanInput}
-          manhattanOutput={manhattanOutput}
-          iterative={iterative}
-        />
-      )}
-    </StyledManhattanPageWrapper>
+        )}
+      </StyledManhattanPageWrapper>
+    </GlobalPageWrapper>
   );
 };
 

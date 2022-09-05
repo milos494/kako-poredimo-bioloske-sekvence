@@ -1,6 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import React, { useState } from 'react';
-import { MdExpandMore, MdSwapVerticalCircle } from 'react-icons/md';
+import { HiOutlineCheck, HiPlus } from 'react-icons/hi';
+
 import { Link, useLocation } from 'react-router-dom';
 import routes from '../../config/routes';
 import {
@@ -43,16 +44,13 @@ const SideBar = () => {
             }}
           >
             {children && children.length > 0 ? (
-              <AccordionSummary expandIcon={<MdExpandMore />} className="accordion-trigger">
+              <AccordionSummary expandIcon={<HiPlus />} className="accordion-trigger">
                 <StyledAccordionTitle>{label}</StyledAccordionTitle>
               </AccordionSummary>
             ) : (
               <StyledLinkWithoutChildren active={triggerPath === path}>
                 <Link to={triggerPath}>
-                  <AccordionSummary
-                    expandIcon={<MdSwapVerticalCircle />}
-                    className="accordion-trigger"
-                  >
+                  <AccordionSummary expandIcon={<HiOutlineCheck />} className="accordion-trigger">
                     <StyledAccordionTitle>{label}</StyledAccordionTitle>
                   </AccordionSummary>
                 </Link>

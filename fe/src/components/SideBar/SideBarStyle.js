@@ -6,7 +6,8 @@ export const StyledWrapper = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   min-width: 360px;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 100vh;
   padding-top: 10px;
   background: #3a3b3c;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

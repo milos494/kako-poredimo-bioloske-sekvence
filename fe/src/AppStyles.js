@@ -43,3 +43,10 @@ export const StyledAppWrapper = styled.div`
   justify-content: flex-start;
   max-width: 100vw;
 `;
+
+export const StyledTitle = styled.h1`
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+`;
