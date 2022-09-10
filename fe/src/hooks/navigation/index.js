@@ -5,11 +5,13 @@ const useHashNavigation = () => {
   const { hash } = useLocation();
 
   useEffect(() => {
-    if (hash) {
-      const element = document.getElementById(hash);
-      if (element) {
-        element.scrollIntoView();
-      }
+    console.log(hash);
+    const element = document.getElementById(hash);
+    if (element) {
+      element.scrollIntoView();
+    } else {
+      const title = document.getElementById('pocetak');
+      title.scrollIntoView();
     }
   }, [hash]);
 };

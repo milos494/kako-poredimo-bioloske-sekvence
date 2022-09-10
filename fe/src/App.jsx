@@ -6,24 +6,30 @@ import GlobalAlignmentPage from './pages/GlobalAlignmentPage';
 import LocalAlignmentPage from './pages/LocalAlignmentPage';
 import AffineGapPenaltyAlignment from './pages/AffineGapPenaltyAlignmentPage';
 import SideBar from './components/SideBar';
-import { StyledAppWrapper, StyledTitle } from './AppStyles';
+import { StyledAppWrapper, StyledGlobalAppWrapper, StyledTitle } from './AppStyles';
 import Page404 from './pages/404';
+import HomePage from './pages/HomePage';
+import AlignmentPage from './pages/AlignmentPage';
 
 const App = () => {
   return (
     <StyledAppWrapper>
       <SideBar />
-      <div>
-        <StyledTitle>ALGORITMI ZA PORAVNANJE BIOLOŠKIH SEKVENCI - ELEKTRONSKA LEKCIJA</StyledTitle>
+      <StyledGlobalAppWrapper>
+        <StyledTitle id="pocetak">
+          ALGORITMI ZA PORAVNANJE BIOLOŠKIH SEKVENCI - ELEKTRONSKA LEKCIJA
+        </StyledTitle>
         <Routes>
-          <Route path="/manhattan" element={<ManhattanPage />} />
-          <Route path="/lcs" element={<LCSBacktrackPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/poravnanje-sekvenci" element={<AlignmentPage />} />
+          <Route path="/menhetn-turista" element={<ManhattanPage />} />
+          <Route path="/problem-poravnanja" element={<LCSBacktrackPage />} />
           <Route path="/globalno-poravnanje" element={<GlobalAlignmentPage />} />
-          <Route path="/local-alignment" element={<LocalAlignmentPage />} />
-          <Route path="/affine-gap-penalty-alignment" element={<AffineGapPenaltyAlignment />} />
+          <Route path="/lokalno-poravnanje" element={<LocalAlignmentPage />} />
+          <Route path="/afine-kazne" element={<AffineGapPenaltyAlignment />} />
           <Route path="*" exact element={<Page404 />} />
         </Routes>
-      </div>
+      </StyledGlobalAppWrapper>
     </StyledAppWrapper>
   );
 };

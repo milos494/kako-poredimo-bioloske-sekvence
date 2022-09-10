@@ -5,7 +5,6 @@ import Button from '../../basic/Button';
 import Input from '../../basic/Input';
 import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 import Manhattan from '../../components/Manhattan';
-import useHashNavigation from '../../hooks/navigation';
 import Content from './content';
 import { StyledManhattanGetOutputWrapper, StyledManhattanPageWrapper } from './ManhattanPageStyles';
 import { manhattanInitialState, manhattanReducer } from './reducer';
@@ -24,7 +23,6 @@ const ManhattanPage = () => {
   const [iterative, setIterative] = useState(true);
   const [fromFile, setFromFile] = useState(false);
 
-  useHashNavigation();
   useEffect(() => {
     setManhattanOutput(null);
     setFileError(false);
@@ -142,17 +140,17 @@ const ManhattanPage = () => {
         <Content />
         <Input
           id="manhattanHeight"
-          label="Height"
+          label="Visina"
           type="number"
           onChange={(e) => inputChange(e, 'height')}
         />
         <Input
           id="manhattanWidth"
-          label="Width"
+          label="Širina"
           type="number"
           onChange={(e) => inputChange(e, 'width')}
         />
-        <p>Or add the files with JSON matrices down and right</p>
+        <p>Ili fajl koji sadrži matrice down i right</p>
         <input
           id="manhattanFile"
           lable="File"
@@ -162,14 +160,14 @@ const ManhattanPage = () => {
         />
         {fileError && (
           <Alert severity="error">
-            <AlertTitle>Error</AlertTitle>
-            Format of the file is not correct — <strong>check it out!</strong>
+            <AlertTitle>Greška</AlertTitle>
+            Format fajla nije dobar — <strong>proverite!</strong>
           </Alert>
         )}
-        <Button onClick={drawManhattan} label="Make Manhattan" type="button" />
+        <Button onClick={drawManhattan} label="Napravi Menhetn" type="button" />
         {draw && (
           <>
-            <p>Enter Manhattan input</p>
+            <p>Unesi Menhetn ulaz</p>
 
             <Manhattan
               height={height}
@@ -179,15 +177,15 @@ const ManhattanPage = () => {
             />
 
             <StyledManhattanGetOutputWrapper>
-              <Button onClick={getManhattan} label="Get Manhattan Output" type="button" />
+              <Button onClick={getManhattan} label="Pokreni algoritam" type="button" />
               <Checkbox
-                label="Show algorith iteratively"
+                label="Iterativni izlaz"
                 size="large"
                 onChange={handleIterative}
                 defaultChecked
                 disabled={!!manhattanOutput}
               />
-              <p>Get Manhattan output iteratively</p>
+              <p>Iterativni izlaz</p>
             </StyledManhattanGetOutputWrapper>
           </>
         )}

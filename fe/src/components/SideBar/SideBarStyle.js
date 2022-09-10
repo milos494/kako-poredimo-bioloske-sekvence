@@ -71,7 +71,7 @@ export const StyledWrapper = styled.div`
 export const StyledLinkList = styled.ul`
   list-style: none;
   margin: 0;
-  padding: 0 50px;
+  padding: 0 30px;
 `;
 
 export const StyledLinkListItem = styled.li`

@@ -21,18 +21,30 @@ export const GlobalStyle = createGlobalStyle`
       background-color: #1976d2;
     }
 
-    h1, h2, h3, h4, h5, p, a, input {
+    h1, h2, h3, h4, h5, p, a, input, li {
       font-family: Roboto;
       color: #1a1a1a;
     }
 
-    p {
+    p, li {
       font-size: 14px;
-      line-height: 16px;
+      line-height: 18px;
     }
     a {
       font-size: 18px;
       line-height: 20px;
+    }
+
+    .content-wrapper {
+      margin: 20px;
+
+      img {
+        margin: 20px 0;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
     }
 
   }
@@ -49,4 +61,8 @@ export const StyledTitle = styled.h1`
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+`;
+
+export const StyledGlobalAppWrapper = styled.div`
+  width: 100%;
 `;
