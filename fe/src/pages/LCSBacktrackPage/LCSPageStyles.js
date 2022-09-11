@@ -6,6 +6,7 @@ export const StyledLCSPageWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 20px;
+  max-width: calc(100vw - 420px);
 `;
 
 export const StyledInputOutputWrapper = styled.div`

@@ -103,4 +103,5 @@ export const StyledLinkWithoutChildren = styled.div`
 
 export const StyledInnerWrapper = styled.div`
   position: fixed;
+  top: 0;
 `;

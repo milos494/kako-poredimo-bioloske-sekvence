@@ -38,12 +38,14 @@ export const GlobalStyle = createGlobalStyle`
     .content-wrapper {
       margin: 20px;
 
-      img {
+      .image {
+        display: flex;
         margin: 20px 0;
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
+        img {
+          margin: 0 auto;
+        }
       }
+
 
     }
 

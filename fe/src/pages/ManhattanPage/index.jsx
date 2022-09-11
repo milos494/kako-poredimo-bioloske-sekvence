@@ -66,7 +66,6 @@ const ManhattanPage = () => {
   };
 
   const parseFileInput = (down, right) => {
-    // debugger;
     let error = false;
     if (!down || !right || !Array.isArray(down) || !Array.isArray(right)) {
       error = true;
@@ -135,9 +134,9 @@ const ManhattanPage = () => {
   };
 
   return (
-    <GlobalPageWrapper>
+    <GlobalPageWrapper title="Menhetn turista">
+      <Content />
       <StyledManhattanPageWrapper>
-        <Content />
         <Input
           id="manhattanHeight"
           label="Visina"
@@ -164,29 +163,28 @@ const ManhattanPage = () => {
             Format fajla nije dobar — <strong>proverite!</strong>
           </Alert>
         )}
-        <Button onClick={drawManhattan} label="Napravi Menhetn" type="button" />
+
+        <StyledManhattanGetOutputWrapper>
+          <Button onClick={drawManhattan} label="Napravi Menhetn" type="button" />
+          <Checkbox
+            label="Iterativni izlaz"
+            size="large"
+            onChange={handleIterative}
+            defaultChecked
+            disabled={!!manhattanOutput}
+          />
+          <p>Iterativni izlaz</p>
+        </StyledManhattanGetOutputWrapper>
         {draw && (
           <>
             <p>Unesi Menhetn ulaz</p>
-
             <Manhattan
               height={height}
               width={width}
               manhattanInput={manhattanInput}
               dispatchManhattanInput={dispatchManhattanInput}
             />
-
-            <StyledManhattanGetOutputWrapper>
-              <Button onClick={getManhattan} label="Pokreni algoritam" type="button" />
-              <Checkbox
-                label="Iterativni izlaz"
-                size="large"
-                onChange={handleIterative}
-                defaultChecked
-                disabled={!!manhattanOutput}
-              />
-              <p>Iterativni izlaz</p>
-            </StyledManhattanGetOutputWrapper>
+            <Button onClick={getManhattan} label="Pokreni algoritam" type="button" />
           </>
         )}
         {manhattanOutput && (

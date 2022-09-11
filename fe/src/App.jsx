@@ -10,6 +10,7 @@ import { StyledAppWrapper, StyledGlobalAppWrapper, StyledTitle } from './AppStyl
 import Page404 from './pages/404';
 import HomePage from './pages/HomePage';
 import AlignmentPage from './pages/AlignmentPage';
+import DynamicPage from './pages/DynamicProgramming';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/poravnanje-sekvenci" element={<AlignmentPage />} />
           <Route path="/menhetn-turista" element={<ManhattanPage />} />
+          <Route path="/problem-kusura" element={<DynamicPage />} />
           <Route path="/problem-poravnanja" element={<LCSBacktrackPage />} />
           <Route path="/globalno-poravnanje" element={<GlobalAlignmentPage />} />
           <Route path="/lokalno-poravnanje" element={<LocalAlignmentPage />} />

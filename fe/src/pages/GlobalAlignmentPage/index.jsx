@@ -5,6 +5,7 @@ import Button from '../../basic/Button';
 import Input from '../../basic/Input';
 import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 import LCS from '../../components/LCS';
+import Content from './content';
 // import GlobalAlignment from '../../utils/GlobalAlignment';
 import { StyledInputOutputWrapper, StyledLCSPageWrapper } from './GlobalAlignmentStyles';
 
@@ -62,6 +63,7 @@ const LCSBacktrackPage = () => {
 
   return (
     <GlobalPageWrapper>
+      <Content />
       <StyledLCSPageWrapper>
         <StyledInputOutputWrapper>
           <Input

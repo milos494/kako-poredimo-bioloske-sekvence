@@ -20,14 +20,20 @@ const HomePage = () => {
           od 3 nukleotida (kodon) kodira jednu aminokiselinu koja se dodaje na rastući lanac
           proteina. Na slici ispod možemo videti genetski kod.
         </p>
-        <img src="/images/home/genetskikod2.png" alt="Genetski kod" />
+
+        <div className="image">
+          <img src="/images/home/genetskikod2.png" alt="Genetski kod" />
+        </div>
         <h2 id="#nrp">Neribozomalni proteini</h2>
         <p>
           Za razliku od drugih proteina, sinteza neribozomalnih proteina (NRP) se odvija nezavisno
           od ribozoma. mesto toga, ovi organizmi proizvode NRP-ove uz pomoć ogromnih proteinskih
           kompleksa pod imenom <b>NRP sintetaze</b> (dijagram ispod).
         </p>
-        <img src="/images/home/dijagram.png" alt="Dijagram" />
+
+        <div className="image">
+          <img src="/images/home/dijagram.png" alt="Dijagram" />
+        </div>
         <p>
           Svaki NRP ima svoju NRP sintetazu, a svaka NRP sintetaza se sastoji od različitih
           segmenata, koji se nazivaju domeni adenilacije (A domeni). Svaki A domen određuje jednu
@@ -41,22 +47,36 @@ const HomePage = () => {
           delove koji odgovaraju različitim aminokiselinama. Na slici ispod možemo videti fragmente
           tri A domena koji kodiraju asparginsku kiselinu (Asp), orintonin (Orn) i valin (Val).
         </p>
-        <img src="/images/home/asp-org-val.png" alt="AspOrgVal" />
+
+        <div className="image">
+          <img src="/images/home/asp-org-val.png" alt="AspOrgVal" />
+        </div>
         <p>
           Možemo videti da u ovim A domenima imamo jedino 3 zajedničke kolone (pozicije unutar
           sekvenci na kojima se nalaze iste aminokoseline):
         </p>
-        <img src="/images/home/zajednicke3kolone.png" alt="AspOrgVal" />
+
+        <div className="image">
+          <img src="/images/home/zajednicke3kolone.png" alt="AspOrgVal" />
+        </div>
         <p>
           Međutim, ako pomerimo drugu sekvencu za jedno mesto u desno (dodavanjem praznog simbola −
           na početak sekvence), onda vidimo da imamo 11 zajedničkih kolona:
         </p>
-        <img src="/images/home/11zajednickih.png" alt="AspOrgVal" />
+
+        <div className="image">
+          <img src="/images/home/11zajednickih.png" alt="AspOrgVal" />
+        </div>
         <p>Dodavanjem još nekoliko praznih simbola, otkrivamo 14 zajedničkih kolona:</p>
 
-        <img src="/images/home/14zajednickih.png" alt="AspOrgVal" />
+        <div className="image">
+          <img src="/images/home/14zajednickih.png" alt="AspOrgVal" />
+        </div>
         <p>I dodavanjem još malo praznih simbola, dobijamo 19 zajedničkih kolona:</p>
-        <img src="/images/home/19zajednickih.png" alt="AspOrgVal" />
+
+        <div className="image">
+          <img src="/images/home/19zajednickih.png" alt="AspOrgVal" />
+        </div>
         <p>
           Ispostavlja se da crvene kolone predstavljaju <b>konzervirano jezgro</b> koje dele mnogi A
           domeni. Nakon dugogodišnjih istraživanja u kojima je od velikog značaja bilo poznavanje
@@ -65,12 +85,18 @@ const HomePage = () => {
           nekonzerviranim kolonama. Neribozomalni kod dužine 8 aminokiselina za Asp, Orn i Val
           možemo videti na sledećoj slici:
         </p>
-        <img src="/images/home/8ljubicastoKod.png" alt="AspOrgVal" />
+
+        <div className="image">
+          <img src="/images/home/8ljubicastoKod.png" alt="AspOrgVal" />
+        </div>
         <p>
           Neribozomalni kod definisan nizom od 8 aminokiselina se naziva signatura. Na sledećoj
           slici možemo videti izdvojeno signature za aminokiseline Asp, Orn i Val:
         </p>
-        <img src="/images/home/8kratkoLjubicastoKod.png" alt="AspOrgVal" />
+
+        <div className="image">
+          <img src="/images/home/8kratkoLjubicastoKod.png" alt="AspOrgVal" />
+        </div>
       </div>
     </GlobalPageWrapper>
   );

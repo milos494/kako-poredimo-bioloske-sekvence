@@ -7,6 +7,7 @@ export const StyledManhattanPageWrapper = styled.div`
   justify-content: center;
   margin: 20px;
   flex: 1;
+  max-width: calc(100vw - 420px);
 
   ${StyledInputWrapper} {
     margin-left: 0;

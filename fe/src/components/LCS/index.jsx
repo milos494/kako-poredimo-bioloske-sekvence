@@ -78,7 +78,7 @@ const LCS = ({ firstString, secondString, LCSOutput, iterative }) => {
       </GraphWrapper>
       {finalPath && (
         <StyledLCSOuput scroll={shouldScroll}>
-          <h2>OUTPUT:</h2>
+          <h2>IZLAZ:</h2>
           <StyledLCSOutputStrings>
             {sequence1Modified.split('').map((letter, index) => (
               <StyledLCSOutputLetter
@@ -99,7 +99,7 @@ const LCS = ({ firstString, secondString, LCSOutput, iterative }) => {
               </StyledLCSOutputLetter>
             ))}
           </StyledLCSOutputStrings>
-          <h2>LCS:</h2>
+          <h2>NAJDUŽA ZAJEDNIČKA PODSEKVENCA:</h2>
           <StyledLCSOutputStrings>
             {lcs.split('').map((letter, index) => (
               <StyledLCSOutputLetter active key={index}>

@@ -65,7 +65,7 @@ const Manhattan = ({
           ))}
         </StyledManhattanWrapper>
       </GraphWrapper>
-      {finalPath && <h2>Longest path: {output}</h2>}
+      {finalPath && <h2>Najteža putanja: {output}</h2>}
     </>
   );
 };

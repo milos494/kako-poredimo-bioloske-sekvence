@@ -2,204 +2,153 @@ import React from 'react';
 
 const Content = () => {
   return (
-    <div>
-      <h2 id="#vizualizacija1">LOREM IPSUM</h2>
+    <div className="content-wrapper">
       <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
+        Pretpostavimo da turista na Menhetnu želi da poseti što više znamenitosti za što manje
+        vremena. Na Menhetnu se sve ulice seku pod pravim uglom i pravilo je da se turista na svakoj
+        raskrsnici može kretati jedino južno (↓) ili istočno (→), što znači da ne može da se vrati
+        nazad. Turista može birati između više različitih putanja, ali ne postoji putanja kojom će
+        posetiti sve znamenitosti. Problem pronalaženja putanje kroz grad kojom će turista posetiti
+        najviše znamenitosti se zove Problem turiste na Menhetnu.
       </p>
       <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
+        Mapu Menhetna možemo predstaviti kao usmeren graf, u kome svaka raskrsnica predstavlja čvor,
+        a svaka ulica sa naznačenim smerom kretanja (južno ili istočno) predstavlja granu u grafu.
+        Svakoj grani pridružimo težinu jednaku broju znamenitosti koje se nalaze u toj ulici. Graf
+        koji posmatramo je usmeren, pravougaoni, težinski i mrežni i takav graf ćemo zvati{' '}
+        <b>Menhetn graf</b>. Da bismo rešili ovaj problem, zapravo moramo pronaći putanju maksimalne
+        težine u Menhetn grafu. S obzirom na dozvoljene smerove kretanja, čvor sa koordinatama (0,
+        0) možemo označiti kao početni, a čvor sa koordinatama (n, m) kao krajnji.
       </p>
+      <div className="image">
+        <img style={{ width: '800px' }} src="/images/manhattan/manhattan1.png" alt="Menhetn graf" />
+      </div>
+      <h2 id="#pohlepan">Pohlepan pristup</h2>
       <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
+        Primena grube sile na ovaj problem zahteva mnogo vremena zato što je ukupan broj svih
+        mogućih putanja ogroman. Pohlepan pristup bi izabrao jedan od dva pravca (južno ili
+        istočno), u zavisnosti koliko atrakcija možemo posetiti kretajući se južno ili istočno.
+        Postoji mogućnost da ovakav pristup zanemari najtežu moguću putanju. Na slikama ispod možemo
+        videti Menhetn graf, putanju dobijenu primenom grube sile i putanju maksimalne težine.
       </p>
+      <div className="image">
+        <img
+          style={{ flex: '0 0 30%', width: '30%' }}
+          src="/images/manhattan/manhattangraf.png"
+          alt="Menhetn graf"
+        />
+        <img
+          style={{ flex: '0 0 30%', width: '30%' }}
+          src="/images/manhattan/manhattanpohlepan.png"
+          alt="Menhetn graf"
+        />
+        <img
+          style={{ flex: '0 0 30%', width: '30%' }}
+          src="/images/manhattan/menhetn1najtezaputanja.png"
+          alt="Menhetn graf"
+        />
+      </div>
+      <h2 id="#rekurzivni">Rekurzivni pristup</h2>
       <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
+        Sledeći algoritam izračunava najtežu putanju do čvora (i, j) u Menhetn grafu uz ograničenje
+        da do čvora (i, j) jedino možemo doći kretajući se južno (iz čvora (i − 1, j)) ili istočno
+        (iz čvora (i, j − 1)). Slično kao kod rekurzivnog pristupa vraćanju kusura, ovaj algoritam
+        se izvršava više puta za istu vrednost.
       </p>
+      <code>
+        <b>function</b> ManhattanRecursive(i, j)
+        <br />
+        <code style={{ marginLeft: '20px' }}>
+          <b>if</b> i = 0 and j = 0 <b>then</b> <b>return</b> 0
+        </code>
+        <br />
+        <code style={{ marginLeft: '20px' }}>x ← −∞</code>
+        <br />
+        <code style={{ marginLeft: '20px' }}>y ← −∞</code>
+        <br />
+        <code style={{ marginLeft: '20px' }}>
+          <b>if</b> i {'>'} 0 <b>then</b>
+        </code>
+        <br />
+        <code style={{ marginLeft: '40px' }}>
+          x ←ManhattanRecursive(i − 1, j) + weight of vertical edge into (i, j)
+        </code>
+        <br />
+        <code style={{ marginLeft: '20px' }}>
+          <b>if</b> j {'>'} 0 <b>then</b>
+        </code>
+        <br />
+        <code style={{ marginLeft: '40px' }}>
+          y ←ManhattanRecursive(i, j − 1) + weight of horizontal edge into (i, j)
+        </code>
+        <br />
+        <code style={{ marginLeft: '20px' }}>
+          <b>return</b> max{'{'}(x, y){'}'}
+        </code>
+      </code>
+      <h2 id="#dinamicki">Dinamički pristup</h2>
       <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
+        Pristupom dinamičkog programiranja, da bismo pronašli najtežu putanju od početnog čvora (0,
+        0) do krajnjeg (n, m), prvo ćemo pronaći težine svih putanja od početnog do svih čvorova (i,
+        j) u mreži, kretajući se od početnog pa sve do krajnjeg čvora. Ideja iza pristupa dinamičkim
+        programiranjem je da prvo rešimo svaki od manjih problema jednom, umesto milionima puta.
+        Označićemo sa S<sub>i,j</sub> vrednost najteže putanje od početnog čvora do čvora (i, j) u
+        grafu (vrednost S<sub>n,m</sub> označava vrednost najteže putanje od početnog do krajnjeg
+        čvora). Prvo računamo težine svih putanja do čvorova po obodu grafa, zato što oni imaju samo
+        po jednu ulaznu granu. Nakon toga, red po red, izračunavamo odgovarajuće težine S
+        <sub>i,j</sub> za ostale čvorove prateći relaciju:
       </p>
+      <div className="image">
+        <img src="/images/manhattan/relacijaManhattan.png" alt="Relacija Menhetn" />
+      </div>
       <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
+        Kako bi na kraju bilo moguće rekonstruisati putanju, pošto ulazni čvorovi imaju po dve
+        ulazne grane, potrebno je i zapamtiti kojom granom smo došli do datog čvora. Da bismo
+        rekonstruisali putanju, dovoljno je da krenemo od krajnjeg čvora u suprotnom smeru. Ako sa
+        down<sub>i,j</sub> i right<sub>i,j</sub> označimo težine odgovarajućih grana, rešenje
+        problema turiste na Menhetnu dinamičkim pristupom možemo opisati sledećim algoritmom:
       </p>
-      <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
-      </p>
-      <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
-      </p>
-      <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
-      </p>
-      <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
-      </p>
-      <h2 id="#vizualizacija2">LOREM IPSUM</h2>
-      <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
-      </p>
-      <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
-      </p>
-      <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
-      </p>
-      <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
-      </p>
-      <p>
-        But I must explain to you how all this mistaken idea of denouncing pleasure and praising
-        pain was born and I will give you a complete account of the system, and expound the actual
-        teachings of the great explorer of the truth, the master-builder of human happiness. No one
-        rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
-        do not know how to pursue pleasure rationally encounter consequences that are extremely
-        painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-        because it is pain, but because occasionally circumstances occur in which toil and pain can
-        procure him some great pleasure. To take a trivial example, which of us ever undertakes
-        laborious physical exercise, except to obtain some advantage from it? But who has any right
-        to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
-        or one who avoids a pain that produces no resultant pleasure?
-      </p>
+      <code>
+        <b>function</b> ManhattanDynamic(n, m, down, right)
+        <br />
+        <code style={{ marginLeft: '20px' }}>
+          S<sub>0,0</sub> ← 0
+        </code>
+        <br />
+        <code style={{ marginLeft: '20px' }}>
+          <b>for</b> i ← 1 to n <b>do</b>
+        </code>
+        <br />
+        <code style={{ marginLeft: '40px' }}>
+          S<sub>i,0</sub> ← S<sub>i-1,0</sub> + down<sub>i,0</sub>
+        </code>
+        <br />
+        <code style={{ marginLeft: '20px' }}>
+          <b>for</b> j ← 1 to m <b>do</b>
+        </code>
+        <br />
+        <code style={{ marginLeft: '40px' }}>
+          S<sub>0,j</sub> ← S<sub>0,j-1</sub> + down<sub>0,j</sub>
+        </code>
+        <br />
+        <code style={{ marginLeft: '20px' }}>
+          <b>for</b> j ← 1 to m <b>do</b>
+        </code>
+        <br />
+        <code style={{ marginLeft: '40px' }}>
+          <b>for</b> i ← 1 to n <b>do</b>
+        </code>
+        <br />
+        <code style={{ marginLeft: '60px' }}>
+          S<sub>i,j</sub> ← max{'{'}S<sub>i-1,j</sub> + down<sub>i,j</sub> , S<sub>i,j-1</sub> +
+          right<sub>i,j</sub> {'}'}
+        </code>
+        <br />
+        <code style={{ marginLeft: '20px' }}>
+          <b>return</b> S<sub>n,m</sub>
+        </code>
+      </code>
+      <h2 id="#implementacija">Implementacija</h2>
     </div>
   );
 };

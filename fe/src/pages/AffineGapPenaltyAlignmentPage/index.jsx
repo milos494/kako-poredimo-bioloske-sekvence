@@ -6,6 +6,7 @@ import Input from '../../basic/Input';
 import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 import LCS from '../../components/LCS';
 import { StyledInputOutputWrapper, StyledLCSPageWrapper } from './AffineGapPenaltyAlignmentStyles';
+import Content from './content';
 
 const LCSBacktrackPage = () => {
   const [firstString, setFirstString] = useState();
@@ -66,6 +67,7 @@ const LCSBacktrackPage = () => {
 
   return (
     <GlobalPageWrapper>
+      <Content />
       <StyledLCSPageWrapper>
         <StyledInputOutputWrapper>
           <Input

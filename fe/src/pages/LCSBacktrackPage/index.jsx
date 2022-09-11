@@ -5,6 +5,7 @@ import Button from '../../basic/Button';
 import Input from '../../basic/Input';
 import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 import LCS from '../../components/LCS';
+import Content from './content';
 import { StyledInputOutputWrapper, StyledLCSPageWrapper } from './LCSPageStyles';
 
 const LCSBacktrackPage = () => {
@@ -44,7 +45,8 @@ const LCSBacktrackPage = () => {
   };
 
   return (
-    <GlobalPageWrapper>
+    <GlobalPageWrapper title="Problem poravnanja">
+      <Content />
       <StyledLCSPageWrapper>
         <StyledInputOutputWrapper>
           <Input

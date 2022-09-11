@@ -26,7 +26,7 @@ export const StyledNode = styled.div`
   z-index: 1;
 
   p {
-    background: inherit;
+    background: transparent;
   }
 `;
 
