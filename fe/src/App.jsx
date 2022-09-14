@@ -11,6 +11,7 @@ import Page404 from './pages/404';
 import HomePage from './pages/HomePage';
 import AlignmentPage from './pages/AlignmentPage';
 import DynamicPage from './pages/DynamicProgramming';
+import DAGPage from './pages/DAGPage';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/menhetn-turista" element={<ManhattanPage />} />
           <Route path="/problem-kusura" element={<DynamicPage />} />
           <Route path="/problem-poravnanja" element={<LCSBacktrackPage />} />
+          <Route path="/proizvoljni-graf" element={<DAGPage />} />
           <Route path="/globalno-poravnanje" element={<GlobalAlignmentPage />} />
           <Route path="/lokalno-poravnanje" element={<LocalAlignmentPage />} />
           <Route path="/afine-kazne" element={<AffineGapPenaltyAlignment />} />

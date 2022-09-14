@@ -42,7 +42,7 @@ const routes = [
     ],
   },
   {
-    path: '/problem-poravnanja',
+    path: '/proizvoljni-graf',
     label: 'Putanja proizvoljni graf',
   },
   {

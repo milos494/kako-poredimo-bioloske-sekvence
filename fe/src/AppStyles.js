@@ -27,7 +27,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     p, li {
-      font-size: 14px;
+      font-size: 16px;
       line-height: 18px;
     }
     a {
@@ -45,8 +45,9 @@ export const GlobalStyle = createGlobalStyle`
           margin: 0 auto;
         }
       }
-
-
+    }
+    code {
+      font-size: 16px;
     }
 
   }
