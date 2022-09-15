@@ -66,7 +66,7 @@ const LCSBacktrackPage = () => {
   };
 
   return (
-    <GlobalPageWrapper>
+    <GlobalPageWrapper title="Afine kazne">
       <Content />
       <StyledLCSPageWrapper>
         <StyledInputOutputWrapper>

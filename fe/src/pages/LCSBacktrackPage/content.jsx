@@ -154,9 +154,10 @@ const Content = () => {
       </p>
       <p>
         Poziv funkcije OutputLCS(backtrack, v, i, j), na osnovu prethodno izračuna- te matrice
-        backtrack, vraća najdužu zajedničku podsekvencu za prefikse niski v i w redom dužina i i j,
-        a poziv OutputLCS(backtrack, v, |v|, |w|) vraća najdužu zajedničku podsekvencu za niske v i
-        w.
+        backtrack, vraća najdužu zajedničku podsekvencu za prefikse niski<i>v</i>i<i>w</i>redom
+        dužina i i j, a poziv OutputLCS(backtrack, v, |v|, |w|) vraća najdužu zajedničku podsekvencu
+        za niske
+        <i>v</i>i w.
       </p>
 
       <code>

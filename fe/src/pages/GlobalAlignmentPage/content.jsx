@@ -2,59 +2,57 @@ import React from 'react';
 
 const Content = () => {
   return (
-    <div className="content-wrapper">
-      <h2>Konstrukcija grafa poravnanja</h2>
+    <div className="content-wrapper" title="Globalno poravnanje">
       <p>
-        Ako se vratimo na poravnanje sekvenci, vidimo da postoji veza sa problemom turiste na
-        Menhetnu. Pitanje koje postavljamo je kako da izgradimo graf za problem poravnanja. Za datu
-        matricu poravnanja, graf koji bi bio analogon Menhetn grafu možemo da konstruišemo na
-        sledeći način:
+        Do sada smo podrazumevali da je optimalno poravnanje dve sekvence ono koje ima najveći broj
+        poklapanja, tj. ono kod koga je Hamingovo rastojanje najmanje. Problem poravnanja smo
+        svodili na problem pronalaženja najduže zajedničke podsekvence. Ovako konstruisano
+        poravnanje ima veći broj poklapanja, ali i insercija i delecija. Poravnanje u biološkom
+        smislu može imati različita značenja. Važno je da možemo da kontrolišemo da li u optimalnom
+        poravnanju želimo da dobijemo manje ili više insercija/delecija kao i da li da budu na
+        početku/kraju niske ili u sredini. Uvešćemo pojam <b>skora poravnanja</b>, na osnovu koga
+        ćemo definisati različite vrste poravnanja.
       </p>
-      <ul>
-        <li>Kolone grafa označimo karakterima iz prve niske</li>
-        <li>Vrste grafa označimo karakterima iz druge niske</li>
-        <li>U svaku presečnu tačku postavimo po jedan čvor</li>
-        <li>
-          Gde god je moguće, postavimo vertikalne (insercija), horizontalne (delecija) i dijagonalne
-          grane (poklapanje ili promašaj)
-        </li>
-        <li>
-          Dijagonalne grane koje odgovaraju poklapanjima otežamo koeficijentom 1, ostale grane
-          koeficijentom 0 (suština je da povoljniji ishod (poklapanje) otežamo više nego
-          nepovoljniji (promašaj))
-        </li>
-        <li> Čvor (0, 0) označimo kao početni čvor u grafu</li>
-        <li>Čvor (n, m) označimo kao krajnji čvor u grafu </li>{' '}
-      </ul>
       <p>
-        Na sledećoj slici predstavljen je graf poravnanja za sekvence ATGTTATA i ATCGTCC. Da bismo
-        pronašli njihovo optimalno poravnanje, potrebno je da nađemo najtežu putanju izmedu početnog
-        i krajnjeg čvora. Kada poredimo ovaj graf sa grafom problema turiste sa Menhetna, vidimo da
-        pored vertikalnih i horizontalnih, ovaj graf sadrži i dijagonalne grane.
+        Ako skor za promašaj (mismatch) označimo sa µ, a skor za insercije i delecije (indel) sa σ,
+        onda skor poravnanja možemo računati kao:
       </p>
       <div className="image">
-        <img src="/images/lcs/poravnanjeuvod.png" alt="Poravnanje graf" />
+        <img
+          style={{ width: '400px' }}
+          src="/images/global/skorporavnanja.png"
+          alt="Skor poravnanja"
+        />
       </div>
       <p>
-        Za svako dato poravnanje između dve sekvence, putanju između početnog i kraj- njeg čvora u
-        grafu možemo konstruisati na sledeći način: počevši od prve kolone poravnanja, za svako
-        poklapanje i promašaj u putanju dodamo dijagonalnu granu, za svaku inserciju horizontalnu a
-        za svaku deleciju vertikalnu granu. Na primer, neka su sekvence ATGTTATA i ATCGTCC poravnate
-        na sledeći način:
+        Pošto su neke mutacije više verovatne od drugih, to znači da svaki promašaj, inserciju i
+        deleciju možemo različito ceniti zavisno koji simboli su uključeni. Tada ima smisla ove
+        vrednosti predstaviti matrično i takvu matricu nazivamo <b>matricom skora</b>. Na slici
+        ispod možemo videti matricu skora DNK sekvenci kada su promašaji kažnjeni skorom µ a
+        insercije i delecije skorom σ. Ovakve matrice ne moraju biti simetrične, jer se na primer
+        češće dešava da G mutira u T nego obrnuto, na slici ispod možemo videti primer jedne takve
+        matrice.
       </p>
       <div className="image">
-        <img src="/images/lcs/poravnanjeAA.png" alt="Poravnanje dve sekvence" />
+        <img
+          style={{ width: '300px', margin: 0 }}
+          src="/images/global/miSigmaSkor.png"
+          alt="Skor poravnanja"
+        />
+        <img
+          style={{ width: '300px', margin: 0 }}
+          src="/images/global/misigmaskripta.png"
+          alt="Skor poravnanja"
+        />
       </div>
       <p>
-        Za dato poravnanje, na sledećoj slici možemo videti konstruisanu putanju u grafu poravnanja.
-        Možemo primetiti da svakom poravnanju odgovara tačno jedna putanja u grafu, ali i da svakoj
-        putanji odgovara tačno jedno poravnanje.
+        Označimo matricu skora sa score. Da bismo rešili ovaj problem, uzevši u obzir izmenu u
+        načinu računanja skora poravnanja, definisaćemo rekurentnu relaciju za računanje najteže
+        putanje S u grafu poravnanja:
       </p>
       <div className="image">
-        <img src="/images/lcs/poravnanjeprimer.png" alt="Poravnanje dve sekvence graf" />
+        <img src="/images/global/relacijaglobalno.png" alt="Skor poravnanja" />
       </div>
-      <h2 id="#dinamicki">Dinamički pristup</h2>
-
       <h2 id="#implementacija">Implementacija</h2>
     </div>
   );

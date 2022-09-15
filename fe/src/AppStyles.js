@@ -41,6 +41,8 @@ export const GlobalStyle = createGlobalStyle`
       .image {
         display: flex;
         margin: 20px 0;
+        align-items: center;
+        justify-content: center;
         img {
           margin: 0 auto;
         }

@@ -75,7 +75,7 @@ const routes = [
     label: 'Prostorna poboljšanja',
   },
   {
-    path: '/visestruko-poravanje',
+    path: '/visestruko-poravnanje',
     label: 'Višestruko poravnanje',
   },
 ];

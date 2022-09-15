@@ -3,58 +3,90 @@ import React from 'react';
 const Content = () => {
   return (
     <div className="content-wrapper">
-      <h2>Konstrukcija grafa poravnanja</h2>
       <p>
-        Ako se vratimo na poravnanje sekvenci, vidimo da postoji veza sa problemom turiste na
-        Menhetnu. Pitanje koje postavljamo je kako da izgradimo graf za problem poravnanja. Za datu
-        matricu poravnanja, graf koji bi bio analogon Menhetn grafu možemo da konstruišemo na
-        sledeći način:
-      </p>
-      <ul>
-        <li>Kolone grafa označimo karakterima iz prve niske</li>
-        <li>Vrste grafa označimo karakterima iz druge niske</li>
-        <li>U svaku presečnu tačku postavimo po jedan čvor</li>
-        <li>
-          Gde god je moguće, postavimo vertikalne (insercija), horizontalne (delecija) i dijagonalne
-          grane (poklapanje ili promašaj)
-        </li>
-        <li>
-          Dijagonalne grane koje odgovaraju poklapanjima otežamo koeficijentom 1, ostale grane
-          koeficijentom 0 (suština je da povoljniji ishod (poklapanje) otežamo više nego
-          nepovoljniji (promašaj))
-        </li>
-        <li> Čvor (0, 0) označimo kao početni čvor u grafu</li>
-        <li>Čvor (n, m) označimo kao krajnji čvor u grafu </li>{' '}
-      </ul>
-      <p>
-        Na sledećoj slici predstavljen je graf poravnanja za sekvence ATGTTATA i ATCGTCC. Da bismo
-        pronašli njihovo optimalno poravnanje, potrebno je da nađemo najtežu putanju izmedu početnog
-        i krajnjeg čvora. Kada poredimo ovaj graf sa grafom problema turiste sa Menhetna, vidimo da
-        pored vertikalnih i horizontalnih, ovaj graf sadrži i dijagonalne grane.
+        Kod globalnog poravnanja korišćen je linearni model za računanje skora: ako je σ kazna za
+        insercije i delecije, onda je k · σ kazna za interval od k insercija i delecija. Mutacije su
+        često prouzrokovane greškama prilikom replikacije DNK, koje se često sastoje iz insercije
+        ili delecije celog intervala od k nukleotida. Zbog toga je preterano kažnjavati takve
+        mutacije sa kaznom k · σ. Na primer, ako posmatramo dva poravnanja sa sledeće slike, želeli
+        bismo da skor poravnanja sa leve strane slike bude manji nego na desnoj strani slike:
       </p>
       <div className="image">
-        <img src="/images/lcs/poravnanjeuvod.png" alt="Poravnanje graf" />
+        <img src="/images/affine/afinekazne1.png" alt="Afine kazne" />
       </div>
       <p>
-        Za svako dato poravnanje između dve sekvence, putanju između početnog i kraj- njeg čvora u
-        grafu možemo konstruisati na sledeći način: počevši od prve kolone poravnanja, za svako
-        poklapanje i promašaj u putanju dodamo dijagonalnu granu, za svaku inserciju horizontalnu a
-        za svaku deleciju vertikalnu granu. Na primer, neka su sekvence ATGTTATA i ATCGTCC poravnate
-        na sledeći način:
+        Definišimo prazninu kao sekvencu uzastopnih − simbola u poravnanju. Za pra- zninu dužine k
+        ćemo definisati afinu kaznu koja iznosi σ + ε · (k − 1), gde je σ kazna za otvaranje
+        praznine, a ε kazna za proširenje praznine, pri čemu je σ {'>'} ε.
+      </p>
+      <h2 id="#konstrukcija">Konstrukcija grafa</h2>
+      <p>
+        Na sledećoj slici prikazano je kako graf poravnanja možemo prilagoditi afinoj kazni za
+        praznine.
       </p>
       <div className="image">
-        <img src="/images/lcs/poravnanjeAA.png" alt="Poravnanje dve sekvence" />
+        <img src="/images/affine/afinekazne2.png" alt="Afine kazne" />
       </div>
       <p>
-        Za dato poravnanje, na sledećoj slici možemo videti konstruisanu putanju u grafu poravnanja.
-        Možemo primetiti da svakom poravnanju odgovara tačno jedna putanja u grafu, ali i da svakoj
-        putanji odgovara tačno jedno poravnanje.
+        Potrebno je da dodamo novu vrstu grana, koje nazivamo duge grane, za svaku prazninu. Pošto
+        ne znamo koliko praznina postoji, moramo da dodamo grane za svaku moguću prazninu. Zbog toga
+        ćemo dodati nove horizontalne i vertikalne grane između svaka dva čvora gde je to moguće.
+        Konkretno, za svaki čvor (i, j) grafa poravnanja dodajemo grane ka čvorovima (i + k, j) i
+        (i, j + k) sa težinama σ + ε · (k − 1) za sve moguće praznine dužine k, što možemo videti na
+        sledećoj slici. Za dve sekvence dužine n, broj grana u grafu ovim dodavanjem raste sa
+        <i>
+          O(n<sup>2</sup>)
+        </i>{' '}
+        na{' '}
+        <i>
+          O(n<sup>3</sup>)
+        </i>
+        . Kako je složenost algoritma za određivanje skora poravnanja proporcionalna broju grana,
+        potrebno je pronaći efikasnije rešenje.
       </p>
       <div className="image">
-        <img src="/images/lcs/poravnanjeprimer.png" alt="Poravnanje dve sekvence graf" />
+        <img src="/images/affine/afinekazne3.png" alt="Afine kazne" />
       </div>
-      <h2 id="#dinamicki">Dinamički pristup</h2>
-
+      <p>
+        Kako je broj grana kubni u odnosu na dužinu jedne sekvence, potrebno je smanjiti broj grana
+        u grafu poravnanja. Pošto broj čvorova u grafu ne utiče na vremensku složenost algoritma,
+        možemo ga povećati. Izgradićemo graf poravnanja na tri nivoa. Za svaki čvor (i, j) uvešćemo
+        tri dodatna čvora (i, j)<sub>lower</sub>, (i, j)<sub>middle</sub> i (i, j)<sub>upper</sub>.
+        Donji nivo sadrži samo vertikalne čvorove težine −ε i predstavlja praznine u sekvenci v, a
+        gornji nivo sadrži samo horizontalne čvorove težine −ε i predstavlja praznine u sekvenci w.
+        Srednji nivo sadrži dijagonalne grane težine određene matricom skora score(v<sub>i</sub>, w
+        <sub>j</sub> ), tj. poklapanja i promašaje.
+      </p>
+      <div className="image">
+        <img src="/images/affine/afinekazne4.png" alt="Afine kazne" />
+      </div>
+      <p>
+        Trenutno ne postoji način za povezivanje tri nivoa grafa. Da bismo rešili taj problem,
+        dodaćemo grane koje će predstavljati otvaranje i zatvaranje praznina. Za otvaranje praznina,
+        povezaćemo svaki čvor (i, j) sa čvorovima (i, j)<sub>lower</sub> i (i, j)<sub>upper</sub>{' '}
+        granama težine −σ. Zatvaranje praznina ne želimo da kažnjavamo, pa ćemo dodati grane težine
+        0 između svakog čvora (i, j)<sub>lower</sub> i (i, j)<sub>upper</sub> i odgovarajućeg čvora
+        (i, j). Na ovaj način, praznina dužine k počinje i završava se na srednjem nivou i kažnjava
+        se sa −σ za prvi simbol −, −ε za svaki sledeći i 0 za zatvaranje (slika 5.11). Ovim dobijamo
+        kaznu σ + ε · (k − 1) za prazninu dužine k.
+      </p>
+      <div className="image">
+        <img src="/images/affine/afinekazne5.png" alt="Afine kazne" />
+      </div>
+      <p>
+        Iako se na prvi pogled konstrukcija ovakvog grafa čini komplikovana, zapravo ovakav graf ima
+        samo <i>O(nm)</i> grana za sekvence dužine n i m. Najteža putanja u ovakvom grafu odgovara
+        optimalnom poravnanju sa afinom kaznom za praznine. Potrebno je da definišemo rekurentnu
+        relaciju za pronalaženje najteže putanje u ovako konstruisanom grafu. U ovom slučaju, umesto
+        jedne kao što je do sada bio slučaj, definisaćemo tri rekurentne relacije, za računanje
+        lower<sub>i,j</sub> , upper<sub>i,j</sub> i middle<sub>i,j</sub>. lower<sub>i,j</sub> ,
+        upper<sub>i,j</sub> i middle<sub>i,j</sub> predstavljaju redom težine najtežih putanja od
+        početnog čvora do čvorova (i, j)<sub>lower</sub>, (i, j)<sub>upper</sub> i (i, j)
+        <sub>middle</sub>.
+      </p>
+      <div className="image">
+        <img src="/images/affine/afinekazne6.png" alt="Afine kazne" />
+      </div>
       <h2 id="#implementacija">Implementacija</h2>
     </div>
   );
