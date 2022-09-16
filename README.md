@@ -1,0 +1,3 @@
+# kako-poredimo-bioloske-sekvence
+
+ALGORITMI ZA PORAVNANJE BIOLOŠKIH SEKVENCI - ELEKTRONSKA LEKCIJA
