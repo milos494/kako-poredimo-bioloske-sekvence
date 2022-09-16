@@ -45,7 +45,11 @@ const LCSBacktrackPage = () => {
   };
 
   return (
-    <GlobalPageWrapper title="Problem poravnanja">
+    <GlobalPageWrapper
+      title="Problem poravnanja"
+      prethodno="/menhetn-turista"
+      sledece="/proizvoljni-graf"
+    >
       <Content />
       <StyledLCSPageWrapper>
         <StyledInputOutputWrapper>

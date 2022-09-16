@@ -61,7 +61,11 @@ const LCSBacktrackPage = () => {
   };
 
   return (
-    <GlobalPageWrapper title="Lokalno poravnanje">
+    <GlobalPageWrapper
+      title="Lokalno poravnanje"
+      prethodno="/globalno-poravnanje"
+      sledece="/afine-kazne"
+    >
       <Content />
       <StyledLCSPageWrapper>
         <StyledInputOutputWrapper>

@@ -134,7 +134,11 @@ const ManhattanPage = () => {
   };
 
   return (
-    <GlobalPageWrapper title="Menhetn turista">
+    <GlobalPageWrapper
+      title="Menhetn turista"
+      prethodno="/problem-kusura"
+      sledece="/problem-poravnanja"
+    >
       <Content />
       <StyledManhattanPageWrapper>
         <Input

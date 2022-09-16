@@ -3,7 +3,7 @@ import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 
 const MultipleAlignmentPage = () => {
   return (
-    <GlobalPageWrapper title="Višestruko poravnanje">
+    <GlobalPageWrapper title="Višestruko poravnanje" prethodno="/prostorna-poboljsanja">
       <div className="content-wrapper">
         <p>
           Proteini koji obavljaju istu funkciju mogu imati donekle slične sekvence, ali ove
@@ -28,11 +28,18 @@ const MultipleAlignmentPage = () => {
           <img src="/images/multiple/visestruko2.png" alt="visestruko poravnanje" />
         </div>
         <p>
-          Višestruko poravnanje t sekvenci v<sup>1</sup>, ..., v<sup>t</sup> definisano je matricom
-          od t redova. Na poziciji i u matrici se nalaze simboli iz sekvence vi zajedno sa simbolima
-          −. Podrazumevamo da nijedna kolona matrice na sadrži samo praznine. Na slici ispod možemo
-          videti označene najpopularnije simbole u svakoj koloni (simboli koji se pojavljuju najviše
-          puta u datoj koloni označeni velikim slovom).
+          Višestruko poravnanje <i>t</i> sekvenci{' '}
+          <i>
+            v<sup>1</sup>, ..., v<sup>t</sup>
+          </i>{' '}
+          definisano je matricom od <i>t</i> redova. Na poziciji <i>i</i> u matrici se nalaze
+          simboli iz sekvence{' '}
+          <i>
+            v<sup>i</sup>
+          </i>{' '}
+          zajedno sa simbolima −. Podrazumevamo da nijedna kolona matrice na sadrži samo praznine.
+          Na slici ispod možemo videti označene najpopularnije simbole u svakoj koloni (simboli koji
+          se pojavljuju najviše puta u datoj koloni označeni velikim slovom).
         </p>
         <div className="image">
           <img src="/images/multiple/visestruko3.png" alt="visestruko poravnanje" />
@@ -57,17 +64,28 @@ const MultipleAlignmentPage = () => {
         </div>
         <p>
           Rekurentna relacija za računanje skora višestrukog poravnanja predstavlja generalizaciju
-          rekurentne relacije za dvostruko poravnanje. Za tri sekvence v, w i u definisaćemo
-          rekurentnu relaciju za računanje vrednosti S<sub>i,j,k</sub>:
+          rekurentne relacije za dvostruko poravnanje. Za tri sekvence <i>v</i>, <i>w</i> i <i>u</i>{' '}
+          definisaćemo rekurentnu relaciju za računanje vrednosti{' '}
+          <i>
+            S<sub>i,j,k</sub>
+          </i>{' '}
+          :
         </p>
         <div className="image">
           <img src="/images/multiple/visestrukorelacija.png" alt="visestruko poravnanje" />
         </div>
         <p>
-          Matrica score je u ovom slučaju trodimenzionalna. U slučaju t sekvenci dužine n, graf
-          poravnanja sadrži nt čvorova i svaki čvor ima 2<sup>t</sup> − 1 ulaznih grana. Kako je
-          vremenska složenost dinamičkog algoritma poravnanja proporcionalna broju grana, vremenska
-          složenost za višestruko poravnanje je{' '}
+          Matrica <i>score</i> je u ovom slučaju trodimenzionalna. U slučaju <i>t</i> sekvenci
+          dužine <i>n</i>, graf poravnanja sadrži{' '}
+          <i>
+            n<sup>t</sup>
+          </i>{' '}
+          čvorova i svaki čvor ima{' '}
+          <i>
+            2<sup>t</sup> − 1
+          </i>{' '}
+          ulaznih grana. Kako je vremenska složenost dinamičkog algoritma poravnanja proporcionalna
+          broju grana, vremenska složenost za višestruko poravnanje je{' '}
           <i>
             O(2<sup>t</sup>n<sup>t</sup>)
           </i>
@@ -94,16 +112,17 @@ const MultipleAlignmentPage = () => {
           dvostruka poravnanja mogu biti nekompatibilna. Na osnovu prvog poravnanja, AAAA se
           pojavljuje pre TTTT u višestrukom poravnanju. Na osnovu drugog poravnanja, GGGG bi trebalo
           da se pojavi pre AAAA, a na osnovu trećeg, TTTT bi trebalo da se pojavi pre GGGG. Dolazimo
-          do zaključka da se AAAA mo- ra pojaviti pre TTTT, koje se mora pojaviti pre GGGG, koje se
+          do zaključka da se AAAA mora pojaviti pre TTTT, koje se mora pojaviti pre GGGG, koje se
           mora pojaviti pre AAAA, što dovodi do kontradikcije.
         </p>
         <p>
           Kako bismo izbegli kontradikciju, pokušaćemo da rekonstruišemo višestruko poravnanje na
-          osnovu dvostrukih poravnanja koja ne moraju biti optimalna. Pohlep- nim pristupom se za
-          početak od svih dvostrukih poravnanja bira ono sa najvećim skorom i generiše profilna
-          sekvenca. Na taj način problem se svodi na poravnanje t − 2 sekvence i profilne sekvence.
-          Zatim se profilna sekvenca poredi sa preostale t − 2 sekvence. Na osnovu t − 2 poravnanja
-          se bira ono sa maksimalnim skorom i ažurira profilna sekvenca i tako redom.
+          osnovu dvostrukih poravnanja koja ne moraju biti optimalna. Pohlepnim pristupom se za
+          početak od svih dvostrukih poravnanja bira ono sa najvećim skorom i generiše{' '}
+          <b>profilna sekvenca</b>. Na taj način problem se svodi na poravnanje <i>t − 2</i>{' '}
+          sekvence i profilne sekvence. Zatim se profilna sekvenca poredi sa preostale <i>t − 2</i>{' '}
+          sekvence. Na osnovu <i>t − 2</i> poravnanja se bira ono sa maksimalnim skorom i ažurira
+          profilna sekvenca i tako redom.
         </p>
         <p>
           Ovaj algoritam pokazuje dobre rezultate za slične sekvence. Međutim, kada sekvence nisu

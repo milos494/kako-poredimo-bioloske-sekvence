@@ -14,8 +14,8 @@ const Content = () => {
         ćemo definisati različite vrste poravnanja.
       </p>
       <p>
-        Ako skor za promašaj (mismatch) označimo sa µ, a skor za insercije i delecije (indel) sa σ,
-        onda skor poravnanja možemo računati kao:
+        Ako skor za promašaj (<i>mismatch</i>) označimo sa <i>µ</i>, a skor za insercije i delecije
+        (indel) sa <i>σ</i>, onda skor poravnanja možemo računati kao:
       </p>
       <div className="image">
         <img
@@ -28,10 +28,10 @@ const Content = () => {
         Pošto su neke mutacije više verovatne od drugih, to znači da svaki promašaj, inserciju i
         deleciju možemo različito ceniti zavisno koji simboli su uključeni. Tada ima smisla ove
         vrednosti predstaviti matrično i takvu matricu nazivamo <b>matricom skora</b>. Na slici
-        ispod možemo videti matricu skora DNK sekvenci kada su promašaji kažnjeni skorom µ a
-        insercije i delecije skorom σ. Ovakve matrice ne moraju biti simetrične, jer se na primer
-        češće dešava da G mutira u T nego obrnuto, na slici ispod možemo videti primer jedne takve
-        matrice.
+        ispod možemo videti matricu skora DNK sekvenci kada su promašaji kažnjeni skorom <i>µ</i> a
+        insercije i delecije skorom <i>σ</i>. Ovakve matrice ne moraju biti simetrične, jer se na
+        primer češće dešava da G mutira u T nego obrnuto, na slici ispod možemo videti primer jedne
+        takve matrice.
       </p>
       <div className="image">
         <img
@@ -46,9 +46,9 @@ const Content = () => {
         />
       </div>
       <p>
-        Označimo matricu skora sa score. Da bismo rešili ovaj problem, uzevši u obzir izmenu u
-        načinu računanja skora poravnanja, definisaćemo rekurentnu relaciju za računanje najteže
-        putanje S u grafu poravnanja:
+        Označimo matricu skora sa <i>score</i>. Da bismo rešili ovaj problem, uzevši u obzir izmenu
+        u načinu računanja skora poravnanja, definisaćemo rekurentnu relaciju za računanje najteže
+        putanje <i>S</i> u grafu poravnanja:
       </p>
       <div className="image">
         <img src="/images/global/relacijaglobalno.png" alt="Skor poravnanja" />

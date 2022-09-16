@@ -3,11 +3,15 @@ import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 
 const DynamicPage = () => {
   return (
-    <GlobalPageWrapper title="Problem kusura">
+    <GlobalPageWrapper
+      title="Problem kusura"
+      prethodno="/poravnanje-sekvenci"
+      sledece="/menhetn-turista"
+    >
       <div className="content-wrapper">
         <p>
-          Problemom kusura i problemom turiste na Menhetnu se služimo da bismo poten- cijalna
-          algoritamska rešenja ilustrovali i analizirali najpre na jednostavnijim proble- mima koja
+          Problemom kusura i problemom turiste na Menhetnu se služimo da bismo potencijalna
+          algoritamska rešenja ilustrovali i analizirali najpre na jednostavnijim problemima koja
           ćemo nakon toga primeniti na problem poravnanja.
         </p>
         <p>
@@ -110,14 +114,16 @@ const DynamicPage = () => {
         <p>
           Kako bismo izbegli mnogo rekurzivnih poziva, koristićemo strategiju dinamičkog
           programiranja. Bilo bi idealno kada bismo znali sve vrednosti{' '}
-          <i>MinNumCoins(money − coini)</i> u vreme izračunavanja <i>MinNumCoins(money)</i>. Suština
-          dinamičkog programiranja je u koraku koji ne deluje toliko intuitivno. Umesto rekurzivnog
-          računanja <i>MinNumCoins(M)</i> za svaku vrednost <i>M</i> od 76 do 1, uradićemo potpuno
-          suprotno, izračunaćemo <i>MinNumCoins(M)</i> za svaku vrednost <i>M</i> od 1 do 76. Sve
-          vrednosti pamtimo i koristimo po potrebi, pa tako umesto vremenski zahtevnih rekurzivnih
-          poziva, jednostavno bismo potražili vrednosti iz unapred izračunate tabele. Rekurentna
-          relacija za izračunavanje <i>MinNumCoins(money)</i> ostaje ista kao kod rekurzivnog
-          pristupa.
+          <i>
+            MinNumCoins(money − coin<sub>i</sub>)
+          </i>{' '}
+          u vreme izračunavanja <i>MinNumCoins(money)</i>. Suština dinamičkog programiranja je u
+          koraku koji ne deluje toliko intuitivno. Umesto rekurzivnog računanja{' '}
+          <i>MinNumCoins(M)</i> za svaku vrednost <i>M</i> od 76 do 1, uradićemo potpuno suprotno,
+          izračunaćemo <i>MinNumCoins(M)</i> za svaku vrednost <i>M</i> od 1 do 76. Sve vrednosti
+          pamtimo i koristimo po potrebi pa tako, umesto vremenski zahtevnih rekurzivnih poziva,
+          jednostavno potražili vrednosti iz unapred izračunate tabele. Rekurentna relacija za
+          izračunavanje <i>MinNumCoins(money)</i> ostaje ista kao kod rekurzivnog pristupa.
         </p>
         <p>
           Pristup dinamičkog programiranja rešavanju problema kusura je opisan sledećim algoritmom.

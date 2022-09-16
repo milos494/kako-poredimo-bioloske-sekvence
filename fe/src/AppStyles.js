@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle`
 
     p, li {
       font-size: 16px;
-      line-height: 18px;
+      line-height: 20px;
     }
     a {
       font-size: 18px;

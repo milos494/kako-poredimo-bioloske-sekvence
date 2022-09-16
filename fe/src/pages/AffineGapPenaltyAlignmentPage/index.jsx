@@ -66,7 +66,11 @@ const LCSBacktrackPage = () => {
   };
 
   return (
-    <GlobalPageWrapper title="Afine kazne">
+    <GlobalPageWrapper
+      title="Afine kazne"
+      prethodno="/lokalno-poravnanje"
+      sledece="/prostorna-poboljsanja"
+    >
       <Content />
       <StyledLCSPageWrapper>
         <StyledInputOutputWrapper>

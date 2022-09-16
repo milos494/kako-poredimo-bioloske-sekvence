@@ -3,11 +3,15 @@ import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 
 const AlignmentPage = () => {
   return (
-    <GlobalPageWrapper title="Poravnanje sekvenci">
+    <GlobalPageWrapper title="Poravnanje sekvenci" prethodno="/" sledece="/problem-kusura">
       <div className="content-wrapper">
         <p>
-          Za početak posmatraćemo samo dve sekvence. Na primer, sekvence ATGCATGC i TGCATGCA nemaju
-          kolone koje se poklapaju:
+          Sekvence poredimo tako što ih poravnamo. Poravnanje podrazumeva da „zapišemo” jednu nisku
+          ispod druge uz mogućnost da unutar svake niske ubacimo jedan ili više praznih simbola (−).
+          Na taj način bismo dobili dvorednu matricu karaktera. Prilikom ubacivanja praznih simbola,
+          nastojimo da, kad god je to moguće, u jednoj koloni budu isti karakteri. Posmatrajmo
+          primer poravnanja sekvenci ATGCATGC i TGCATGCA. Kada ne ubacimo prazne simbole, sekvence
+          ATGCATGC i TGCATGCA nemaju kolone koje se poklapaju:
         </p>
         <img src="/images/alignment/poredjenje1.png" alt="poredjenje" />
         <p>Ali ako ih poravnamo malo drugačije, vidimo da imaju 6 pozicija koje se poklapaju:</p>
@@ -17,11 +21,13 @@ const AlignmentPage = () => {
         <img src="/images/alignment/poredjenje3.png" alt="poredjenje" />
 
         <p>
-          Postoji više načina na koje možemo poravnati dve sekvence, zbog toga sva poravnanja ima
-          smisla nekako rangirati i među njima prema nekom kriterijumu pronaći optimalno poravnanje.
-          Jedan takav kriterijum tj. jedna mera kvaliteta poravnanja je <b>Hamingovo rastojanje</b>,
-          koje predstavlja broj nepoklapanja u dve sekvence, pretpostavljajući da i-ti simbol jedne
-          sekvence poredimo sa i-tim simbolom druge sekvence. Prethodni primeri nas navode da
+          Ubacivanjem praznog simbola unutar poravnanja modelujemo insercije i delecije, a kolonama
+          u kojima se karakteri ne poklapaju modelujemo mutacije. Postoji više načina na koje možemo
+          poravnati dve sekvence, zbog toga sva poravnanja ima smisla nekako rangirati i među njima
+          prema nekom kriterijumu pronaći optimalno poravnanje. Jedan takav kriterijum tj. jedna
+          mera kvaliteta poravnanja je <b>Hamingovo rastojanje</b>, koje predstavlja broj
+          nepoklapanja u dve sekvence, pretpostavljajući da <i>i</i> -ti simbol jedne sekvence
+          poredimo sa <i>i</i> -tim simbolom druge sekvence. Prethodni primeri nas navode da
           definišemo optimalno poravnanje kao ono koje ima najveći broj poklapanja, tj. kao ono kod
           koga je Hamingovo rastojanje najmanje.
         </p>

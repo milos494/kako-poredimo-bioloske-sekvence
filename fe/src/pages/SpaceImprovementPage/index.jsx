@@ -3,7 +3,11 @@ import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 
 const SpaceImprovementPage = () => {
   return (
-    <GlobalPageWrapper title="Prostorna poboljšanja">
+    <GlobalPageWrapper
+      title="Prostorna poboljšanja"
+      prethodno="/afine-kazne"
+      sledece="/visestruko-poravnanje"
+    >
       <div className="content-wrapper">
         <p>
           Proteinske sekvence mogu sadržati i do nekoliko desetina hiljada aminokiselina. Ako bismo
@@ -24,8 +28,8 @@ const SpaceImprovementPage = () => {
           Za računanje skora najteže putanje nije potrebno čuvati celu matricu poravnanja. Za
           računanje skora jedne kolone, dovoljno je čuvati vrednosti skorova prethodne kolone, u
           svakom trenutku dovoljno je čuvati matricu od <i>2n = O(n)</i> elemenata. Za računanje
-          skorova u koloni j dovoljni su nam skorovi iz kolone j − 1. Međutim, pronalaženje najteže
-          putanje zahteva čuvanje cele matrice poravnanja, što dovodi do kvadratne prostorne
+          skorova u koloni j dovoljni su nam skorovi iz kolone <i>j − 1</i>. Međutim, pronalaženje
+          najteže putanje zahteva čuvanje cele matrice poravnanja, što dovodi do kvadratne prostorne
           složenosti. Da bismo smanjili prostornu složenost, nećemo čuvati matricu poravnanja, ali
           ćemo potrošiti više vremena.
         </p>
@@ -34,21 +38,23 @@ const SpaceImprovementPage = () => {
         </div>
         <h3>Srednji čvor</h3>
         <p>
-          Neka je dat graf poravnanja za sekvence v dužine n i w dužine m. Označimo sa middle =
-          ⌊m/2⌋. <b>Srednjom kolonom</b> ćemo zvati kolonu koja sadrži sve čvorove (i, middle) za 0
-          ≤ i ≤ n. Najteža putanja od početnog do krajnjeg čvora u grafu poravnanja mora negde
-          preseći srednju kolonu. Čvor preseka ćemo zvati <b>srednji čvor</b>. Na sledećoj slici
-          levo, srednja kolona je middle = 3, a najteža putanja preseca srednju kolonu u čvoru (4,
-          3) (srednji čvor).
+          Neka je dat graf poravnanja za sekvence <i>v</i> dužine <i>n</i> i <i>w</i> dužine{' '}
+          <i>m</i>. Označimo sa <i>middle = ⌊m/2⌋</i>. <b>Srednjom kolonom</b> ćemo zvati kolonu
+          koja sadrži sve čvorove <i>(i, middle)</i> za <i>0 ≤ i ≤ n</i>. Najteža putanja od
+          početnog do krajnjeg čvora u grafu poravnanja mora negde preseći srednju kolonu. Čvor
+          preseka ćemo zvati <b>srednji čvor</b>. Na sledećoj slici levo, srednja kolona je{' '}
+          <i>middle = 3</i>, a najteža putanja preseca srednju kolonu u čvoru <i>(4, 3)</i> (srednji
+          čvor).
         </p>
         <p>
           Primetimo da za pronalaženje srednjeg čvora nije neophodno da rekonstruišemo najtežu
           putanju u grafu poravnanja. Označimo putanju od početnog do krajnjeg čvora koja prolazi
-          kroz srednju kolonu u čvoru i sa i-putanjom. Putanja na slici ispod levo je 4-putanja jer
-          sadrži četvrti čvor srednje kolone (numeracija čvorova kreće od nule). Za svako i između 0
-          i n želeli bismo da nađemo težine najtežih i-putanja (označićemo ih sa length(i)). Od svih
-          i-putanja, ona sa maksimalnom težinom prolazi kroz srednji čvor. Na sledećoj slici desno
-          su prikazane težine svih najtežih i-putanja upisane u odgovarajuće čvorove srednje kolone.
+          kroz srednju kolonu u čvoru i sa <i>i</i> -putanjom. Putanja na slici ispod levo je{' '}
+          4-putanja jer sadrži četvrti čvor srednje kolone (numeracija čvorova kreće od nule). Za
+          svako i između 0 i <i>n</i> želeli bismo da nađemo težine najtežih i-putanja (označićemo
+          ih sa <i>length(i)</i>). Od svih <i>i</i> -putanja, ona sa maksimalnom težinom prolazi
+          kroz srednji čvor. Na sledećoj slici desno su prikazane težine svih najtežih <i>i</i>{' '}
+          -putanja upisane u odgovarajuće čvorove srednje kolone.
         </p>
         <div className="image">
           <img
@@ -63,29 +69,42 @@ const SpaceImprovementPage = () => {
           />
         </div>
         <p>
-          Označimo sa fromSource(i) težinu najteže putanje od početnog čvora do čvora (i, middle) i
-          sa toSink(i) težinu najteže putanje od čvora (i, middle) do krajnjeg čvora. Težinu najteže
-          i-putanje length(i) računamo na sledeći način:
+          Označimo sa <i>fromSource(i)</i> težinu najteže putanje od početnog čvora do čvora{' '}
+          <i>(i, middle)</i> i sa <i>toSink(i)</i> težinu najteže putanje od čvora{' '}
+          <i>(i, middle)</i> do krajnjeg čvora. Težinu najteže <i>i</i> -putanje <i>length(i)</i>{' '}
+          računamo na sledeći način:
         </p>
         <div className="image">
           <img src="/images/space/srednjicvorL.png" alt="prostona poboljsanja" />
         </div>
         <p>
-          Vrednost fromSource(i) odgovara veličini S<sub>i,middle</sub>. Već smo razmotrili da
-          matricu S možemo izračunati u linearnom prostoru. Kako je vremenska složenost
-          proporcionalna broju grana u grafu poravnanja, vremenska složenost algoritma za računanje
-          S<sub>i,middle</sub> je proporcionalna polovini grafa poravnanja, tj. nm/2 (slika ispod
-          levo).
+          Vrednost <i>fromSource(i)</i> odgovara veličini
+          <i>
+            {' '}
+            S<sub>i,middle</sub>
+          </i>{' '}
+          . Već smo razmotrili da matricu <i>S</i> možemo izračunati u linearnom prostoru. Kako je
+          vremenska složenost proporcionalna broju grana u grafu poravnanja, vremenska složenost
+          algoritma za računanje
+          <i>
+            {' '}
+            S<sub>i,middle</sub>
+          </i>{' '}
+          je proporcionalna polovini grafa poravnanja, tj. <i>nm/2</i> (slika ispod levo).
         </p>
         <p>
-          Računanje vrednosti toSink(i) se svodi na pronalaženje najteže putanje od krajnjeg čvora
-          do čvora (i, middle) ako obrnemo smer svake grane (slika ispod desno). Umesto obrtanja
-          smerova grana, možemo da obrnemo sekvence v i w. U ovom slučaju vrednost toSink(i)
-          odgovara veličini S<sub>n−i,m−middle</sub> u grafu poravnanja za obrnute sekvence v i w.
-          Izračunavanje toSink(i) je slično izračunavanju fromSource(i) i može se izvršiti u
-          linearnom prostoru i vremenu proporcionalnom polovini grafa poravnanja, tj. nm/2. Možemo
-          reći da je za računanje svih vrednosti length(i) (srednjeg čvora) potrebno <i>O(n)</i>{' '}
-          prostora i<i>O(nm)</i> vremena (nm/2 + nm/2 = nm).
+          Računanje vrednosti <i>toSink(i)</i> se svodi na pronalaženje najteže putanje od krajnjeg
+          čvora do čvora <i>(i, middle)</i> ako obrnemo smer svake grane (slika ispod desno). Umesto
+          obrtanja smerova grana, možemo da obrnemo sekvence <i>v</i> i <i> w</i>. U ovom slučaju
+          vrednost <i>toSink(i)</i> odgovara veličini{' '}
+          <i>
+            S<sub>n−i,m−middle</sub>
+          </i>{' '}
+          u grafu poravnanja za obrnute sekvence <i>v</i> i <i>w</i>. Izračunavanje <i>toSink(i)</i>{' '}
+          je slično izračunavanju <i>fromSource(i)</i> i može se izvršiti u linearnom prostoru i
+          vremenu proporcionalnom polovini grafa poravnanja, tj. <i>nm/2</i>. Možemo reći da je za
+          računanje svih vrednosti <i>length(i)</i> (srednjeg čvora) potrebno <i>O(n)</i> prostora i{' '}
+          <i>O(nm)</i> vremena (<i>nm/2 + nm/2 = nm</i>).
         </p>
         <div className="image">
           <img
@@ -107,14 +126,14 @@ const SpaceImprovementPage = () => {
           odgovara polovini površine grafa poravnanja.
         </p>
         <p>
-          Sada možemo podeliti problem pronalaženja najteže putanje od čvora (0, 0) do čvora (n, m)
-          na dva potproblema. Prvi potproblem je pronalaženje najteže putanje od čvora (0, 0) do
-          srednjeg čvora, a drugi je pronalaženje najteže putanje od srednjeg čvora do čvora (n, m).
-          Korak vladaj podrazumeva pronalaženje srednjeg čvora u manjim pravougaonicima, za šta je
-          vremenska složenost proporcionalna ukupnoj površini manjih pravougaonika, tj.
-          <i>O(nm/2)</i> (slika ispod desno). Ovim postupkom smo pronašli tri čvora najteže putanje.
-          Postupak nastavljamo sve dok ne dođemo do pravougaonika dimenzije 1 × 1 i dok ne pronađemo
-          sve čvorove najteže putanje.
+          Sada možemo podeliti problem pronalaženja najteže putanje od čvora <i>(0, 0)</i> do čvora{' '}
+          <i>(n, m)</i> na dva potproblema. Prvi potproblem je pronalaženje najteže putanje od čvora{' '}
+          <i>(0, 0)</i> do srednjeg čvora, a drugi je pronalaženje najteže putanje od srednjeg čvora
+          do čvora <i>(n, m)</i>. Korak vladaj podrazumeva pronalaženje srednjeg čvora u manjim
+          pravougaonicima, za šta je vremenska složenost proporcionalna ukupnoj površini manjih
+          pravougaonika, tj. <i>O(nm/2)</i> (slika ispod desno). Ovim postupkom smo pronašli tri
+          čvora najteže putanje. Postupak nastavljamo sve dok ne dođemo do pravougaonika dimenzije 1
+          × 1 i dok ne pronađemo sve čvorove najteže putanje.
         </p>
         <div className="image">
           <img
@@ -129,10 +148,11 @@ const SpaceImprovementPage = () => {
           />
         </div>
         <p>
-          Vremenska složenost nalaženja srednjeg čvora u svakom potproblemu je proporci onalna
+          Vremenska složenost nalaženja srednjeg čvora u svakom potproblemu je proporcionalna
           površini grafa poravnanja (pravougaonika). U svakom potproblemu površina pravougaonika se
-          smanjuje dva puta dok ne dođemo do pravougaonika dimenzija 1 × 1. U prvom koraku imaćemo
-          nm operacija, u drugom nm/2, u trećem nm/4... što znači da je vremenska složenost jednaka:
+          smanjuje dva puta dok ne dođemo do pravougaonika dimenzija 1 × 1. U prvom koraku imaćemo{' '}
+          <i>nm</i> operacija, u drugom <i>nm/2</i>, u trećem <i>nm/4</i>... što znači da je
+          vremenska složenost jednaka:
         </p>
         <div className="image">
           <img src="/images/space/prostorslozenost.png" alt="prostona poboljsanja" />

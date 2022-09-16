@@ -24,14 +24,14 @@ const GlobalPageWrapper = ({ prethodno, sledece, children, title }) => {
   return (
     <div>
       <StyledButtonsWrapper className="border">
-        <Button label="prethodno" disabled={!!prethodno} onClick={prethodnoHandler} />
+        <Button label="prethodno" disabled={!prethodno} onClick={prethodnoHandler} />
         {title && <h1>{title}</h1>}
-        <Button label="sledeće" disabled={!!sledece} onClick={sledeceHandler} />
+        <Button label="sledeće" disabled={!sledece} onClick={sledeceHandler} />
       </StyledButtonsWrapper>
       {children}
       <StyledButtonsWrapper>
-        <Button label="prethodno" disabled={!!prethodno} onClick={prethodnoHandler} />
-        <Button label="sledeće" disabled={!!sledece} onClick={sledeceHandler} />
+        <Button label="prethodno" disabled={!prethodno} onClick={prethodnoHandler} />
+        <Button label="sledeće" disabled={!sledece} onClick={sledeceHandler} />
       </StyledButtonsWrapper>
     </div>
   );

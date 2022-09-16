@@ -4,6 +4,11 @@ const Content = () => {
   return (
     <div className="content-wrapper">
       <p>
+        Problemom kusura i problemom turiste na Menhetnu se služimo da bismo potencijalna
+        algoritamska rešenja ilustrovali i analizirali najpre na jednostavnijim problemima koja ćemo
+        nakon toga primeniti na problem poravnanja.
+      </p>
+      <p>
         Pretpostavimo da turista na Menhetnu želi da poseti što više znamenitosti za što manje
         vremena. Na Menhetnu se sve ulice seku pod pravim uglom i pravilo je da se turista na svakoj
         raskrsnici može kretati jedino južno (↓) ili istočno (→), što znači da ne može da se vrati
@@ -17,8 +22,8 @@ const Content = () => {
         Svakoj grani pridružimo težinu jednaku broju znamenitosti koje se nalaze u toj ulici. Graf
         koji posmatramo je usmeren, pravougaoni, težinski i mrežni i takav graf ćemo zvati{' '}
         <b>Menhetn graf</b>. Da bismo rešili ovaj problem, zapravo moramo pronaći putanju maksimalne
-        težine u Menhetn grafu. S obzirom na dozvoljene smerove kretanja, čvor sa koordinatama (0,
-        0) možemo označiti kao početni, a čvor sa koordinatama (n, m) kao krajnji.
+        težine u Menhetn grafu. S obzirom na dozvoljene smerove kretanja, čvor sa koordinatama{' '}
+        <i>(0, 0)</i> možemo označiti kao početni, a čvor sa koordinatama <i>(n, m)</i> kao krajnji.
       </p>
       <div className="image">
         <img style={{ width: '800px' }} src="/images/manhattan/manhattan1.png" alt="Menhetn graf" />
@@ -27,7 +32,7 @@ const Content = () => {
       <p>
         Primena grube sile na ovaj problem zahteva mnogo vremena zato što je ukupan broj svih
         mogućih putanja ogroman. Pohlepan pristup bi izabrao jedan od dva pravca (južno ili
-        istočno), u zavisnosti koliko atrakcija možemo posetiti kretajući se južno ili istočno.
+        istočno), u zavisnosti koliko znamenitosti možemo posetiti kretajući se južno ili istočno.
         Postoji mogućnost da ovakav pristup zanemari najtežu moguću putanju. Na slikama ispod možemo
         videti Menhetn graf, putanju dobijenu primenom grube sile i putanju maksimalne težine.
       </p>
@@ -50,13 +55,13 @@ const Content = () => {
       </div>
       <h2 id="#rekurzivni">Rekurzivni pristup</h2>
       <p>
-        Sledeći algoritam izračunava najtežu putanju do čvora (i, j) u Menhetn grafu uz ograničenje
-        da do čvora (i, j) jedino možemo doći kretajući se južno (iz čvora (i − 1, j)) ili istočno
-        (iz čvora (i, j − 1)). Slično kao kod rekurzivnog pristupa vraćanju kusura, ovaj algoritam
-        se izvršava više puta za istu vrednost.
+        Sledeći algoritam izračunava najtežu putanju do čvora <i>(i, j)</i> u Menhetn grafu uz
+        ograničenje da do čvora <i>(i, j)</i> jedino možemo doći kretajući se južno (iz čvora{' '}
+        <i>(i − 1, j)</i>) ili istočno (iz čvora <i>(i, j − 1)</i>). Slično kao kod rekurzivnog
+        pristupa vraćanju kusura, ovaj algoritam se izvršava više puta za istu vrednost.
       </p>
       <code>
-        <b>function</b> ManhattanRecursive(i, j)
+        <b>function</b> ManhattanRecursive<i>(i, j)</i>
         <br />
         <code style={{ marginLeft: '20px' }}>
           <b>if</b> i = 0 and j = 0 <b>then</b> <b>return</b> 0
@@ -71,7 +76,7 @@ const Content = () => {
         </code>
         <br />
         <code style={{ marginLeft: '40px' }}>
-          x ←ManhattanRecursive(i − 1, j) + weight of vertical edge into (i, j)
+          x ←ManhattanRecursive(i − 1, j) + weight of vertical edge into <i>(i, j)</i>
         </code>
         <br />
         <code style={{ marginLeft: '20px' }}>
@@ -79,7 +84,7 @@ const Content = () => {
         </code>
         <br />
         <code style={{ marginLeft: '40px' }}>
-          y ←ManhattanRecursive(i, j − 1) + weight of horizontal edge into (i, j)
+          y ←ManhattanRecursive(i, j − 1) + weight of horizontal edge into <i>(i, j)</i>
         </code>
         <br />
         <code style={{ marginLeft: '20px' }}>
@@ -88,15 +93,25 @@ const Content = () => {
       </code>
       <h2 id="#dinamicki">Dinamički pristup</h2>
       <p>
-        Pristupom dinamičkog programiranja, da bismo pronašli najtežu putanju od početnog čvora (0,
-        0) do krajnjeg (n, m), prvo ćemo pronaći težine svih putanja od početnog do svih čvorova (i,
-        j) u mreži, kretajući se od početnog pa sve do krajnjeg čvora. Ideja iza pristupa dinamičkim
-        programiranjem je da prvo rešimo svaki od manjih problema jednom, umesto milionima puta.
-        Označićemo sa S<sub>i,j</sub> vrednost najteže putanje od početnog čvora do čvora (i, j) u
-        grafu (vrednost S<sub>n,m</sub> označava vrednost najteže putanje od početnog do krajnjeg
-        čvora). Prvo računamo težine svih putanja do čvorova po obodu grafa, zato što oni imaju samo
-        po jednu ulaznu granu. Nakon toga, red po red, izračunavamo odgovarajuće težine S
-        <sub>i,j</sub> za ostale čvorove prateći relaciju:
+        Pristupom dinamičkog programiranja, da bismo pronašli najtežu putanju od početnog čvora{' '}
+        <i>(0, 0)</i> do krajnjeg <i>(n, m)</i>, prvo ćemo pronaći težine svih putanja od početnog
+        do svih čvorova <i>(i, j)</i> u mreži, kretajući se od početnog pa sve do krajnjeg čvora.
+        Ideja iza pristupa dinamičkim programiranjem je da prvo rešimo svaki od manjih problema
+        jednom, umesto milionima puta. Označićemo sa{' '}
+        <i>
+          S<sub>i,j</sub>
+        </i>{' '}
+        vrednost najteže putanje od početnog čvora do čvora <i>(i, j)</i> u grafu (vrednost{' '}
+        <i>
+          S<sub>n,m</sub>
+        </i>{' '}
+        označava vrednost najteže putanje od početnog do krajnjeg čvora). Prvo računamo težine svih
+        putanja do čvorova po obodu grafa, zato što oni imaju samo po jednu ulaznu granu. Nakon
+        toga, red po red, izračunavamo odgovarajuće težine{' '}
+        <i>
+          S<sub>i,j</sub>
+        </i>{' '}
+        za ostale čvorove prateći relaciju:
       </p>
       <div className="image">
         <img src="/images/manhattan/relacijaManhattan.png" alt="Relacija Menhetn" />
@@ -104,9 +119,16 @@ const Content = () => {
       <p>
         Kako bi na kraju bilo moguće rekonstruisati putanju, pošto ulazni čvorovi imaju po dve
         ulazne grane, potrebno je i zapamtiti kojom granom smo došli do datog čvora. Da bismo
-        rekonstruisali putanju, dovoljno je da krenemo od krajnjeg čvora u suprotnom smeru. Ako sa
-        down<sub>i,j</sub> i right<sub>i,j</sub> označimo težine odgovarajućih grana, rešenje
-        problema turiste na Menhetnu dinamičkim pristupom možemo opisati sledećim algoritmom:
+        rekonstruisali putanju, dovoljno je da krenemo od krajnjeg čvora u suprotnom smeru. Ako sa{' '}
+        <i>
+          down<sub>i,j</sub>
+        </i>{' '}
+        i{' '}
+        <i>
+          right<sub>i,j</sub>
+        </i>{' '}
+        označimo težine odgovarajućih grana, rešenje problema turiste na Menhetnu dinamičkim
+        pristupom možemo opisati sledećim algoritmom:
       </p>
       <code>
         <b>function</b> ManhattanDynamic(n, m, down, right)

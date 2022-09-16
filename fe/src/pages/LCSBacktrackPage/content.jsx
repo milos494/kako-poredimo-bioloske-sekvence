@@ -5,10 +5,10 @@ const Content = () => {
     <div className="content-wrapper">
       <h2>Konstrukcija grafa poravnanja</h2>
       <p>
-        Ako se vratimo na poravnanje sekvenci, vidimo da postoji veza sa problemom turiste na
-        Menhetnu. Pitanje koje postavljamo je kako da izgradimo graf za problem poravnanja. Za datu
-        matricu poravnanja, graf koji bi bio analogon Menhetn grafu možemo da konstruišemo na
-        sledeći način:
+        Na prethodnoj stranici smo videli kako se problem turiste na Menhetnu modeluje kao graf.
+        Razmotrimo da li na sličan način možemo da modelujemo graf koji bi odgovarao problemu
+        poravnanja. Za datu matricu poravnanja, graf koji bi bio analogon Menhetn grafu možemo da
+        konstruišemo na sledeći način:
       </p>
       <ul>
         <li>Kolone grafa označimo karakterima iz prve niske</li>
@@ -23,20 +23,26 @@ const Content = () => {
           koeficijentom 0 (suština je da povoljniji ishod (poklapanje) otežamo više nego
           nepovoljniji (promašaj))
         </li>
-        <li> Čvor (0, 0) označimo kao početni čvor u grafu</li>
-        <li>Čvor (n, m) označimo kao krajnji čvor u grafu </li>{' '}
+        <li>
+          {' '}
+          Čvor <i>(0, 0)</i> označimo kao početni čvor u grafu
+        </li>
+        <li>
+          Čvor <i>(n, m)</i> označimo kao krajnji čvor u grafu{' '}
+        </li>{' '}
       </ul>
       <p>
         Na sledećoj slici predstavljen je graf poravnanja za sekvence ATGTTATA i ATCGTCC. Da bismo
         pronašli njihovo optimalno poravnanje, potrebno je da nađemo najtežu putanju izmedu početnog
         i krajnjeg čvora. Kada poredimo ovaj graf sa grafom problema turiste sa Menhetna, vidimo da
-        pored vertikalnih i horizontalnih, ovaj graf sadrži i dijagonalne grane.
+        pored vertikalnih i horizontalnih, ovaj graf sadrži i dijagonalne grane. Problem turiste na
+        Menhetnu predstavlja specijalan slučaj problema najduže zajedničke podsekvence.
       </p>
       <div className="image">
         <img src="/images/lcs/poravnanjeuvod.png" alt="Poravnanje graf" />
       </div>
       <p>
-        Za svako dato poravnanje između dve sekvence, putanju između početnog i kraj- njeg čvora u
+        Za svako dato poravnanje između dve sekvence, putanju između početnog i krajnjeg čvora u
         grafu možemo konstruisati na sledeći način: počevši od prve kolone poravnanja, za svako
         poklapanje i promašaj u putanju dodamo dijagonalnu granu, za svaku inserciju horizontalnu a
         za svaku deleciju vertikalnu granu. Na primer, neka su sekvence ATGTTATA i ATCGTCC poravnate
@@ -58,26 +64,35 @@ const Content = () => {
         Princip dinamičkog programiranja primenjen na problem Menhetn turiste možemo primeniti i za
         pronalaženje najteže putanje u grafu poravnanja. Da bi se algoritam primenio na problem
         poravnanja, neophodno je da izmenimo rekurentnu relaciju kojom se računa najteža putanja do
-        čvora (i, j). Kao i kod problema. Ako su <i>v</i> i <i>w</i> sekvence koje poredimo,
-        definisaćemo rekurentnu relaciju:
+        čvora <i>(i, j)</i>. Kao i kod problema Menhetn turiste Označićemo sa{' '}
+        <i>
+          S<sub>i,j</sub>
+        </i>{' '}
+        vrednost najteže putanje od početnog čvora do čvora <i>(i, j)</i> u grafu (vrednost{' '}
+        <i>
+          S<sub>n,m</sub>
+        </i>{' '}
+        označava vrednost najteže putanje od početnog do krajnjeg čvora). Ako su <i>v</i> i <i>w</i>{' '}
+        sekvence koje poredimo, definisaćemo rekurentnu relaciju:
       </p>
       <div className="image">
         <img src="/images/lcs/lcs1relacija.png" alt="Relacija 1" />
       </div>
       <p>
         Slično kao kod Menhetn turiste, potrebno je da rekonstruišemo najtežu putanju. U slučaju
-        grafa poravnanja, rekonstruisana putanja predstavlja najdužu zajedničku podsekvencu niski v
-        i w. Najtežu putanju ćemo dobiti pomoću matrice backtrack koja se računa uz pomoć naredne
-        rekurentne relacije polaskom od krajnjeg čvora.
+        grafa poravnanja, rekonstruisana putanja predstavlja najdužu zajedničku podsekvencu niski{' '}
+        <i>v</i> i <i>w</i>. Najtežu putanju ćemo dobiti pomoću matrice <i>backtrack</i> koja se
+        računa uz pomoć naredne rekurentne relacije polaskom od krajnjeg čvora.
       </p>
       <div className="image">
         <img src="/images/lcs/lcs2relacija.png" alt="Relacija 2" />
       </div>
       <p>
-        U ovoj matrici, za čvor (i, j) se na poziciji (i, j) nalazi informacija kojom granom smo
-        došli do tog čvora (vrednosti matrice su: ↓, → i ↘). Matrice backtrack i S formiramo u isto
-        vreme na način prikazan sledećim algoritmom. Algoritam vraća vrednost matrice backtrack,
-        koju dalje koristimo za pronalaženje najduže zajedničke podsekvence.
+        U ovoj matrici, za čvor <i>(i, j)</i> se na poziciji <i>(i, j)</i> nalazi informacija kojom
+        granom smo došli do tog čvora (vrednosti matrice su: ↓, → i ↘). Matrice <i>backtrack</i> i{' '}
+        <i>S</i> formiramo u isto vreme na način prikazan sledećim algoritmom. Algoritam vraća
+        vrednost matrice <i>backtrack</i>, koju dalje koristimo za pronalaženje najduže zajedničke
+        podsekvence.
       </p>
 
       <code>
@@ -149,15 +164,8 @@ const Content = () => {
         </code>
       </code>
       <p>
-        Na osnovu matrice backtrack potrebno je rekonstruisati najtežu putanju i najdužu zajedničku
-        podsekvencu, što je opisano sledećim algoritmom:
-      </p>
-      <p>
-        Poziv funkcije OutputLCS(backtrack, v, i, j), na osnovu prethodno izračuna- te matrice
-        backtrack, vraća najdužu zajedničku podsekvencu za prefikse niski<i>v</i>i<i>w</i>redom
-        dužina i i j, a poziv OutputLCS(backtrack, v, |v|, |w|) vraća najdužu zajedničku podsekvencu
-        za niske
-        <i>v</i>i w.
+        Na osnovu matrice <i>backtrack</i> potrebno je rekonstruisati najtežu putanju i najdužu
+        zajedničku podsekvencu, što je opisano sledećim algoritmom:
       </p>
 
       <code>
@@ -195,6 +203,12 @@ const Content = () => {
           return OutputLCS(backtrack, v, i − 1, j − 1) + v[i − 1]
         </code>
       </code>
+      <p>
+        Poziv funkcije <i>OutputLCS(backtrack, v, i, j)</i>, na osnovu prethodno izračunate matrice{' '}
+        <i>backtrack</i>, vraća najdužu zajedničku podsekvencu za prefikse niski <i>v</i> i <i>w</i>{' '}
+        redom dužina <i>i</i> i <i>j</i>, a poziv <i>OutputLCS(backtrack, v, |v|, |w|)</i> vraća
+        najdužu zajedničku podsekvencu za niske <i>v</i> i <i>w</i>.
+      </p>
       <h2 id="#implementacija">Implementacija</h2>
     </div>
   );

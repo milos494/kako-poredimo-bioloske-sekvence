@@ -3,11 +3,11 @@ import GlobalPageWrapper from '../../components/GlobalPageWrapper';
 
 const HomePage = () => {
   return (
-    <GlobalPageWrapper title="Proteini">
+    <GlobalPageWrapper title="Proteini" sledece="/poravnanje-sekvenci">
       <div className="content-wrapper">
         <h2>Ribozomalni proteini</h2>
         <p>
-          Proteini su veliki, složeni molekuli, nepohodni za funkcionisanje svih živih organizama.
+          Proteini su veliki, složeni molekuli, neophodni za funkcionisanje svih živih organizama.
           Proteini se sastoje od stotina hiljada manjih jedinica, zvanih aminokiseline. Postoji 20
           različitih aminokiselina koje učestvuju u građi proteina.
         </p>
@@ -16,9 +16,9 @@ const HomePage = () => {
           transkripcije i translacije. Tokom transkripcije, informacije skladištene u DNK se prenose
           molekulu RNK tako što se ceo lanac DNK komplementarno prepisuje na molekul RNK. Tokom
           translacije, niz nukleotida u RNK se dešifruje unutar ribozoma, kako bi se dobio
-          specifičan protein na osnovu pravila koja su definisana u genetskom kodu. Svaka sekvenca
-          od 3 nukleotida (kodon) kodira jednu aminokiselinu koja se dodaje na rastući lanac
-          proteina. Na slici ispod možemo videti genetski kod.
+          specifičan protein na osnovu pravila koja su definisana u genetskom kodu. Genetskim kodom
+          je određeno preslikavanje između nukleotidnih tripleta (kodona) i aminokiselina. Na slici
+          ispod možemo videti genetski kod.
         </p>
 
         <div className="image">
