@@ -5,7 +5,6 @@ const useHashNavigation = () => {
   const { hash } = useLocation();
 
   useEffect(() => {
-    console.log(hash);
     const element = document.getElementById(hash);
     if (element) {
       element.scrollIntoView();
