@@ -78,7 +78,7 @@ const ManhattanPage = () => {
       error = true;
     }
 
-    if (right.length !== widthFile - 1) {
+    if (right.length !== heightFile) {
       error = true;
     }
 
@@ -88,7 +88,7 @@ const ManhattanPage = () => {
       }
     });
     right.forEach((element) => {
-      if (element.length !== heightFile) {
+      if (element.length !== widthFile - 1) {
         error = true;
       }
     });
